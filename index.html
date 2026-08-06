@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tawhid — Product Designer, Toronto</title>
+<meta name="description" content="Md Ali Asker Tawhid is a Product Designer based in Toronto, focused on Fintech and Banking systems.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,500&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#FBF3EA;
+    --surface:#FFFFFF;
+    --surface-2:#F5E8DA;
+    --ink:#2E2320;
+    --muted:#79695D;
+    --line:#E5D5C0;
+    --accent:#D6456B;
+    --accent-soft:#F7DCE2;
+    --gold:#F2A649;
+    --teal:#2F7A6E;
+    --ease:cubic-bezier(.19,1,.22,1);
+  }
+  *{ box-sizing:border-box; margin:0; padding:0; }
+  html{ scroll-behavior:smooth; }
+  @media (prefers-reduced-motion: reduce){
+    html{ scroll-behavior:auto; }
+    *{ animation-duration:.001ms !important; transition-duration:.001ms !important; scroll-behavior:auto !important; }
+  }
+  body{
+    background:var(--bg); color:var(--ink);
+    font-family:'Plus Jakarta Sans', sans-serif;
+    line-height:1.65; -webkit-font-smoothing:antialiased;
+  }
+  a{ color:inherit; text-decoration:none; }
+  img{ max-width:100%; display:block; }
+  h1,h2,h3{ font-family:'Fraunces', serif; font-weight:600; letter-spacing:-0.015em; color:var(--ink); }
+  ::selection{ background:var(--accent-soft); color:var(--ink); }
+  :focus-visible{ outline:2px solid var(--accent); outline-offset:3px; }
+
+  .btn{
+    display:inline-flex; align-items:center; gap:8px;
+    font-family:'Plus Jakarta Sans',sans-serif; font-weight:700; font-size:.85rem;
+    padding:13px 22px; border-radius:100px; border:1.5px solid var(--ink);
+    background:var(--ink); color:var(--bg);
+    transition: transform .25s var(--ease), background .25s var(--ease);
+    cursor:pointer;
+  }
+  .btn:hover{ transform:translateY(-2px); }
+  .btn.accent{ background:var(--accent); border-color:var(--accent); color:#fff; }
+  .btn.ghost{ background:transparent; color:var(--ink); }
+  .btn.ghost:hover{ border-color:var(--accent); }
+  .btn.muted{ background:transparent; border-color:var(--line); color:var(--muted); cursor:default; }
+  .btn.muted:hover{ transform:none; }
+  .btn.small{ padding:10px 17px; font-size:.76rem; }
+
+  /* ---------- app shell: sticky sidebar + editorial column ---------- */
+  .app{ display:grid; grid-template-columns:320px 1fr; align-items:start; }
+  @media (max-width:940px){ .app{ grid-template-columns:1fr; } }
+
+  .side{
+    position:sticky; top:0; height:100vh; padding:40px 34px;
+    display:flex; flex-direction:column; border-right:1px solid var(--line);
+    background:var(--surface-2);
+    overflow-y:auto; scrollbar-width:thin; scrollbar-color:var(--line) transparent;
+  }
+  .side::-webkit-scrollbar{ width:6px; }
+  .side::-webkit-scrollbar-thumb{ background:var(--line); border-radius:10px; }
+  .side > *{ flex:0 0 auto; }
+  @media (max-width:940px){ .side{ position:relative; height:auto; padding:28px 24px; border-right:none; border-bottom:1px solid var(--line); } }
+
+  .logo-img{ height:50px; width:auto; }
+
+  .side-photo{ margin-top:30px; position:relative; }
+  .blob{
+    position:absolute; inset:-16%; z-index:0;
+    background: radial-gradient(circle at 30% 25%, #F2A64966, transparent 55%),
+                radial-gradient(circle at 75% 75%, #D6456B4D, transparent 55%);
+    filter:blur(30px);
+    transition: transform .3s var(--ease);
+  }
+  .photo-frame{
+    position:relative; z-index:1; overflow:hidden; aspect-ratio:1/1.05;
+    border-radius:62% 38% 55% 45% / 45% 40% 60% 55%;
+    border:1px solid var(--line); background:var(--surface);
+    box-shadow:0 24px 48px -26px rgba(46,35,32,.3);
+  }
+  .photo-frame img{ width:100%; height:100%; object-fit:cover; object-position:center 16%; }
+  .sticker{
+    position:absolute; z-index:2; font-weight:800; font-size:.72rem;
+    padding:9px 14px; border-radius:100px; box-shadow:0 10px 22px rgba(46,35,32,.2);
+    display:flex; align-items:center; gap:6px; transition:transform .3s var(--ease);
+  }
+  .sticker:hover{ transform:scale(1.08) rotate(0deg) !important; }
+  .sticker.s1{ background:var(--gold); color:#3A2400; top:6px; right:-10px; transform:rotate(7deg); }
+  .sticker .dot{ width:6px; height:6px; border-radius:50%; background:#2F7A1F; }
+
+  .side-id{ margin-top:26px; }
+  .side-id h1{ font-size:1.5rem; line-height:1.15; }
+  .side-id p{ color:var(--muted); font-size:.9rem; margin-top:6px; }
+
+  .side-nav{ margin-top:30px; display:flex; flex-direction:column; gap:2px; }
+  .side-nav a{
+    font-weight:600; font-size:.92rem; color:var(--muted); padding:9px 0;
+    border-bottom:1px solid transparent; transition:color .25s var(--ease), border-color .25s var(--ease);
+    display:flex; align-items:baseline; gap:10px;
+  }
+  .side-nav a .idx{ font-family:'Fraunces'; font-style:italic; font-size:.8rem; color:var(--accent); }
+  .side-nav a:hover, .side-nav a.active{ color:var(--ink); }
+  .side-nav a.active{ border-color:var(--line); }
+
+  .side-foot{ margin-top:auto; padding-top:26px; }
+  .side-foot .btn{ width:100%; justify-content:center; }
+  .side-social{ display:flex; gap:14px; margin-top:16px; font-size:.78rem; font-weight:700; color:var(--muted); }
+  .side-social a:hover{ color:var(--accent); }
+
+  /* ---------- content column ---------- */
+  .content{ min-width:0; }
+  .spread{ position:relative; padding:88px clamp(28px,6vw,90px) 88px clamp(48px,7vw,110px); border-bottom:1px solid var(--line); }
+  @media (max-width:940px){ .spread{ padding:56px 24px; } }
+  .spread:last-of-type{ border-bottom:none; }
+
+  .margin-label{
+    font-weight:800; font-size:.74rem; letter-spacing:.06em; text-transform:uppercase; color:var(--accent);
+    margin-bottom:20px; display:inline-block;
+  }
+  @media (min-width:941px){
+    .margin-label{
+      position:absolute; left:0; top:92px; transform:rotate(-90deg) translateX(-100%); transform-origin:left top;
+      white-space:nowrap; margin-bottom:0;
+    }
+  }
+
+  /* intro */
+  .intro p.lede{
+    font-family:'Fraunces'; font-size:clamp(1.5rem,2.6vw,2.1rem); line-height:1.35; max-width:32ch; color:var(--ink);
+  }
+  .intro p.lede::first-letter{
+    font-size:4.2rem; font-weight:600; float:left; line-height:.8; padding:6px 10px 0 0; color:var(--accent);
+  }
+  .intro .kicker{
+    display:inline-flex; align-items:center; gap:8px; font-weight:700; font-size:.82rem; color:var(--accent);
+    background:var(--surface); border:1px solid var(--line); padding:7px 14px; border-radius:100px; margin-bottom:26px;
+  }
+  .intro .kicker .pulse{ width:6px; height:6px; border-radius:50%; background:var(--accent); box-shadow:0 0 0 0 #D6456B55; animation:pulse 2s infinite; }
+  @keyframes pulse{ 0%{box-shadow:0 0 0 0 #D6456B55;} 70%{box-shadow:0 0 0 6px transparent;} 100%{box-shadow:0 0 0 0 transparent;} }
+  .intro .tags{ margin-top:34px; display:flex; gap:10px; flex-wrap:wrap; }
+  .intro .tags span{ font-size:.8rem; font-weight:700; padding:8px 14px; border-radius:100px; border:1px solid var(--line); color:var(--muted); }
+
+  /* pull quote heading */
+  .pull-quote{ font-style:italic; font-size:clamp(1.7rem,3.4vw,2.6rem); line-height:1.2; max-width:20ch; margin-bottom:30px; }
+
+  /* work spread */
+  .work-visual{
+    position:relative; border-radius:18px; overflow:hidden; min-height:280px;
+    background:
+      radial-gradient(circle at 25% 20%, #D6456B22, transparent 55%),
+      radial-gradient(circle at 80% 80%, #F2A64922, transparent 55%),
+      var(--surface);
+    border:1px solid var(--line);
+    display:flex; align-items:center; justify-content:center; gap:14px; padding:28px;
+    transform:rotate(-1.2deg);
+    margin:30px 0 18px -6px;
+    width:104%;
+  }
+  @media (max-width:600px){ .work-visual{ width:100%; transform:none; margin-left:0; } }
+  .plate{ width:70px; border-radius:13px; background:var(--bg); border:1px solid var(--line); overflow:hidden; }
+  .plate.tall{ height:200px; } .plate.mid{ height:160px; margin-top:20px; }
+  .plate .bar{ height:6px; background:var(--line); margin:13px 9px; border-radius:3px; }
+  .plate .bar.w60{ width:60%; } .plate .bar.w80{ width:80%; } .plate .bar.w40{ width:40%; }
+  .ribbon{
+    position:absolute; top:14px; left:14px; font-weight:800; font-size:.7rem;
+    background:var(--surface); border:1px solid var(--line); color:var(--muted); padding:7px 13px; border-radius:100px;
+  }
+  .caption{ font-weight:700; font-size:.8rem; letter-spacing:.03em; text-transform:uppercase; color:var(--muted); }
+  .caption span.sep{ color:var(--accent); margin:0 8px; }
+  .work-body{ color:var(--muted); margin-top:16px; max-width:52ch; }
+  .work-cta{ margin-top:24px; }
+
+  /* process spread */
+  .process-list{ margin-top:8px; list-style:none; counter-reset:step; }
+  .process-list li{
+    counter-increment:step; display:grid; grid-template-columns:56px 1fr; gap:20px;
+    padding:22px 0; border-top:1px solid var(--line);
+  }
+  .process-list li:last-child{ border-bottom:1px solid var(--line); }
+  .process-list li::before{
+    content:counter(step,decimal-leading-zero); font-family:'Fraunces'; font-style:italic; font-size:1.4rem; color:var(--accent);
+  }
+  .process-list h4{ font-size:1.05rem; }
+  .process-list p{ color:var(--muted); font-size:.92rem; margin-top:6px; max-width:50ch; }
+
+  /* about spread */
+  .about-body p{ color:var(--muted); margin-bottom:16px; max-width:58ch; }
+  .about-body p strong{ color:var(--ink); font-weight:700; }
+  .tl-row{ display:flex; gap:18px; padding:18px 0; border-top:1px solid var(--line); }
+  .tl-row:last-child{ border-bottom:1px solid var(--line); }
+  .tl-tag{ font-weight:800; font-size:.7rem; letter-spacing:.04em; text-transform:uppercase; color:var(--accent); width:76px; flex:0 0 auto; padding-top:3px; }
+  .tl-row.pending .tl-tag{ color:var(--muted); }
+  .tl-body h4{ font-family:'Fraunces'; font-weight:600; font-size:1rem; }
+  .tl-body p{ color:var(--muted); font-size:.88rem; margin-top:3px; }
+
+  /* joys — notes box aside */
+  .notes-box{
+    border:1.5px dashed var(--line); border-radius:16px; padding:26px; margin-top:8px;
+    display:flex; gap:26px; flex-wrap:wrap;
+  }
+  .joy{ flex:1 1 200px; }
+  .joy .icon{ font-size:1.5rem; }
+  .joy h4{ font-family:'Fraunces'; font-size:1.1rem; margin-top:8px; }
+  .joy p{ color:var(--muted); font-size:.88rem; margin-top:5px; }
+
+  /* contact spread */
+  .contact-links{ margin-top:28px; display:flex; gap:12px; flex-wrap:wrap; }
+  #confetti-layer{ position:fixed; inset:0; pointer-events:none; overflow:hidden; z-index:80; }
+  .confetti-bit{ position:absolute; width:8px; height:8px; border-radius:2px; }
+
+  footer.site-footer{
+    padding:30px clamp(28px,6vw,90px) 44px clamp(48px,7vw,110px);
+    display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px;
+  }
+  .footer-social{ display:flex; gap:18px; font-size:.82rem; font-weight:700; color:var(--muted); }
+  .footer-social a:hover{ color:var(--accent); }
+  .small{ font-size:.8rem; color:var(--muted); }
+
+  .reveal{ opacity:0; transform:translateY(16px); transition:opacity .6s var(--ease), transform .6s var(--ease); }
+  .reveal.in{ opacity:1; transform:translateY(0); }
+</style>
+</head>
+<body>
+
+<div class="app">
+  <aside class="side">
+    <a href="#top"><img class="logo-img" src="Logo1.png" alt="Design with Tawhid"></a>
+
+    <div class="side-photo">
+      <div class="blob" id="blob"></div>
+      <div class="photo-frame"><img src="Photo.jpeg" alt="Tawhid"></div>
+      <div class="sticker s1"><span class="dot"></span>Open to work</div>
+    </div>
+
+    <div class="side-id">
+      <h1>Tawhid</h1>
+      <p>Product Designer — Toronto</p>
+    </div>
+
+    <nav class="side-nav" id="sideNav">
+      <a href="#work"><span class="idx">01</span>Selected Work</a>
+      <a href="#process"><span class="idx">02</span>How I Work</a>
+      <a href="#about"><span class="idx">03</span>Background</a>
+      <a href="#joys"><span class="idx">04</span>Beyond the Screen</a>
+      <a href="#contact"><span class="idx">05</span>Contact</a>
+    </nav>
+
+    <div class="side-foot">
+      <a class="btn accent" href="#contact">Let's talk</a>
+      <div class="side-social">
+        <a href="#" target="_blank" rel="noopener">Dribbble</a>
+        <a href="#" target="_blank" rel="noopener">Behance</a>
+        <a href="#" target="_blank" rel="noopener">LinkedIn</a>
+      </div>
+    </div>
+  </aside>
+
+  <main class="content">
+    <div id="top"></div>
+
+    <!-- INTRO -->
+    <section class="spread intro">
+      <div class="kicker reveal in"><span class="pulse"></span>Toronto, Canada</div>
+      <p class="lede reveal in">I design fintech and banking products that stay legible even when the numbers get complicated — trained at Humber Polytechnic, built for people who just want to know where their money stands.</p>
+      <div class="tags reveal in">
+        <span>Figma</span><span>Design Systems</span><span>User Research</span><span>Prototyping</span><span>Fintech UX</span>
+      </div>
+    </section>
+
+    <!-- WORK -->
+    <section id="work" class="spread">
+      <span class="margin-label">01 — Selected Work</span>
+      <h2 class="pull-quote reveal">A fintech case study, currently in the works.</h2>
+      <div class="work-visual reveal">
+        <span class="ribbon">Coming soon</span>
+        <div class="plate tall"><div class="bar w60" style="margin-top:24px;"></div><div class="bar w80"></div><div class="bar w40"></div><div class="bar w80"></div><div class="bar w60"></div></div>
+        <div class="plate mid"><div class="bar w80" style="margin-top:22px;"></div><div class="bar w40"></div><div class="bar w60"></div></div>
+      </div>
+      <div class="caption reveal">UX/UI<span class="sep">|</span>FINTECH<span class="sep">|</span>MOBILE APP DESIGN</div>
+      <p class="work-body reveal">A dashboard concept for tracking installment-based purchases — built to make a busy account feel readable at a glance. Full write-up, flows, and UI landing here soon.</p>
+      <div class="work-cta reveal"><button class="btn muted">In progress</button></div>
+    </section>
+
+    <!-- PROCESS -->
+    <section id="process" class="spread">
+      <span class="margin-label">02 — How I Work</span>
+      <h2 class="pull-quote reveal">Same four moves, every time.</h2>
+      <ol class="process-list reveal">
+        <li><div><h4>Discovery</h4><p>Problem framing, stakeholder input, constraints mapping.</p></div></li>
+        <li><div><h4>Analysis</h4><p>Systems and edge cases, competitive scan, flow mapping.</p></div></li>
+        <li><div><h4>Architecture</h4><p>Information architecture, wireframes, component planning.</p></div></li>
+        <li><div><h4>Design</h4><p>Hi-fi UI, design systems, handoff docs.</p></div></li>
+      </ol>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about" class="spread">
+      <span class="margin-label">03 — Background</span>
+      <h2 class="pull-quote reveal">More than a design-tool user.</h2>
+      <div class="about-body reveal">
+        <p>I'm a <strong>Toronto-based Product Designer</strong>, trained at <strong>Humber Polytechnic</strong>, focused on fintech and banking-adjacent products — dashboards, statements, and account flows that need to feel dependable, not just polished.</p>
+        <p>My path into design ran through <strong>administrative operations, IT support, and customer-facing service roles</strong> — work that meant untangling real operational friction before I ever opened a design tool. That shows up in how I design now: systems thinking, edge cases, and what happens when something goes wrong.</p>
+      </div>
+      <div class="reveal">
+        <div class="tl-row"><div class="tl-tag">Training</div><div class="tl-body"><h4>UX / Product Design</h4><p>Humber Polytechnic, Toronto</p></div></div>
+        <div class="tl-row"><div class="tl-tag">Before</div><div class="tl-body"><h4>Operations &amp; IT Support</h4><p>Administrative and technical support roles</p></div></div>
+        <div class="tl-row pending"><div class="tl-tag">Before</div><div class="tl-body"><h4>Customer Experience</h4><p>Customer-facing service roles</p></div></div>
+      </div>
+    </section>
+
+    <!-- JOYS -->
+    <section id="joys" class="spread">
+      <span class="margin-label">04 — Beyond the Screen</span>
+      <h2 class="pull-quote reveal" style="font-size:clamp(1.3rem,2.2vw,1.7rem);">Little joys of my life.</h2>
+      <div class="notes-box reveal">
+        <div class="joy"><div class="icon">⚽</div><h4>Football</h4><p>Rarely miss a match — good design and a good match both live and die on the small decisions.</p></div>
+        <div class="joy"><div class="icon">🗺️</div><h4>Worldbuilding</h4><p>Building out a fantasy world for years — same instinct as product design, just with dragons instead of dashboards.</p></div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="spread">
+      <span class="margin-label">05 — Contact</span>
+      <h2 class="pull-quote reveal">Got a problem worth solving?</h2>
+      <p class="reveal" style="color:var(--muted); max-width:52ch;">Open to full-time roles, freelance work, and collaborations — reach out if you need a designer who thinks in systems, not just screens.</p>
+      <div class="contact-links reveal">
+        <a href="mailto:hello@designwithtawhid.com" class="btn accent" id="sayHi">hello@designwithtawhid.com</a>
+        <a href="https://designwithtawhid.com" target="_blank" rel="noopener" class="btn ghost">designwithtawhid.com</a>
+      </div>
+    </section>
+
+    <footer class="site-footer">
+      <span class="small">© 2026 Md Ali Asker Tawhid. All rights reserved.</span>
+      <div class="footer-social">
+        <a href="#" target="_blank" rel="noopener">Dribbble</a>
+        <a href="#" target="_blank" rel="noopener">Behance</a>
+        <a href="#" target="_blank" rel="noopener">LinkedIn</a>
+      </div>
+    </footer>
+  </main>
+</div>
+
+<div id="confetti-layer"></div>
+
+<script>
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold:.12 });
+  document.querySelectorAll('.reveal').forEach(el=> io.observe(el));
+
+  const navLinks = document.querySelectorAll('#sideNav a');
+  const secs = ['work','process','about','joys','contact'].map(id=>document.getElementById(id));
+  const spot = new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){
+        navLinks.forEach(l=>l.classList.remove('active'));
+        const a = document.querySelector('#sideNav a[href="#'+entry.target.id+'"]');
+        if(a) a.classList.add('active');
+      }
+    });
+  }, { rootMargin:'-40% 0px -50% 0px' });
+  secs.forEach(s=> s && spot.observe(s));
+
+  if(!reduceMotion){
+    document.querySelectorAll('.btn:not(.muted)').forEach(btn=>{
+      btn.addEventListener('mousemove', (e)=>{
+        const r = btn.getBoundingClientRect();
+        const x = e.clientX - r.left - r.width/2;
+        const y = e.clientY - r.top - r.height/2;
+        btn.style.transform = `translate(${x*0.14}px, ${y*0.28}px)`;
+      });
+      btn.addEventListener('mouseleave', ()=> btn.style.transform = '');
+    });
+  }
+
+  const blob = document.getElementById('blob');
+  if(!reduceMotion && blob){
+    window.addEventListener('pointermove', (e)=>{
+      requestAnimationFrame(()=>{
+        const x = (e.clientX / window.innerWidth - 0.5) * 20;
+        const y = (e.clientY / window.innerHeight - 0.5) * 20;
+        blob.style.transform = `translate(${x}px, ${y}px)`;
+      });
+    }, { passive:true });
+  }
+
+  const sayHi = document.getElementById('sayHi');
+  const confettiLayer = document.getElementById('confetti-layer');
+  const colors = ['#D6456B','#F2A649','#2F7A6E','#FBF3EA'];
+  sayHi.addEventListener('click', (e)=>{
+    if(reduceMotion) return;
+    const r = sayHi.getBoundingClientRect();
+    const originX = r.left + r.width/2, originY = r.top + r.height/2;
+    for(let i=0;i<26;i++){
+      const bit = document.createElement('span');
+      bit.className = 'confetti-bit';
+      bit.style.background = colors[i % colors.length];
+      bit.style.left = originX + 'px';
+      bit.style.top = originY + 'px';
+      const angle = Math.random()*Math.PI*2;
+      const dist = 90 + Math.random()*140;
+      const tx = Math.cos(angle)*dist, ty = Math.sin(angle)*dist;
+      bit.style.transition = `transform ${.6+Math.random()*.4}s cubic-bezier(.2,.7,.3,1), opacity .8s ease`;
+      confettiLayer.appendChild(bit);
+      requestAnimationFrame(()=>{
+        bit.style.transform = `translate(${tx}px, ${ty}px) rotate(${Math.random()*360}deg)`;
+        bit.style.opacity = '0';
+      });
+      setTimeout(()=> bit.remove(), 1300);
+    }
+  });
+</script>
+</body>
+</html>

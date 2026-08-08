@@ -178,18 +178,127 @@
   .work-body{ color:var(--muted); margin-top:16px; max-width:52ch; }
   .work-cta{ margin-top:24px; }
 
-  /* process spread */
-  .process-list{ margin-top:8px; list-style:none; counter-reset:step; }
-  .process-list li{
-    counter-increment:step; display:grid; grid-template-columns:56px 1fr; gap:20px;
-    padding:22px 0; border-top:1px solid var(--line);
+  /* ---------- PROCESS SPREAD (X-RAY LENS) ---------- */
+  .xray-section {
+    display: grid;
+    grid-template-columns: 1fr 1.1fr;
+    gap: 60px;
+    align-items: center;
+    margin-top: 40px;
   }
-  .process-list li:last-child{ border-bottom:1px solid var(--line); }
-  .process-list li::before{
-    content:counter(step,decimal-leading-zero); font-family:'Fraunces'; font-style:italic; font-size:1.4rem; color:var(--accent);
+  .xray-list {
+    display: flex;
+    flex-direction: column;
   }
-  .process-list h4{ font-size:1.05rem; }
-  .process-list p{ color:var(--muted); font-size:.92rem; margin-top:6px; max-width:50ch; }
+  .xray-item {
+    display: flex; gap: 20px;
+    padding: 26px 0;
+    border-bottom: 1px solid var(--line);
+    cursor: pointer;
+    opacity: 0.35;
+    transition: opacity 0.4s var(--ease), padding-left 0.4s var(--ease), border-color 0.4s;
+  }
+  .xray-item:hover { opacity: 0.7; }
+  .xray-item.active { opacity: 1; padding-left: 18px; border-color: var(--ink); }
+  .x-num {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 1.8rem;
+    color: var(--accent);
+    line-height: 1;
+  }
+  .x-text h4 { font-size: 1.25rem; margin-bottom: 6px; color: var(--ink); }
+  .x-text p { font-size: 0.95rem; color: var(--muted); line-height: 1.5; }
+
+  /* X-Ray Visuals Container */
+  .xray-visuals {
+    position: relative;
+    aspect-ratio: 1 / 1;
+    border-radius: 24px;
+    overflow: hidden;
+    background: var(--surface-2);
+    border: 1px solid var(--line);
+    /* Blueprint base pattern */
+    background-image: radial-gradient(var(--line) 2px, transparent 2px);
+    background-size: 24px 24px;
+    cursor: crosshair;
+    --x: 50%;
+    --y: 50%;
+  }
+
+  .xray-layer {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transition: opacity 0.5s var(--ease), clip-path 0.5s var(--ease);
+    clip-path: circle(150% at 50% 50%); /* Fully visible by default */
+  }
+  .xray-layer.active {
+    opacity: 1;
+    z-index: 2;
+  }
+  
+  /* When hovering the visual box, engage the Lens X-Ray effect */
+  .xray-visuals:hover .xray-layer.active {
+    clip-path: circle(140px at var(--x) var(--y));
+    transition: clip-path 0.1s; /* Fast follow for mouse */
+  }
+
+  /* The outer ring and dimming shadow of the lens */
+  .xray-ring {
+    position: absolute;
+    width: 280px; height: 280px;
+    border: 2px solid var(--accent);
+    border-radius: 50%;
+    top: var(--y); left: var(--x);
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    z-index: 10;
+    opacity: 0;
+    /* This huge shadow dims everything outside the lens ring */
+    box-shadow: inset 0 0 30px rgba(0,0,0,0.06), 0 0 0 9999px rgba(251, 243, 234, 0.75); 
+    transition: opacity 0.4s var(--ease);
+  }
+  .xray-visuals:hover .xray-ring { opacity: 1; }
+
+  /* Pure CSS Graphics for the 4 Layers (So it looks great immediately) */
+  /* L1: Discovery */
+  .xl-1 { background: #FDF9EC; }
+  .css-sticky { position: absolute; width: 140px; height: 140px; padding: 20px; font-family: 'Fraunces', serif; font-size: 1.1rem; font-weight: 600; color: #3A2400; box-shadow: 2px 6px 16px rgba(0,0,0,0.08); display: flex; align-items: center; text-align: center; line-height: 1.3; }
+  
+  /* L2: Analysis */
+  .xl-2 { background: #EAF0F6; }
+  .css-node { position: absolute; background: #fff; border: 2px solid var(--teal); padding: 12px 24px; border-radius: 100px; font-size: 0.85rem; font-weight: 700; color: var(--teal); box-shadow: 0 4px 12px rgba(47,122,110,0.1); }
+  .css-line { position: absolute; background: var(--teal); }
+
+  /* L3: Architecture */
+  .xl-3 { background: #F5F5F5; }
+  .css-wire-bg { position: absolute; top: 10%; left: 10%; right: 10%; bottom: 10%; background: #fff; border: 2px solid #D0D0D0; border-radius: 8px; padding: 20px; display: flex; flex-direction: column; gap: 20px; }
+  .css-wire-head { height: 30px; border: 2px solid #D0D0D0; border-radius: 4px; }
+  .css-wire-hero { flex: 1; border: 2px solid #D0D0D0; border-radius: 4px; background: linear-gradient(to top right, transparent calc(50% - 1px), #D0D0D0 calc(50% - 1px), #D0D0D0 calc(50% + 1px), transparent calc(50% + 1px)), linear-gradient(to bottom right, transparent calc(50% - 1px), #D0D0D0 calc(50% - 1px), #D0D0D0 calc(50% + 1px), transparent calc(50% + 1px)); }
+  .css-wire-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; height: 80px; }
+  .css-wire-box { border: 2px solid #D0D0D0; border-radius: 4px; }
+
+  /* L4: Design */
+  .xl-4 { background: linear-gradient(135deg, #F7DCE2, #F2A649); display: flex; align-items: center; justify-content: center; }
+  .css-ui-card { width: 280px; background: #fff; border-radius: 20px; box-shadow: 0 24px 48px rgba(46,35,32,0.2); overflow: hidden; }
+  .css-ui-img { height: 160px; background: linear-gradient(135deg, #2F7A6E, #84B777); position: relative; }
+  .css-ui-img::after { content: ''; position: absolute; top: 20px; right: 20px; width: 40px; height: 40px; background: rgba(255,255,255,0.2); border-radius: 50%; }
+  .css-ui-body { padding: 24px; }
+  .css-ui-title { width: 70%; height: 16px; background: var(--ink); border-radius: 8px; margin-bottom: 14px; }
+  .css-ui-sub { width: 100%; height: 10px; background: var(--line); border-radius: 5px; margin-bottom: 10px; }
+  .css-ui-sub.short { width: 80%; margin-bottom: 28px; }
+  .css-ui-btn { width: 100%; height: 44px; background: var(--accent); border-radius: 100px; }
+
+  @media (max-width: 940px) {
+    .xray-section { grid-template-columns: 1fr; gap: 40px; }
+    .xray-visuals { aspect-ratio: 4/3; }
+    .xray-item.active { padding-left: 10px; }
+    /* Disable lens on mobile for better touch UX, defaults to straight crossfade */
+    .xray-visuals:hover .xray-layer.active { clip-path: circle(150% at 50% 50%); }
+    .xray-visuals:hover .xray-ring { opacity: 0; }
+  }
+
 
   /* ---------- The Journey (Interactive Zigzag) ---------- */
   .journey-container {
@@ -225,7 +334,7 @@
   }
   .journey-stop.left { justify-content: flex-start; }
   .journey-stop.right { justify-content: flex-end; }
-
+  
   .j-node {
     position: absolute;
     top: 50%;
@@ -270,7 +379,7 @@
     transform: translateY(-5px);
     box-shadow: 0 20px 40px -15px rgba(46,35,32,.15);
   }
-
+  
   .j-tag {
     display: inline-block;
     font-weight: 800; font-size: .65rem; letter-spacing: .08em; text-transform: uppercase;
@@ -443,16 +552,86 @@
       </div>
     </section>
 
-    <!-- PROCESS -->
+    <!-- PROCESS (X-RAY LENS) -->
     <section id="process" class="spread">
       <span class="margin-label">02 — How I Work</span>
       <h2 class="pull-quote reveal">Same four moves, every time.</h2>
-      <ol class="process-list reveal">
-        <li><div><h4>Discovery</h4><p>Problem framing, stakeholder input, constraints mapping.</p></div></li>
-        <li><div><h4>Analysis</h4><p>Systems and edge cases, competitive scan, flow mapping.</p></div></li>
-        <li><div><h4>Architecture</h4><p>Information architecture, wireframes, component planning.</p></div></li>
-        <li><div><h4>Design</h4><p>Hi-fi UI, design systems, handoff docs.</p></div></li>
-      </ol>
+      
+      <div class="xray-section reveal">
+        <div class="xray-list">
+          <div class="xray-item active" data-index="0">
+            <div class="x-num">01</div>
+            <div class="x-text">
+              <h4>Discovery</h4>
+              <p>Problem framing, stakeholder input, constraints mapping.</p>
+            </div>
+          </div>
+          <div class="xray-item" data-index="1">
+            <div class="x-num">02</div>
+            <div class="x-text">
+              <h4>Analysis</h4>
+              <p>Systems and edge cases, competitive scan, flow mapping.</p>
+            </div>
+          </div>
+          <div class="xray-item" data-index="2">
+            <div class="x-num">03</div>
+            <div class="x-text">
+              <h4>Architecture</h4>
+              <p>Information architecture, wireframes, component planning.</p>
+            </div>
+          </div>
+          <div class="xray-item" data-index="3">
+            <div class="x-num">04</div>
+            <div class="x-text">
+              <h4>Design</h4>
+              <p>Hi-fi UI, design systems, handoff docs.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="xray-visuals">
+          <div class="xray-ring"></div>
+          
+          <!-- L1: Discovery -->
+          <div class="xray-layer active xl-1">
+            <div class="css-sticky" style="top:25%; left:20%; transform:rotate(-4deg); background:#FFE174;">Problem Framing</div>
+            <div class="css-sticky" style="top:45%; left:45%; transform:rotate(5deg); background:#FFB5B5;">Stakeholder Interviews</div>
+          </div>
+          
+          <!-- L2: Analysis -->
+          <div class="xray-layer xl-2">
+            <div class="css-node" style="top:25%; left:50%; transform:translateX(-50%);">User Auth</div>
+            <div class="css-line" style="top:38%; left:50%; width:2px; height:30px; transform:translateX(-50%);"></div>
+            <div class="css-line" style="top:52%; left:25%; width:50%; height:2px;"></div>
+            <div class="css-node" style="top:60%; left:25%; transform:translateX(-50%);">Success</div>
+            <div class="css-node" style="top:60%; left:75%; transform:translateX(-50%);">Error State</div>
+          </div>
+
+          <!-- L3: Architecture -->
+          <div class="xray-layer xl-3">
+            <div class="css-wire-bg">
+              <div class="css-wire-head"></div>
+              <div class="css-wire-hero"></div>
+              <div class="css-wire-row">
+                <div class="css-wire-box"></div><div class="css-wire-box"></div><div class="css-wire-box"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- L4: Design -->
+          <div class="xray-layer xl-4">
+            <div class="css-ui-card">
+              <div class="css-ui-img"></div>
+              <div class="css-ui-body">
+                <div class="css-ui-title"></div>
+                <div class="css-ui-sub"></div>
+                <div class="css-ui-sub short"></div>
+                <div class="css-ui-btn"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
 
     <!-- THE JOURNEY (ABOUT) -->
@@ -665,6 +844,35 @@
     }
   });
 
+  // X-RAY LENS LOGIC
+  const xrayItems = document.querySelectorAll('.xray-item');
+  const xrayLayers = document.querySelectorAll('.xray-layer');
+  const xrayVisuals = document.querySelector('.xray-visuals');
+
+  xrayItems.forEach((item, index) => {
+    item.addEventListener('mouseenter', () => {
+      xrayItems.forEach(i => i.classList.remove('active'));
+      xrayLayers.forEach(l => l.classList.remove('active'));
+      item.classList.add('active');
+      xrayLayers[index].classList.add('active');
+    });
+  });
+
+  if (xrayVisuals) {
+    xrayVisuals.addEventListener('mousemove', (e) => {
+      const rect = xrayVisuals.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      xrayVisuals.style.setProperty('--x', `${x}px`);
+      xrayVisuals.style.setProperty('--y', `${y}px`);
+    });
+    xrayVisuals.addEventListener('mouseleave', () => {
+      // Re-center when mouse leaves
+      xrayVisuals.style.setProperty('--x', `50%`);
+      xrayVisuals.style.setProperty('--y', `50%`);
+    });
+  }
+
   // Journey Line — dynamic zigzag drawn through the actual node positions
   const journeyContainer = document.querySelector('.journey-container');
   const journeySvg = document.getElementById('journeySvg');
@@ -721,12 +929,10 @@
     window.addEventListener('load', buildJourneyPath);
     window.addEventListener('resize', () => { clearTimeout(window._jRT); window._jRT = setTimeout(buildJourneyPath, 150); });
     window.addEventListener('scroll', updateJourneyScroll, { passive: true });
-    // Fonts loading can shift layout after initial paint — rebuild once settled
     setTimeout(buildJourneyPath, 300);
     setTimeout(buildJourneyPath, 900);
   }
 
-  // Tap-to-expand for touch devices (hover has no equivalent there)
   journeyStops.forEach(stop => {
     stop.addEventListener('click', () => {
       const wasExpanded = stop.classList.contains('expanded');

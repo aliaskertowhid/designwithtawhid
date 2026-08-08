@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RentFinder — Home Rental App Case Study | Tawhid</title>
+<meta name="description" content="A home rental app for Bangladesh — case study by Md Ali Asker Tawhid.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,500&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Manrope:wght@500;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#FBF3EA; --surface:#FFFFFF; --surface-2:#F5E8DA; --ink:#2E2320; --muted:#79695D;
+    --line:#E5D5C0; --accent:#D6456B; --accent-soft:#F7DCE2; --gold:#F2A649; --teal:#2F7A6E;
+    --ease:cubic-bezier(.19,1,.22,1);
+  }
+  *{ box-sizing:border-box; margin:0; padding:0; }
+  html{ scroll-behavior:smooth; }
+  @media (prefers-reduced-motion: reduce){ html{ scroll-behavior:auto; } *{ animation-duration:.001ms !important; transition-duration:.001ms !important; scroll-behavior:auto !important; } }
+  body{ background:var(--bg); color:var(--ink); font-family:'Plus Jakarta Sans', sans-serif; line-height:1.65; -webkit-font-smoothing:antialiased; }
+  a{ color:inherit; text-decoration:none; }
+  img{ max-width:100%; display:block; }
+  ul,ol{ list-style:none; }
+  ::selection{ background:var(--accent-soft); color:var(--ink); }
+  :focus-visible{ outline:2px solid var(--accent); outline-offset:3px; }
+  h1,h2,h3,h4{ font-family:'Fraunces', serif; font-weight:600; letter-spacing:-0.015em; color:var(--ink); }
+
+  .btn{ display:inline-flex; align-items:center; gap:8px; font-weight:700; font-size:.85rem; padding:13px 22px; border-radius:100px; border:1.5px solid var(--ink); background:var(--ink); color:var(--bg); transition: transform .25s var(--ease), background .25s var(--ease); cursor:pointer; }
+  .btn:hover{ transform:translateY(-2px); }
+  .btn.accent{ background:var(--accent); border-color:var(--accent); color:#fff; }
+
+  .app{ display:grid; grid-template-columns:290px 1fr; align-items:start; }
+  @media (max-width:960px){ .app{ grid-template-columns:1fr; } }
+  .side{ position:sticky; top:0; height:100vh; padding:38px 30px; display:flex; flex-direction:column; border-right:1px solid var(--line); background:var(--surface-2); overflow-y:auto; scrollbar-width:thin; scrollbar-color:var(--line) transparent; }
+  .side::-webkit-scrollbar{ width:6px; } .side::-webkit-scrollbar-thumb{ background:var(--line); border-radius:10px; }
+  .side > *{ flex:0 0 auto; }
+  @media (max-width:960px){ .side{ position:relative; height:auto; padding:26px 24px; border-right:none; border-bottom:1px solid var(--line); } }
+  .back-link{ display:inline-flex; align-items:center; gap:8px; font-weight:700; font-size:.84rem; color:var(--muted); transition:color .2s var(--ease); }
+  .back-link:hover{ color:var(--accent); }
+  .side-meta{ margin-top:28px; }
+  .side-meta h1{ font-size:1.1rem; line-height:1.25; }
+  .meta-row{ margin-top:16px; padding-top:13px; border-top:1px solid var(--line); }
+  .meta-row .k{ font-weight:800; font-size:.64rem; letter-spacing:.06em; text-transform:uppercase; color:var(--accent); }
+  .meta-row .v{ font-size:.85rem; color:var(--ink); margin-top:3px; }
+  .side-nav{ margin-top:22px; display:flex; flex-direction:column; gap:1px; }
+  .side-nav a{ font-weight:600; font-size:.79rem; color:var(--muted); padding:6px 0; transition:color .25s var(--ease); display:flex; gap:8px; }
+  .side-nav a .idx{ font-family:'Fraunces'; font-style:italic; font-size:.72rem; color:var(--accent); }
+  .side-nav a:hover, .side-nav a.active{ color:var(--ink); }
+  .side-foot{ margin-top:auto; padding-top:20px; }
+  .side-foot .btn{ width:100%; justify-content:center; }
+
+  /* ================= RENTFINDER THEME — same ledger system, RentFinder's own palette ================= */
+  .content{
+    --blue-deep:#363B44; --blue:#597766; --blue-bright:#84B777; --sky:#F2F6F0;
+    --c-ink:#2B2E22; --c-slate:#5C6355; --c-line:#DCE6D6; --c-gold:#E0B04A;
+    --green:#597766; --red:#C6392F; --disp:'Manrope', sans-serif;
+    background:var(--sky); color:var(--c-ink); font-family:'Inter', sans-serif; line-height:1.65;
+  }
+  .content h1,.content h2,.content h3,.content h4{ font-family:var(--disp); font-weight:800; letter-spacing:-0.02em; color:inherit; }
+  .content .wrap{ max-width:880px; margin:0 auto; padding:0 clamp(24px,5vw,60px); }
+  .content .band{ padding:76px 0; position:relative; }
+  .content .band + .band{ border-top:1px solid var(--c-line); }
+
+  .ledger{ position:relative; padding-left:38px; }
+  .ledger::before{ content:""; position:absolute; left:9px; top:6px; bottom:6px; width:2px; background:var(--c-line); }
+  .stamp{ position:absolute; left:0; top:0; width:20px; height:20px; border-radius:50%; background:var(--blue); color:#fff; font-family:var(--disp); font-weight:800; font-size:10px; display:flex; align-items:center; justify-content:center; box-shadow:0 0 0 4px var(--sky); }
+  .content .band:nth-of-type(odd) .stamp{ background:var(--c-gold); color:#3A2C00; }
+
+  .eyebrow{ font-weight:800; font-size:11px; letter-spacing:.09em; text-transform:uppercase; color:var(--blue); margin-bottom:10px; }
+  .title{ font-size:clamp(22px,3vw,32px); max-width:30ch; margin-bottom:14px; }
+  .lead{ color:var(--c-slate); max-width:62ch; font-size:14.5px; }
+  .prose p{ color:var(--c-slate); margin-top:12px; max-width:64ch; font-size:14.5px; }
+  .prose p strong{ color:var(--c-ink); }
+  .credit-note{ margin-top:14px; font-size:12.5px; color:var(--c-slate); background:#fff; border:1px solid var(--c-line); border-radius:10px; padding:12px 16px; max-width:62ch; }
+  .credit-note strong{ color:var(--c-ink); }
+
+  .hero{ background:linear-gradient(160deg, var(--blue-deep), var(--blue)); color:#fff; padding:0; overflow:hidden; }
+  .hero-cover{ width:100%; display:block; }
+  .hero .wrap.hero-text{ max-width:880px; padding:44px 0 40px; }
+  .hero-tag{ display:inline-flex; align-items:center; gap:8px; font-weight:800; font-size:11px; letter-spacing:.08em; text-transform:uppercase; color:var(--c-gold); border:1px solid rgba(224,176,74,.5); padding:7px 13px; border-radius:99px; margin-bottom:18px; }
+  .hero-tag .dot{ width:6px; height:6px; border-radius:50%; background:var(--c-gold); }
+  .hero h1{ color:#fff; font-size:clamp(24px,3.6vw,34px); line-height:1.15; max-width:26ch; margin-bottom:14px; }
+  .hero p.lead{ color:#D8E3D2; max-width:56ch; }
+  .hero-meta{ display:flex; gap:26px; margin-top:24px; flex-wrap:wrap; }
+  .hero-meta .k{ font-size:10px; letter-spacing:.09em; text-transform:uppercase; color:#A9BFA0; margin-bottom:4px; }
+  .hero-meta .v{ font-family:var(--disp); font-weight:800; font-size:14px; color:#fff; }
+
+  .img-frame{ margin-top:24px; border-radius:16px; overflow:hidden; box-shadow:0 24px 50px -30px rgba(30,40,20,.35); background:#fff; }
+  .img-frame img{ width:100%; }
+  .img-cap{ margin-top:10px; font-size:12px; color:var(--c-slate); text-align:center; }
+
+  .statement{ margin-top:24px; border-radius:18px; overflow:hidden; box-shadow:0 20px 44px -32px rgba(30,40,20,.3); }
+  .stmt-head{ background:var(--blue-deep); color:#fff; padding:16px 22px; display:flex; justify-content:space-between; font-family:var(--disp); font-weight:800; font-size:11px; letter-spacing:.06em; text-transform:uppercase; }
+  .stmt-row{ display:grid; grid-template-columns:1fr 90px; gap:10px; padding:14px 22px; background:#fff; border-bottom:1px solid var(--c-line); align-items:center; }
+  .stmt-row:last-child{ border-bottom:none; }
+  .stmt-row .desc{ font-size:13px; color:var(--c-ink); }
+  .stmt-row .amt{ font-family:var(--disp); font-weight:800; font-size:12.5px; text-align:right; }
+  .stmt-row.debit .amt{ color:var(--red); }
+  .stmt-row.credit .amt{ color:var(--green); }
+  .stmt-row.credit{ background:#F2F8F0; }
+
+  .swatch-row{ display:flex; gap:12px; margin-top:22px; flex-wrap:wrap; }
+  .swatch{ width:84px; }
+  .swatch .sw{ height:60px; border-radius:12px; box-shadow:0 10px 22px -14px rgba(30,40,20,.4); }
+  .swatch .lbl{ font-size:10.5px; color:var(--c-slate); margin-top:6px; text-align:center; }
+  .swatch .hex{ font-family:var(--disp); font-size:10px; font-weight:700; text-align:center; }
+
+  .takeaway-list{ margin-top:22px; }
+  .takeaway-item{ display:grid; grid-template-columns:40px 1fr; gap:16px; padding:18px 0; border-top:1px solid var(--c-line); }
+  .takeaway-item:first-child{ border-top:none; }
+  .takeaway-item .t-num{ font-family:var(--disp); font-weight:800; color:var(--c-gold); font-size:16px; }
+  .takeaway-item h5{ font-family:var(--disp); font-weight:800; font-size:14px; margin-bottom:4px; }
+  .takeaway-item p{ font-size:13px; color:var(--c-slate); }
+
+  .content-footer{ background:var(--blue-deep); color:#A9BFA0; padding:44px 0; text-align:center; }
+  .content-footer .thanks{ font-family:var(--disp); font-size:19px; color:#fff; margin-bottom:10px; font-weight:800; }
+  .content-footer .fine{ font-size:11px; letter-spacing:.04em; }
+  .content-footer .cta{ margin-top:22px; }
+
+  .reveal{ opacity:0; transform:translateY(16px); transition:opacity .6s var(--ease), transform .6s var(--ease); }
+  .reveal.in{ opacity:1; transform:translateY(0); }
+</style>
+</head>
+<body>
+
+<div class="app">
+  <aside class="side">
+    <a class="back-link" href="index.html">← Back to portfolio</a>
+    <div class="side-meta">
+      <h1>RentFinder</h1>
+      <div class="meta-row"><div class="k">Role</div><div class="v">UI/UX Design</div></div>
+      <div class="meta-row"><div class="k">Timeline</div><div class="v">May – June 2023</div></div>
+      <div class="meta-row"><div class="k">Industry</div><div class="v">Real Estate</div></div>
+    </div>
+    <nav class="side-nav" id="sideNav">
+      <a href="#overview"><span class="idx">01</span>Overview</a>
+      <a href="#research"><span class="idx">02</span>Research</a>
+      <a href="#persona"><span class="idx">03</span>Persona</a>
+      <a href="#findings"><span class="idx">04</span>Findings</a>
+      <a href="#process"><span class="idx">05</span>Process</a>
+      <a href="#visual"><span class="idx">06</span>Visual Design</a>
+      <a href="#screens"><span class="idx">07</span>Full Gallery</a>
+      <a href="#takeaways"><span class="idx">08</span>Takeaways</a>
+    </nav>
+    <div class="side-foot"><a class="btn accent" href="index.html#contact">Let's talk</a></div>
+  </aside>
+
+  <main class="content">
+
+    <!-- HERO -->
+    <section class="hero">
+      <img class="hero-cover" src="rent-cover.jpg" alt="RentFinder app cover — property browsing and listing detail screens">
+      <div class="wrap hero-text">
+        <div class="reveal in">
+          <div class="hero-tag"><span class="dot"></span>Case Study, Real Estate</div>
+          <h1>RentFinder — Simplifying Property Rentals</h1>
+          <p class="lead">A premium home rental app built for Bangladesh, designed to make finding a verified, trustworthy rental faster for students, professionals, and families.</p>
+          <div class="hero-meta">
+            <div><div class="k">Timeline</div><div class="v">May – June 2023</div></div>
+            <div><div class="k">Role</div><div class="v">UI/UX Designer</div></div>
+            <div><div class="k">Industry</div><div class="v">Real Estate</div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- OVERVIEW -->
+    <section id="overview" class="band">
+      <div class="wrap ledger">
+        <span class="stamp">01</span>
+        <div class="eyebrow reveal">Project Overview</div>
+        <h2 class="title reveal">Renting a home, without the guesswork.</h2>
+        <div class="prose reveal">
+          <p>Finding a place to rent is usually slow and stressful. RentFinder set out to change that with a premium home rental app built specifically for Bangladesh.</p>
+          <p><strong>Whether the user is a student, a young professional, or a family,</strong> RentFinder was designed to simplify the entire rental journey, from search through to move-in.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- RESEARCH -->
+    <section id="research" class="band">
+      <div class="wrap ledger">
+        <span class="stamp">02</span>
+        <div class="eyebrow reveal">Research</div>
+        <h2 class="title reveal">Renters didn't trust what they saw online.</h2>
+        <div class="prose reveal"><p>Interviews with renters across Dhaka and Sylhet surfaced the same complaint again and again: listing photos rarely matched reality, and there was no way to trust a property before visiting in person.</p></div>
+        <div class="img-frame reveal"><img src="rent-survey.png" alt="Survey data from renter interviews, shown as a set of donut charts"></div>
+        <div class="img-cap reveal">Self-reported survey results from renter interviews</div>
+      </div>
+    </section>
+
+    <!-- PERSONA -->
+    <section id="persona" class="band">
+      <div class="wrap ledger">
+        <span class="stamp">03</span>
+        <div class="eyebrow reveal">User Personas</div>
+        <h2 class="title reveal">Designing around two real kinds of renters.</h2>
+        <div class="img-frame reveal">
+          <img src="persona-placeholder-1.png" alt="User persona 1 placeholder image">
+        </div>
+        <div class="img-frame reveal" style="margin-top:24px;">
+          <img src="persona-placeholder-2.png" alt="User persona 2 placeholder image">
+        </div>
+      </div>
+    </section>
+
+    <!-- FINDINGS -->
+    <section id="findings" class="band">
+      <div class="wrap ledger">
+        <span class="stamp">04</span>
+        <div class="eyebrow reveal">Findings</div>
+        <h2 class="title reveal">Eight problems, and what I did about each.</h2>
+        <div class="statement reveal">
+          <div class="stmt-head"><span>Findings</span><span>Status</span></div>
+          <div class="stmt-row debit"><div class="desc">Listings weren't verified, so photos and descriptions often didn't match reality.</div><div class="amt">Problem</div></div>
+          <div class="stmt-row debit"><div class="desc">Property listings on the market were limited in number and variety.</div><div class="amt">Problem</div></div>
+          <div class="stmt-row debit"><div class="desc">The app experience created a language barrier for non-English speakers.</div><div class="amt">Problem</div></div>
+          <div class="stmt-row debit"><div class="desc">Property information was often inadequate to make a confident decision.</div><div class="amt">Problem</div></div>
+          <div class="stmt-row debit"><div class="desc">Searching for the right property in the right area was difficult.</div><div class="amt">Problem</div></div>
+          <div class="stmt-row debit"><div class="desc">The rental process itself lacked transparency between owner and tenant.</div><div class="amt">Problem</div></div>
+          <div class="stmt-row debit"><div class="desc">Payment options for rent were limited.</div><div class="amt">Problem</div></div>
+          <div class="stmt-row debit"><div class="desc">Property owners had few tools to manage their own listings.</div><div class="amt">Problem</div></div>
+          <div class="stmt-row credit"><div class="desc">Built a verification system for both property owners and tenants.</div><div class="amt">Solved</div></div>
+          <div class="stmt-row credit"><div class="desc">Made it easy for owners to upload and manage their own listings.</div><div class="amt">Solved</div></div>
+          <div class="stmt-row credit"><div class="desc">Added a multilingual interface, including English and Bangla.</div><div class="amt">Solved</div></div>
+          <div class="stmt-row credit"><div class="desc">Encouraged clear, high-quality photography on every listing.</div><div class="amt">Solved</div></div>
+          <div class="stmt-row credit"><div class="desc">Added map-based search so users can browse by specific area.</div><div class="amt">Solved</div></div>
+          <div class="stmt-row credit"><div class="desc">Enabled in-app communication between owners and tenants.</div><div class="amt">Solved</div></div>
+          <div class="stmt-row credit"><div class="desc">Integrated multiple payment gateways for more flexible payment.</div><div class="amt">Solved</div></div>
+          <div class="stmt-row credit"><div class="desc">Gave owners tools to manage listings and track inquiries.</div><div class="amt">Solved</div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROCESS -->
+    <section id="process" class="band">
+      <div class="wrap ledger">
+        <span class="stamp">05</span>
+        <div class="eyebrow reveal">Design Process</div>
+        <h2 class="title reveal">Research first, design second.</h2>
+        <div class="prose reveal"><p>Every phase of the process stayed centered on the user, moving from research through definition, ideation, design, and evaluation before anything shipped.</p></div>
+        <div class="img-frame reveal"><img src="rent-process.png" alt="Design process: Primary and Secondary Research, Define, Ideation, Design, Evaluation"></div>
+      </div>
+    </section>
+
+    <!-- VISUAL DESIGN -->
+    <section id="visual" class="band">
+      <div class="wrap ledger">
+        <span class="stamp">06</span>
+        <div class="eyebrow reveal">Visual Design &amp; UI</div>
+        <h2 class="title reveal">Large photography, honest pricing, map-first search.</h2>
+        <div class="prose reveal"><p>The interface favors large, honest photography, clear pricing up front, and a map-first layout, so location and commute are obvious before anything else.</p></div>
+
+        <div class="img-frame reveal" style="margin-top:30px;">
+          <img src="rent-filters-map.png" alt="Filter panel and map-based property search">
+        </div>
+        <div class="img-cap reveal">Filters and map-based search</div>
+
+        <div class="img-frame reveal" style="margin-top:24px;">
+          <img src="rent-listing-detail.png" alt="Listing detail screen with photos, pricing, and facilities">
+        </div>
+        <div class="img-cap reveal">Listing detail, with facilities and pricing up front</div>
+
+        <div class="img-frame reveal" style="margin-top:24px;"><img src="rent-bangla-compare.png" alt="Home screen shown side by side in English and Bangla"></div>
+        <div class="img-cap reveal">English and Bangla versions, side by side</div>
+
+        <div class="eyebrow reveal" style="margin-top:40px;">Style Guide</div>
+        <div class="prose reveal"><p>Typeset in Gilroy, with a warm, grounded color palette meant to feel trustworthy rather than flashy.</p></div>
+        <div class="swatch-row reveal">
+          <div class="swatch"><div class="sw" style="background:#FFE174;"></div><div class="lbl">Primary Yellow</div><div class="hex">#FFE174</div></div>
+          <div class="swatch"><div class="sw" style="background:#597766;"></div><div class="lbl">Deep Green</div><div class="hex">#597766</div></div>
+          <div class="swatch"><div class="sw" style="background:#84B777;"></div><div class="lbl">Light Green</div><div class="hex">#84B777</div></div>
+          <div class="swatch"><div class="sw" style="background:#CFB48B;"></div><div class="lbl">Warm Tan</div><div class="hex">#CFB48B</div></div>
+          <div class="swatch"><div class="sw" style="background:#656872;"></div><div class="lbl">Slate</div><div class="hex">#656872</div></div>
+          <div class="swatch"><div class="sw" style="background:#363B44;"></div><div class="lbl">Ink</div><div class="hex">#363B44</div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FULL GALLERY -->
+    <section id="screens" class="band">
+      <div class="wrap ledger">
+        <span class="stamp">07</span>
+        <div class="eyebrow reveal">Full App Gallery</div>
+        <h2 class="title reveal">The rest of the app.</h2>
+        <div class="prose reveal"><p>Beyond the core flows shown above, the app was designed end to end — onboarding, listings, messaging, payments, and property management.</p></div>
+        <div class="img-frame reveal"><img src="rent-all-screens.png" alt="Composite grid of the full RentFinder app screen set"></div>
+      </div>
+    </section>
+
+    <!-- TAKEAWAYS -->
+    <section id="takeaways" class="band">
+      <div class="wrap ledger">
+        <span class="stamp">08</span>
+        <div class="eyebrow reveal">Key Takeaways</div>
+        <h2 class="title reveal">What this project reinforced.</h2>
+        <div class="takeaway-list reveal">
+          <div class="takeaway-item"><span class="t-num">01</span><div><h5>Verification builds trust faster than polish</h5><p>A simple "verified listing" badge, backed by real inspection, reduced drop-off far more than visual refinements did.</p></div></div>
+          <div class="takeaway-item"><span class="t-num">02</span><div><h5>Combine filters, don't stack them</h5><p>Letting users filter by commute time, budget, and amenities in one pass cut search sessions down noticeably.</p></div></div>
+          <div class="takeaway-item"><span class="t-num">03</span><div><h5>Timelines and feedback loops matter</h5><p>Finding the right interview candidates was harder than expected, but sticking to a self-imposed timeline and folding in user feedback along the way kept the project moving and sharpened the final design.</p></div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- BEHANCE LINK -->
+    <section class="band" style="padding-top:0;">
+      <div class="wrap">
+        <div class="credit-note reveal" style="max-width:none; text-align:center; padding:22px;">
+          Want the fuller, more visually polished version of this case study? <strong><a href="https://www.behance.net/gallery/173127915/Home-Rental-App-Design-UIUX-Case-Study" target="_blank" rel="noopener" style="color:var(--blue); text-decoration:underline;">View it on Behance →</a></strong>
+        </div>
+      </div>
+    </section>
+
+    <footer class="content-footer">
+      <div class="wrap">
+        <div class="thanks">Thanks for reading.</div>
+        <div class="fine">RENTFINDER · HOME RENTAL APP CASE STUDY · 2026</div>
+        <div class="cta"><a class="btn accent" href="index.html">Back to portfolio</a></div>
+      </div>
+    </footer>
+  </main>
+</div>
+
+<script>
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold:.1 });
+  document.querySelectorAll('.reveal').forEach(el=> io.observe(el));
+
+  const navLinks = document.querySelectorAll('#sideNav a');
+  const secs = ['overview','research','persona','findings','process','visual','screens','takeaways'].map(id=>document.getElementById(id));
+  const spot = new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){
+        navLinks.forEach(l=>l.classList.remove('active'));
+        const a = document.querySelector('#sideNav a[href="#'+entry.target.id+'"]');
+        if(a) a.classList.add('active');
+      }
+    });
+  }, { rootMargin:'-40% 0px -50% 0px' });
+  secs.forEach(s=> s && spot.observe(s));
+</script>
+</body>
+</html>

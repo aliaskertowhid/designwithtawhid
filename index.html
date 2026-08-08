@@ -201,15 +201,46 @@
   .tl-body h4{ font-family:'Fraunces'; font-weight:600; font-size:1rem; }
   .tl-body p{ color:var(--muted); font-size:.88rem; margin-top:3px; }
 
-  /* joys — notes box aside */
-  .notes-box{
-    border:1.5px dashed var(--line); border-radius:16px; padding:26px; margin-top:8px;
-    display:flex; gap:26px; flex-wrap:wrap;
+  /* joys — editorial index */
+  .personal-index { 
+    list-style: none; 
+    margin-top: 10px; 
+    border-top: 1px solid var(--line); 
   }
-  .joy{ flex:1 1 200px; }
-  .joy .icon{ font-size:1.5rem; }
-  .joy h4{ font-family:'Fraunces'; font-size:1.1rem; margin-top:8px; }
-  .joy p{ color:var(--muted); font-size:.88rem; margin-top:5px; }
+  .personal-index li {
+    display: grid;
+    grid-template-columns: 140px 1fr;
+    gap: 20px;
+    padding: 24px 0;
+    border-bottom: 1px solid var(--line);
+    align-items: baseline;
+    transition: padding-left 0.3s var(--ease);
+  }
+  .personal-index li:hover {
+    padding-left: 10px;
+  }
+  .pi-title {
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    font-size: 1.15rem;
+    color: var(--ink);
+  }
+  .pi-desc {
+    color: var(--muted);
+    font-size: 0.95rem;
+    max-width: 55ch;
+    line-height: 1.6;
+  }
+  @media (max-width: 600px) {
+    .personal-index li { 
+      grid-template-columns: 1fr; 
+      gap: 6px; 
+      padding: 18px 0; 
+    }
+    .personal-index li:hover {
+      padding-left: 0;
+    }
+  }
 
   /* contact spread */
   .contact-links{ margin-top:28px; display:flex; gap:12px; flex-wrap:wrap; }
@@ -256,9 +287,9 @@
     <div class="side-foot">
       <a class="btn accent" href="#contact">Let's talk</a>
       <div class="side-social">
-        <a href="#" target="_blank" rel="noopener">Dribbble</a>
-        <a href="#" target="_blank" rel="noopener">Behance</a>
-        <a href="#" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="https://dribbble.com/aliaskertowhid" target="_blank" rel="noopener">Dribbble</a>
+        <a href="https://www.behance.net/aliasker4" target="_blank" rel="noopener">Behance</a>
+        <a href="https://www.linkedin.com/in/aliaskertowhid/" target="_blank" rel="noopener">LinkedIn</a>
       </div>
     </div>
   </aside>
@@ -278,7 +309,7 @@
     <!-- WORK -->
     <section id="work" class="spread">
       <span class="margin-label">01 — Selected Work</span>
-      <h2 class="pull-quote reveal">Two case studies, start to finish.</h2>
+      <h2 class="pull-quote reveal">Three case studies, start to finish.</h2>
 
       <div class="reveal" style="margin-top:8px;">
         <div class="work-visual">
@@ -298,7 +329,7 @@
         </div>
         <div class="caption">UX/UI<span class="sep">|</span>FINTECH<span class="sep">|</span>MOBILE BANKING</div>
         <h3 style="font-family:'Fraunces'; font-size:1.3rem; margin-top:14px;">BRAC Bank Mobile App Redesign</h3>
-        <p class="work-body">A full redesign of BRAC Bank's mobile app — unified accounts, a simplified transfer flow, and a Bangla-language experience, in collaboration with Dipak Deb Nath.</p>
+        <p class="work-body">A full redesign of BRAC Bank's mobile app — unified accounts, a simplified transfer flow, and a Bangla-language experience.</p>
         <div class="work-cta"><a class="btn accent" href="case-study-brac.html">View case study →</a></div>
       </div>
 
@@ -308,7 +339,7 @@
         </div>
         <div class="caption">UX/UI<span class="sep">|</span>REAL ESTATE<span class="sep">|</span>MOBILE APP DESIGN</div>
         <h3 style="font-family:'Fraunces'; font-size:1.3rem; margin-top:14px;">RentFinder — Home Rental App</h3>
-        <p class="work-body">A premium home rental app for Bangladesh — verified listings, map-first search, and a Bangla-language experience, in collaboration with Dipak Deb Nath.</p>
+        <p class="work-body">A premium home rental app for Bangladesh — verified listings, map-first search, and a Bangla-language experience.</p>
         <div class="work-cta"><a class="btn accent" href="case-study-rentfinder.html">View case study →</a></div>
       </div>
     </section>
@@ -333,10 +364,29 @@
         <p>I'm a <strong>Toronto-based Product Designer</strong>, trained at <strong>Humber Polytechnic</strong>, focused on fintech and banking-adjacent products — dashboards, statements, and account flows that need to feel dependable, not just polished.</p>
         <p>My path into design ran through <strong>administrative operations, IT support, and customer-facing service roles</strong> — work that meant untangling real operational friction before I ever opened a design tool. That shows up in how I design now: systems thinking, edge cases, and what happens when something goes wrong.</p>
       </div>
-      <div class="reveal">
-        <div class="tl-row"><div class="tl-tag">Training</div><div class="tl-body"><h4>UX / Product Design</h4><p>Humber Polytechnic, Toronto</p></div></div>
-        <div class="tl-row"><div class="tl-tag">Before</div><div class="tl-body"><h4>Operations &amp; IT Support</h4><p>Administrative and technical support roles</p></div></div>
-        <div class="tl-row pending"><div class="tl-tag">Before</div><div class="tl-body"><h4>Customer Experience</h4><p>Customer-facing service roles</p></div></div>
+      
+      <div class="reveal" style="margin-top: 32px;">
+        <div class="tl-row">
+          <div class="tl-tag">Chapter 01</div>
+          <div class="tl-body">
+            <h4>The Technical Base</h4>
+            <p><strong>Google IT Support Professional</strong> — Mastered the fundamentals of operating systems, networking, and system security to understand how complex architecture functions.</p>
+          </div>
+        </div>
+        <div class="tl-row">
+          <div class="tl-tag">Chapter 02</div>
+          <div class="tl-body">
+            <h4>The Human Element</h4>
+            <p><strong>Security Operations & Mobile Patrol</strong> — Managed physical operations across retail and surveillance, developing a hyper-awareness of how people behave under friction and stress.</p>
+          </div>
+        </div>
+        <div class="tl-row">
+          <div class="tl-tag">Chapter 03</div>
+          <div class="tl-body">
+            <h4>The Digital Craft</h4>
+            <p><strong>UX Design Certification (2025)</strong> — Graduated from Humber Polytechnic, learning how to translate that operational logic and human empathy into clean, accessible interfaces.</p>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -344,10 +394,25 @@
     <section id="joys" class="spread">
       <span class="margin-label">04 — Beyond the Screen</span>
       <h2 class="pull-quote reveal" style="font-size:clamp(1.3rem,2.2vw,1.7rem);">Little joys of my life.</h2>
-      <div class="notes-box reveal">
-        <div class="joy"><div class="icon">⚽</div><h4>Football</h4><p>Rarely miss a match — good design and a good match both live and die on the small decisions.</p></div>
-        <div class="joy"><div class="icon">🗺️</div><h4>Worldbuilding</h4><p>Building out a fantasy world for years — same instinct as product design, just with dragons instead of dashboards.</p></div>
-      </div>
+      
+      <ul class="personal-index reveal">
+        <li>
+          <div class="pi-title">Playing</div>
+          <div class="pi-desc">Exploring the frontier in Red Dead Redemption 2 or surviving Resident Evil. It's my favorite way to reset.</div>
+        </li>
+        <li>
+          <div class="pi-title">Watching</div>
+          <div class="pi-desc">Rarely missing a football match, or catching up on the endless journey of One Piece.</div>
+        </li>
+        <li>
+          <div class="pi-title">Worldbuilding</div>
+          <div class="pi-desc">Building out a fantasy world for years — same instinct as product design, just with dragons instead of dashboards.</div>
+        </li>
+        <li>
+          <div class="pi-title">Curating</div>
+          <div class="pi-desc">Blending audio and building the perfect playlists for late-night drives.</div>
+        </li>
+      </ul>
     </section>
 
     <!-- CONTACT -->
@@ -356,17 +421,16 @@
       <h2 class="pull-quote reveal">Got a problem worth solving?</h2>
       <p class="reveal" style="color:var(--muted); max-width:52ch;">Open to full-time roles, freelance work, and collaborations — reach out if you need a designer who thinks in systems, not just screens.</p>
       <div class="contact-links reveal">
-        <a href="mailto:hello@designwithtawhid.com" class="btn accent" id="sayHi">hello@designwithtawhid.com</a>
-        <a href="https://designwithtawhid.com" target="_blank" rel="noopener" class="btn ghost">designwithtawhid.com</a>
+        <a href="mailto:aliaskertowhid@gmail.com" class="btn accent" id="sayHi">aliaskertowhid@gmail.com</a>
       </div>
     </section>
 
     <footer class="site-footer">
       <span class="small">© 2026 Md Ali Asker Tawhid. All rights reserved.</span>
       <div class="footer-social">
-        <a href="#" target="_blank" rel="noopener">Dribbble</a>
-        <a href="#" target="_blank" rel="noopener">Behance</a>
-        <a href="#" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="https://dribbble.com/aliaskertowhid" target="_blank" rel="noopener">Dribbble</a>
+        <a href="https://www.behance.net/aliasker4" target="_blank" rel="noopener">Behance</a>
+        <a href="https://www.linkedin.com/in/aliaskertowhid/" target="_blank" rel="noopener">LinkedIn</a>
       </div>
     </footer>
   </main>

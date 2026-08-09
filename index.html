@@ -209,6 +209,9 @@
   }
   .x-text h4 { font-size: 1.25rem; margin-bottom: 6px; color: var(--ink); }
   .x-text p { font-size: 0.95rem; color: var(--muted); line-height: 1.5; }
+  .x-chips{ display:flex; gap:8px; flex-wrap:wrap; margin-top: 12px; }
+  .x-chip{ font-size:.72rem; font-weight:600; color:var(--muted); border:1px solid var(--line); padding:5px 11px; border-radius:100px; transition: border-color .3s var(--ease), color .3s var(--ease); }
+  .xray-item.active .x-chip{ border-color: var(--accent); color: var(--accent); }
 
   /* X-Ray Visuals Container */
   .xray-visuals {
@@ -315,6 +318,8 @@
     pointer-events: none;
     overflow: visible;
   }
+  /* intentionally no transition here — the line must track scroll position
+     in real time; a transition fights rapid scroll events and reads as lag */
   .journey-stop {
     position: relative;
     z-index: 1;
@@ -411,24 +416,49 @@
     .journey-stop.left .j-content, .journey-stop.right .j-content{ margin-left:0; margin-right:0; width: 84%; padding: 22px; }
   }
 
-  /* joys — editorial index */
-  .personal-index { 
-    list-style: none; 
-    margin-top: 10px; 
-    border-top: 1px solid var(--line); 
+  /* joys — editorial index, with a bit of personality */
+  .personal-index {
+    list-style: none;
+    margin-top: 10px;
+    border-top: 1px solid var(--line);
   }
   .personal-index li {
+    position: relative;
+    overflow: hidden;
     display: grid;
-    grid-template-columns: 140px 1fr;
-    gap: 20px;
-    padding: 24px 0;
+    grid-template-columns: 34px 140px 1fr 50px;
+    align-items: center;
+    gap: 16px;
+    padding: 24px 18px;
+    margin: 0 -18px;
     border-bottom: 1px solid var(--line);
-    align-items: baseline;
-    transition: padding-left 0.3s var(--ease);
+    border-left: 3px solid var(--pi-tint, var(--line));
+    cursor: default;
+    transition: padding-left 0.35s var(--ease), border-left-color 0.35s var(--ease);
   }
-  .personal-index li:hover {
-    padding-left: 10px;
+  .pi-num{
+    position: relative; z-index: 1;
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 1rem;
+    color: var(--pi-ink, var(--accent));
   }
+  .personal-index li::before{
+    content: "";
+    position: absolute; inset: 0;
+    background: var(--pi-tint, var(--accent-soft));
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.45s var(--ease);
+    z-index: 0;
+  }
+  .personal-index li:hover{ padding-left: 30px; }
+  .personal-index li:hover::before{ transform: scaleX(1); }
+  .personal-index li:nth-child(1){ --pi-tint: var(--accent-soft); --pi-ink: var(--accent); }
+  .personal-index li:nth-child(2){ --pi-tint: #FCE8CE; --pi-ink: #B5691F; }
+  .personal-index li:nth-child(3){ --pi-tint: #DCEEE6; --pi-ink: var(--teal); }
+  .personal-index li:nth-child(4){ --pi-tint: #E4E1F5; --pi-ink: #6B5CA5; }
+  .pi-title, .pi-desc, .pi-icon{ position: relative; z-index: 1; }
   .pi-title {
     font-family: 'Fraunces', serif;
     font-weight: 600;
@@ -441,15 +471,30 @@
     max-width: 55ch;
     line-height: 1.6;
   }
+  .pi-icon{
+    font-size: 1.5rem;
+    text-align: right;
+    opacity: 0.3;
+    transform: scale(0.75) rotate(0deg);
+    transition: opacity 0.35s var(--ease), transform 0.4s var(--ease);
+  }
+  .personal-index li:hover .pi-icon{
+    opacity: 1;
+    transform: scale(1) rotate(8deg);
+  }
   @media (max-width: 600px) {
-    .personal-index li { 
-      grid-template-columns: 1fr; 
-      gap: 6px; 
-      padding: 18px 0; 
+    .personal-index li {
+      grid-template-columns: 22px 1fr 34px;
+      gap: 4px 10px;
+      padding: 18px 14px;
+      margin: 0 -14px;
     }
-    .personal-index li:hover {
-      padding-left: 0;
-    }
+    .pi-num{ grid-column: 1; grid-row: 1 / 3; align-self: start; font-size: .85rem; }
+    .pi-title{ grid-column: 2; grid-row: 1; }
+    .pi-icon{ grid-column: 3; grid-row: 1 / 3; align-self: center; }
+    .personal-index li .pi-desc{ grid-column: 2; grid-row: 2; }
+    .personal-index li:hover { padding-left: 14px; }
+    .pi-icon{ opacity: 1; transform: scale(1) rotate(0); }
   }
 
   /* contact spread */
@@ -563,28 +608,32 @@
             <div class="x-num">01</div>
             <div class="x-text">
               <h4>Discovery</h4>
-              <p>Problem framing, stakeholder input, constraints mapping.</p>
+              <p>Problem framing, stakeholder input, and constraints mapping — before assuming what the solution should be.</p>
+              <div class="x-chips"><span class="x-chip">Problem brief</span><span class="x-chip">Stakeholder notes</span><span class="x-chip">Constraints doc</span></div>
             </div>
           </div>
           <div class="xray-item" data-index="1">
             <div class="x-num">02</div>
             <div class="x-text">
               <h4>Analysis</h4>
-              <p>Systems and edge cases, competitive scan, flow mapping.</p>
+              <p>Systems and edge cases mapped out, a competitive scan run, every flow traced end to end.</p>
+              <div class="x-chips"><span class="x-chip">Flow maps</span><span class="x-chip">Competitive scan</span><span class="x-chip">Edge-case list</span></div>
             </div>
           </div>
           <div class="xray-item" data-index="2">
             <div class="x-num">03</div>
             <div class="x-text">
               <h4>Architecture</h4>
-              <p>Information architecture, wireframes, component planning.</p>
+              <p>That analysis turned into information architecture, wireframes, and a plan for how every component fits together.</p>
+              <div class="x-chips"><span class="x-chip">Sitemap</span><span class="x-chip">Wireframes</span><span class="x-chip">Component plan</span></div>
             </div>
           </div>
           <div class="xray-item" data-index="3">
             <div class="x-num">04</div>
             <div class="x-text">
               <h4>Design</h4>
-              <p>Hi-fi UI, design systems, handoff docs.</p>
+              <p>Hi-fi UI and a working design system, with handoff docs clean enough that engineering never has to guess.</p>
+              <div class="x-chips"><span class="x-chip">Hi-fi UI</span><span class="x-chip">Design system</span><span class="x-chip">Handoff docs</span></div>
             </div>
           </div>
         </div>
@@ -733,20 +782,28 @@
       
       <ul class="personal-index reveal">
         <li>
+          <div class="pi-num">01</div>
           <div class="pi-title">Playing</div>
           <div class="pi-desc">Exploring the frontier in Red Dead Redemption 2 or surviving Resident Evil. It's my favorite way to reset.</div>
+          <div class="pi-icon">🎮</div>
         </li>
         <li>
+          <div class="pi-num">02</div>
           <div class="pi-title">Watching</div>
           <div class="pi-desc">Rarely missing a football match, or catching up on the endless journey of One Piece.</div>
+          <div class="pi-icon">⚽</div>
         </li>
         <li>
+          <div class="pi-num">03</div>
           <div class="pi-title">Worldbuilding</div>
           <div class="pi-desc">Building out a fantasy world for years — same instinct as product design, just with dragons instead of dashboards.</div>
+          <div class="pi-icon">🗺️</div>
         </li>
         <li>
+          <div class="pi-num">04</div>
           <div class="pi-title">Curating</div>
           <div class="pi-desc">Blending audio and building the perfect playlists for late-night drives.</div>
+          <div class="pi-icon">🎧</div>
         </li>
       </ul>
     </section>
@@ -849,13 +906,18 @@
   const xrayLayers = document.querySelectorAll('.xray-layer');
   const xrayVisuals = document.querySelector('.xray-visuals');
 
+  function activateXray(index){
+    xrayItems.forEach(i => i.classList.remove('active'));
+    xrayLayers.forEach(l => l.classList.remove('active'));
+    xrayItems[index].classList.add('active');
+    xrayLayers[index].classList.add('active');
+  }
+
   xrayItems.forEach((item, index) => {
-    item.addEventListener('mouseenter', () => {
-      xrayItems.forEach(i => i.classList.remove('active'));
-      xrayLayers.forEach(l => l.classList.remove('active'));
-      item.classList.add('active');
-      xrayLayers[index].classList.add('active');
-    });
+    // Hover feels great on desktop pointers...
+    item.addEventListener('mouseenter', () => activateXray(index));
+    // ...but touch devices never fire mouseenter, so tap must work too.
+    item.addEventListener('click', () => activateXray(index));
   });
 
   if (xrayVisuals) {
@@ -880,43 +942,78 @@
   const pathFill = document.getElementById('journeyPathFill');
   const journeyStops = document.querySelectorAll('.journey-stop');
   let journeyPathLength = 0;
+  let journeyCumulative = [];
+  let journeyPoints = [];
 
   function buildJourneyPath(){
     if(!journeyContainer || !pathFill) return;
-    const cRect = journeyContainer.getBoundingClientRect();
+    const cw = journeyContainer.offsetWidth;
+    const ch = journeyContainer.offsetHeight;
     const nodes = document.querySelectorAll('.j-node');
-    if(!nodes.length) return;
+    if(!nodes.length || !ch) return;
 
-    journeySvg.setAttribute('width', cRect.width);
-    journeySvg.setAttribute('height', cRect.height);
-    journeySvg.setAttribute('viewBox', `0 0 ${cRect.width} ${cRect.height}`);
+    journeySvg.setAttribute('width', cw);
+    journeySvg.setAttribute('height', ch);
+    journeySvg.setAttribute('viewBox', `0 0 ${cw} ${ch}`);
 
-    const points = Array.from(nodes).map(n => {
-      const r = n.getBoundingClientRect();
-      return { x: r.left - cRect.left + r.width/2, y: r.top - cRect.top + r.height/2 };
+    // Use layout offsets, not getBoundingClientRect — the reveal animation's
+    // translateY is a paint-time transform and would throw off measurement
+    // for any point not yet scrolled into view.
+    journeyPoints = Array.from(nodes).map(n => {
+      const stop = n.closest('.journey-stop');
+      const x = stop.offsetLeft + n.offsetLeft + n.offsetWidth/2;
+      const y = stop.offsetTop + n.offsetTop + n.offsetHeight/2;
+      return { x, y };
     });
 
-    let d = `M ${points[0].x},${points[0].y}`;
-    for(let i=0; i<points.length-1; i++){
-      const p0 = points[i], p1 = points[i+1];
+    let d = `M ${journeyPoints[0].x},${journeyPoints[0].y}`;
+    journeyCumulative = [0];
+    for(let i=0; i<journeyPoints.length-1; i++){
+      const p0 = journeyPoints[i], p1 = journeyPoints[i+1];
       const midY = (p0.y + p1.y)/2;
+      const seg = `M ${p0.x},${p0.y} C ${p0.x},${midY} ${p1.x},${midY} ${p1.x},${p1.y}`;
       d += ` C ${p0.x},${midY} ${p1.x},${midY} ${p1.x},${p1.y}`;
+      // Measure this segment alone (reusing the always-present background
+      // path element) so we know exactly how far along the full line, in
+      // real geometric length, each node sits — not just by index.
+      pathBg.setAttribute('d', seg);
+      journeyCumulative.push(journeyCumulative[i] + pathBg.getTotalLength());
     }
 
     pathBg.setAttribute('d', d);
     pathFill.setAttribute('d', d);
     journeyPathLength = pathFill.getTotalLength();
     pathFill.style.strokeDasharray = journeyPathLength;
-    pathFill.style.strokeDashoffset = journeyPathLength;
     updateJourneyScroll();
   }
 
   function updateJourneyScroll(){
-    if(!journeyContainer || !pathFill || !journeyPathLength) return;
-    const rect = journeyContainer.getBoundingClientRect();
-    const scrollPercent = Math.max(0, Math.min(1, (window.innerHeight - rect.top) / (rect.height + window.innerHeight * 0.5)));
-    const drawLength = journeyPathLength * scrollPercent;
-    pathFill.style.strokeDashoffset = journeyPathLength - drawLength;
+    if(!journeyContainer || !pathFill || !journeyPathLength || journeyPoints.length < 2) return;
+
+    // A reference line 3/4 of the way down the viewport. As it sweeps past
+    // each node (in real, continuous scroll position — not a stepped
+    // threshold) the line draws smoothly to exactly that point.
+    const containerTop = journeyContainer.getBoundingClientRect().top;
+    const ref = window.innerHeight * 0.75;
+    const liveY = journeyPoints.map(p => containerTop + p.y);
+
+    let targetLength;
+    if (ref <= liveY[0]) {
+      targetLength = 0;
+    } else if (ref >= liveY[liveY.length - 1]) {
+      targetLength = journeyPathLength;
+    } else {
+      targetLength = journeyPathLength;
+      for (let i = 0; i < liveY.length - 1; i++){
+        if (ref >= liveY[i] && ref <= liveY[i+1]){
+          const span = liveY[i+1] - liveY[i];
+          const frac = span > 0 ? (ref - liveY[i]) / span : 0;
+          targetLength = journeyCumulative[i] + frac * (journeyCumulative[i+1] - journeyCumulative[i]);
+          break;
+        }
+      }
+    }
+    pathFill.style.strokeDashoffset = journeyPathLength - targetLength;
 
     journeyStops.forEach(stop => {
       if (stop.getBoundingClientRect().top < window.innerHeight * 0.85) {
@@ -926,11 +1023,30 @@
   }
 
   if (pathFill && journeyContainer){
-    window.addEventListener('load', buildJourneyPath);
-    window.addEventListener('resize', () => { clearTimeout(window._jRT); window._jRT = setTimeout(buildJourneyPath, 150); });
     window.addEventListener('scroll', updateJourneyScroll, { passive: true });
-    setTimeout(buildJourneyPath, 300);
-    setTimeout(buildJourneyPath, 900);
+
+    // Rebuild whenever the container's real size changes for any reason
+    // (window resize, image/logo load, late content shifts) instead of
+    // guessing fixed delays.
+    if ('ResizeObserver' in window){
+      const ro = new ResizeObserver(() => {
+        clearTimeout(window._jRO);
+        window._jRO = setTimeout(buildJourneyPath, 60);
+      });
+      ro.observe(journeyContainer);
+    } else {
+      window.addEventListener('resize', () => { clearTimeout(window._jRT); window._jRT = setTimeout(buildJourneyPath, 150); });
+    }
+
+    // Web fonts swapping in changes text wrap and therefore card height —
+    // rebuild once they're actually ready rather than guessing a timeout.
+    if (document.fonts && document.fonts.ready){
+      document.fonts.ready.then(buildJourneyPath);
+    }
+
+    window.addEventListener('load', buildJourneyPath);
+    buildJourneyPath();
+    setTimeout(buildJourneyPath, 400);
   }
 
   journeyStops.forEach(stop => {

@@ -165,66 +165,190 @@
     width:104%;
   }
   @media (max-width:600px){ .work-visual{ width:100%; transform:none; margin-left:0; } }
-  .plate{ width:70px; border-radius:13px; background:var(--bg); border:1px solid var(--line); overflow:hidden; }
-  .plate.tall{ height:200px; } .plate.mid{ height:160px; margin-top:20px; }
-  .plate .bar{ height:6px; background:var(--line); margin:13px 9px; border-radius:3px; }
-  .plate .bar.w60{ width:60%; } .plate .bar.w80{ width:80%; } .plate .bar.w40{ width:40%; }
-  .ribbon{
-    position:absolute; top:14px; left:14px; font-weight:800; font-size:.7rem;
-    background:var(--surface); border:1px solid var(--line); color:var(--muted); padding:7px 13px; border-radius:100px;
-  }
   .caption{ font-weight:700; font-size:.8rem; letter-spacing:.03em; text-transform:uppercase; color:var(--muted); }
   .caption span.sep{ color:var(--accent); margin:0 8px; }
   .work-body{ color:var(--muted); margin-top:16px; max-width:52ch; }
   .work-cta{ margin-top:24px; }
 
-  /* process spread - STICKY DECK */
-  .process-deck {
+  /* ---------- PROCESS SPREAD (CONTINUOUS TRANSFORM) ---------- */
+  .xray-section {
+    display: grid;
+    grid-template-columns: 1fr 1.1fr;
+    gap: 60px;
+    align-items: center;
+    margin-top: 40px;
+  }
+  .xray-list {
     display: flex;
     flex-direction: column;
-    gap: 40px;
-    margin-top: 50px;
-    padding-bottom: 80px; 
   }
-  .process-card {
-    position: sticky;
-    background: var(--surface);
-    border: 1px solid var(--line);
-    border-radius: 24px;
-    padding: 44px;
-    display: grid;
-    grid-template-columns: 90px 1fr;
-    gap: 20px;
-    box-shadow: 0 -12px 40px -20px rgba(46,35,32,.15);
-    align-items: start;
-    transition: transform 0.4s var(--ease);
+  .xray-item {
+    display: flex; gap: 20px;
+    padding: 26px 0;
+    border-bottom: 1px solid var(--line);
+    cursor: pointer;
+    opacity: 0.35;
+    transition: opacity 0.4s var(--ease), padding-left 0.4s var(--ease), border-color 0.4s;
   }
-  .pc-num {
+  .xray-item:hover { opacity: 0.7; }
+  .xray-item.active { opacity: 1; padding-left: 18px; border-color: var(--ink); }
+  .x-num {
     font-family: 'Fraunces', serif;
     font-style: italic;
-    font-size: 2.8rem;
+    font-size: 1.8rem;
     color: var(--accent);
     line-height: 1;
   }
-  .pc-text h4 {
-    font-size: 1.4rem;
-    margin-bottom: 10px;
-    color: var(--ink);
+  .x-text h4 { font-size: 1.25rem; margin-bottom: 6px; color: var(--ink); }
+  .x-text p { font-size: 0.95rem; color: var(--muted); line-height: 1.5; }
+  .x-chips{ display:flex; gap:8px; flex-wrap:wrap; margin-top: 12px; }
+  .x-chip{ font-size:.72rem; font-weight:600; color:var(--muted); border:1px solid var(--line); padding:5px 11px; border-radius:100px; transition: border-color .3s var(--ease), color .3s var(--ease); }
+  .xray-item.active .x-chip{ border-color: var(--accent); color: var(--accent); }
+
+  /* Single Continuous Process Visual */
+  .process-visuals {
+    position: relative;
+    aspect-ratio: 1 / 1;
+    border-radius: 24px;
+    overflow: hidden;
+    background-color: #FDF9EC;
+    transition: background-color 0.6s var(--ease), background-image 0.6s var(--ease);
+    border: 1px solid var(--line);
   }
-  .pc-text p {
-    color: var(--muted);
-    font-size: 1.05rem;
-    line-height: 1.6;
-    max-width: 50ch;
+  .process-visuals[data-phase="1"] { background-color: #EAF0F6; }
+  .process-visuals[data-phase="2"] {
+    background-color: #F5F5F5;
+    background-image: radial-gradient(var(--line) 2px, transparent 2px);
+    background-size: 24px 24px;
   }
-  @media (max-width: 600px) {
-    .process-card {
-      grid-template-columns: 1fr;
-      padding: 32px;
-      gap: 16px;
-    }
-    .pc-num { font-size: 2.2rem; margin-bottom: 4px; }
+  .process-visuals[data-phase="3"] {
+    background-color: #F7DCE2;
+    background-image: linear-gradient(135deg, #F7DCE2, #F2A649);
   }
+
+  .pv-connections {
+    position: absolute; inset: 0; width: 100%; height: 100%;
+    pointer-events: none; z-index: 1;
+  }
+  .pv-arrow {
+    stroke: var(--teal); stroke-width: 3; fill: none;
+    stroke-dasharray: 600; stroke-dashoffset: 600;
+    transition: stroke-dashoffset 0.8s var(--ease), opacity 0.4s var(--ease);
+    opacity: 0;
+  }
+  .process-visuals[data-phase="1"] .pv-arrow { stroke-dashoffset: 0; opacity: 1; }
+  .process-visuals[data-phase="2"] .pv-arrow,
+  .process-visuals[data-phase="3"] .pv-arrow { opacity: 0; }
+
+  .pv-item {
+    position: absolute;
+    display: flex; align-items: center; justify-content: center;
+    /* Springy transition to make the snap into grid feel tactile */
+    transition: all 0.7s cubic-bezier(0.34, 1.56, 0.64, 1);
+    z-index: 2; overflow: hidden;
+  }
+
+  /* Node 1 Layout States */
+  .process-visuals[data-phase="0"] .item-1,
+  .process-visuals[data-phase="1"] .item-1 {
+    top: 15%; left: 15%; width: 140px; height: 140px;
+    transform: rotate(-6deg);
+    background: #FFE174;
+    box-shadow: 2px 6px 16px rgba(0,0,0,0.08);
+    border-radius: 4px; border: none;
+  }
+  .process-visuals[data-phase="2"] .item-1 {
+    top: 10%; left: 10%; width: 80%; height: 12%;
+    transform: rotate(0);
+    background: #fff;
+    border: 2px solid #D0D0D0;
+    box-shadow: none;
+    border-radius: 6px;
+  }
+  .process-visuals[data-phase="3"] .item-1 {
+    top: 10%; left: 10%; width: 80%; height: 12%;
+    transform: rotate(0);
+    background: #fff;
+    border: 2px solid transparent;
+    box-shadow: 0 12px 24px rgba(46,35,32,0.1);
+    border-radius: 12px;
+  }
+
+  /* Node 2 Layout States */
+  .process-visuals[data-phase="0"] .item-2,
+  .process-visuals[data-phase="1"] .item-2 {
+    top: 50%; left: 45%; width: 140px; height: 140px;
+    transform: rotate(8deg);
+    background: #FFB5B5;
+    box-shadow: 2px 6px 16px rgba(0,0,0,0.08);
+    border-radius: 4px; border: none;
+  }
+  .process-visuals[data-phase="2"] .item-2 {
+    top: 26%; left: 10%; width: 80%; height: 64%;
+    transform: rotate(0);
+    background: #fff;
+    border: 2px solid #D0D0D0;
+    box-shadow: none;
+    border-radius: 6px;
+  }
+  .process-visuals[data-phase="3"] .item-2 {
+    top: 26%; left: 10%; width: 80%; height: 64%;
+    transform: rotate(0);
+    background: #fff;
+    border: 2px solid transparent;
+    box-shadow: 0 24px 48px rgba(46,35,32,0.2);
+    border-radius: 20px;
+  }
+
+  /* Internal Scrawled Text (Phase 0/1) */
+  .pv-scrawl {
+    position: absolute;
+    font-family: 'Fraunces', serif; font-size: 1.15rem; font-weight: 600; color: #3A2400; text-align: center; line-height: 1.2;
+    transition: opacity 0.3s var(--ease);
+  }
+  .process-visuals[data-phase="2"] .pv-scrawl,
+  .process-visuals[data-phase="3"] .pv-scrawl { opacity: 0; pointer-events: none; }
+
+  /* Internal UI Structure (Phase 2/3) */
+  .pv-ui {
+    width: 100%; height: 100%; opacity: 0;
+    transition: opacity 0.5s var(--ease);
+    display: flex; flex-direction: column;
+  }
+  .process-visuals[data-phase="2"] .pv-ui,
+  .process-visuals[data-phase="3"] .pv-ui { opacity: 1; }
+
+  /* Base UI Shapes */
+  .ui-header { flex-direction: row; align-items: center; justify-content: space-between; padding: 0 20px; }
+  .ui-logo { width: 30px; height: 14px; border-radius: 4px; transition: all 0.6s var(--ease); }
+  .ui-nav { display: flex; gap: 10px; }
+  .ui-line { background: #E0E0E0; border-radius: 4px; transition: all 0.6s var(--ease); }
+  .ui-line.short { width: 24px; height: 6px; }
+
+  .ui-card { padding: 20px; gap: 12px; }
+  .ui-img { flex: 1; border-radius: 4px; transition: all 0.6s var(--ease); }
+  .ui-line.title { width: 60%; height: 14px; }
+  .ui-line.sub { width: 40%; height: 10px; margin-bottom: auto; }
+  .ui-btn { width: 100%; height: 36px; border-radius: 4px; transition: all 0.6s var(--ease); margin-top: 10px; }
+
+  /* Wireframe Styling (Phase 2) */
+  .process-visuals[data-phase="2"] .ui-logo { border: 2px solid #D0D0D0; background: transparent; }
+  .process-visuals[data-phase="2"] .ui-line { background: #E0E0E0; }
+  .process-visuals[data-phase="2"] .ui-img { border: 2px solid #D0D0D0; background: repeating-linear-gradient(45deg, transparent, transparent 10px, #f5f5f5 10px, #f5f5f5 12px); }
+  .process-visuals[data-phase="2"] .ui-btn { border: 2px solid #D0D0D0; background: transparent; }
+
+  /* Polished Design Styling (Phase 3) */
+  .process-visuals[data-phase="3"] .ui-logo { background: var(--accent); border: 2px solid transparent; }
+  .process-visuals[data-phase="3"] .ui-line { background: var(--ink); border-radius: 10px; }
+  .process-visuals[data-phase="3"] .ui-line.sub { background: var(--muted); opacity: 0.5; }
+  .process-visuals[data-phase="3"] .ui-img { background: linear-gradient(135deg, #2F7A6E, #84B777); border-radius: 10px; border: 2px solid transparent; }
+  .process-visuals[data-phase="3"] .ui-btn { background: var(--accent); border-radius: 100px; border: 2px solid transparent; }
+
+  @media (max-width: 940px) {
+    .xray-section { grid-template-columns: 1fr; gap: 40px; }
+    .process-visuals { aspect-ratio: 4/3; }
+  }
+
 
   /* ---------- The Journey (Interactive Zigzag) ---------- */
   .journey-container {
@@ -241,6 +365,8 @@
     pointer-events: none;
     overflow: visible;
   }
+  /* intentionally no transition here — the line must track scroll position
+     in real time; a transition fights rapid scroll events and reads as lag */
   .journey-stop {
     position: relative;
     z-index: 1;
@@ -260,7 +386,7 @@
   }
   .journey-stop.left { justify-content: flex-start; }
   .journey-stop.right { justify-content: flex-end; }
-
+  
   .j-node {
     position: absolute;
     top: 50%;
@@ -305,7 +431,7 @@
     transform: translateY(-5px);
     box-shadow: 0 20px 40px -15px rgba(46,35,32,.15);
   }
-
+  
   .j-tag {
     display: inline-block;
     font-weight: 800; font-size: .65rem; letter-spacing: .08em; text-transform: uppercase;
@@ -337,24 +463,49 @@
     .journey-stop.left .j-content, .journey-stop.right .j-content{ margin-left:0; margin-right:0; width: 84%; padding: 22px; }
   }
 
-  /* joys — editorial index */
-  .personal-index { 
-    list-style: none; 
-    margin-top: 10px; 
-    border-top: 1px solid var(--line); 
+  /* joys — editorial index, with a bit of personality */
+  .personal-index {
+    list-style: none;
+    margin-top: 10px;
+    border-top: 1px solid var(--line);
   }
   .personal-index li {
+    position: relative;
+    overflow: hidden;
     display: grid;
-    grid-template-columns: 140px 1fr;
-    gap: 20px;
-    padding: 24px 0;
+    grid-template-columns: 34px 140px 1fr 50px;
+    align-items: center;
+    gap: 16px;
+    padding: 24px 18px;
+    margin: 0 -18px;
     border-bottom: 1px solid var(--line);
-    align-items: baseline;
-    transition: padding-left 0.3s var(--ease);
+    border-left: 3px solid var(--pi-tint, var(--line));
+    cursor: default;
+    transition: padding-left 0.35s var(--ease), border-left-color 0.35s var(--ease);
   }
-  .personal-index li:hover {
-    padding-left: 10px;
+  .pi-num{
+    position: relative; z-index: 1;
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 1rem;
+    color: var(--pi-ink, var(--accent));
   }
+  .personal-index li::before{
+    content: "";
+    position: absolute; inset: 0;
+    background: var(--pi-tint, var(--accent-soft));
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.45s var(--ease);
+    z-index: 0;
+  }
+  .personal-index li:hover{ padding-left: 30px; }
+  .personal-index li:hover::before{ transform: scaleX(1); }
+  .personal-index li:nth-child(1){ --pi-tint: var(--accent-soft); --pi-ink: var(--accent); }
+  .personal-index li:nth-child(2){ --pi-tint: #FCE8CE; --pi-ink: #B5691F; }
+  .personal-index li:nth-child(3){ --pi-tint: #DCEEE6; --pi-ink: var(--teal); }
+  .personal-index li:nth-child(4){ --pi-tint: #E4E1F5; --pi-ink: #6B5CA5; }
+  .pi-title, .pi-desc, .pi-icon{ position: relative; z-index: 1; }
   .pi-title {
     font-family: 'Fraunces', serif;
     font-weight: 600;
@@ -367,15 +518,30 @@
     max-width: 55ch;
     line-height: 1.6;
   }
+  .pi-icon{
+    font-size: 1.5rem;
+    text-align: right;
+    opacity: 0.3;
+    transform: scale(0.75) rotate(0deg);
+    transition: opacity 0.35s var(--ease), transform 0.4s var(--ease);
+  }
+  .personal-index li:hover .pi-icon{
+    opacity: 1;
+    transform: scale(1) rotate(8deg);
+  }
   @media (max-width: 600px) {
-    .personal-index li { 
-      grid-template-columns: 1fr; 
-      gap: 6px; 
-      padding: 18px 0; 
+    .personal-index li {
+      grid-template-columns: 22px 1fr 34px;
+      gap: 4px 10px;
+      padding: 18px 14px;
+      margin: 0 -14px;
     }
-    .personal-index li:hover {
-      padding-left: 0;
-    }
+    .pi-num{ grid-column: 1; grid-row: 1 / 3; align-self: start; font-size: .85rem; }
+    .pi-title{ grid-column: 2; grid-row: 1; }
+    .pi-icon{ grid-column: 3; grid-row: 1 / 3; align-self: center; }
+    .personal-index li .pi-desc{ grid-column: 2; grid-row: 2; }
+    .personal-index li:hover { padding-left: 14px; }
+    .pi-icon{ opacity: 1; transform: scale(1) rotate(0); }
   }
 
   /* contact spread */
@@ -447,11 +613,9 @@
       <span class="margin-label">01 — Selected Work</span>
       <h2 class="pull-quote reveal">Three case studies, start to finish.</h2>
 
-      <div class="reveal" style="margin-top:8px;">
-        <div class="work-visual">
-          <span class="ribbon">Case study</span>
-          <div class="plate tall"><div class="bar w60" style="margin-top:24px;"></div><div class="bar w80"></div><div class="bar w40"></div><div class="bar w80"></div><div class="bar w60"></div></div>
-          <div class="plate mid"><div class="bar w80" style="margin-top:22px;"></div><div class="bar w40"></div><div class="bar w60"></div></div>
+      <div class="reveal" style="margin-top:48px; padding-top:44px; border-top:1px solid var(--line);">
+        <div class="work-visual" style="background:#fff; padding:0; overflow:hidden;">
+          <img src="walmart-cover.png" alt="Walmart Credit Card app cover" style="width:100%; height:100%; object-fit:cover;">
         </div>
         <div class="caption">UX/UI<span class="sep">|</span>FINTECH<span class="sep">|</span>MOBILE APP DESIGN</div>
         <h3 style="font-family:'Fraunces'; font-size:1.3rem; margin-top:14px;">Walmart Credit Card App</h3>
@@ -480,39 +644,83 @@
       </div>
     </section>
 
-    <!-- PROCESS -->
+    <!-- PROCESS (CONTINUOUS TRANSFORM) -->
     <section id="process" class="spread">
       <span class="margin-label">02 — How I Work</span>
       <h2 class="pull-quote reveal">Same four moves, every time.</h2>
       
-      <div class="process-deck">
-        <div class="process-card reveal" style="top: 100px;">
-          <div class="pc-num">01</div>
-          <div class="pc-text">
-            <h4>Discovery</h4>
-            <p>Problem framing, stakeholder input, constraints mapping.</p>
+      <div class="xray-section reveal">
+        <div class="xray-list">
+          <div class="xray-item active" data-index="0">
+            <div class="x-num">01</div>
+            <div class="x-text">
+              <h4>Discovery</h4>
+              <p>Problem framing, stakeholder input, and constraints mapping — before assuming what the solution should be.</p>
+              <div class="x-chips"><span class="x-chip">Problem brief</span><span class="x-chip">Stakeholder notes</span><span class="x-chip">Constraints doc</span></div>
+            </div>
+          </div>
+          <div class="xray-item" data-index="1">
+            <div class="x-num">02</div>
+            <div class="x-text">
+              <h4>Analysis</h4>
+              <p>Systems and edge cases mapped out, a competitive scan run, every flow traced end to end.</p>
+              <div class="x-chips"><span class="x-chip">Flow maps</span><span class="x-chip">Competitive scan</span><span class="x-chip">Edge-case list</span></div>
+            </div>
+          </div>
+          <div class="xray-item" data-index="2">
+            <div class="x-num">03</div>
+            <div class="x-text">
+              <h4>Architecture</h4>
+              <p>That analysis turned into information architecture, wireframes, and a plan for how every component fits together.</p>
+              <div class="x-chips"><span class="x-chip">Sitemap</span><span class="x-chip">Wireframes</span><span class="x-chip">Component plan</span></div>
+            </div>
+          </div>
+          <div class="xray-item" data-index="3">
+            <div class="x-num">04</div>
+            <div class="x-text">
+              <h4>Design</h4>
+              <p>Hi-fi UI and a working design system, with handoff docs clean enough that engineering never has to guess.</p>
+              <div class="x-chips"><span class="x-chip">Hi-fi UI</span><span class="x-chip">Design system</span><span class="x-chip">Handoff docs</span></div>
+            </div>
           </div>
         </div>
-        <div class="process-card reveal" style="top: 120px;">
-          <div class="pc-num">02</div>
-          <div class="pc-text">
-            <h4>Analysis</h4>
-            <p>Systems and edge cases, competitive scan, flow mapping.</p>
+
+        <div class="process-visuals" id="processVisuals" data-phase="0">
+          
+          <!-- Shared Connections Layer -->
+          <svg class="pv-connections" viewBox="0 0 400 400" preserveAspectRatio="xMidYMid slice">
+            <defs>
+              <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+                <polygon points="0 0, 10 3.5, 0 7" fill="var(--teal)" />
+              </marker>
+            </defs>
+            <path class="pv-arrow" d="M 160 140 C 230 130, 200 240, 240 240" marker-end="url(#arrowhead)" />
+            <path class="pv-arrow a2" d="M 120 180 C 90 260, 160 290, 210 270" marker-end="url(#arrowhead)" />
+          </svg>
+
+          <!-- Evolving Node 1 -->
+          <div class="pv-item item-1">
+            <div class="pv-scrawl">Problem<br>Framing</div>
+            <div class="pv-ui ui-header">
+              <div class="ui-logo"></div>
+              <div class="ui-nav">
+                 <div class="ui-line short"></div>
+                 <div class="ui-line short"></div>
+              </div>
+            </div>
           </div>
-        </div>
-        <div class="process-card reveal" style="top: 140px;">
-          <div class="pc-num">03</div>
-          <div class="pc-text">
-            <h4>Architecture</h4>
-            <p>Information architecture, wireframes, component planning.</p>
+
+          <!-- Evolving Node 2 -->
+          <div class="pv-item item-2">
+            <div class="pv-scrawl">Core<br>Flows</div>
+            <div class="pv-ui ui-card">
+              <div class="ui-img"></div>
+              <div class="ui-line title"></div>
+              <div class="ui-line sub"></div>
+              <div class="ui-btn"></div>
+            </div>
           </div>
-        </div>
-        <div class="process-card reveal" style="top: 160px;">
-          <div class="pc-num">04</div>
-          <div class="pc-text">
-            <h4>Design</h4>
-            <p>Hi-fi UI, design systems, handoff docs.</p>
-          </div>
+
         </div>
       </div>
     </section>
@@ -616,20 +824,28 @@
       
       <ul class="personal-index reveal">
         <li>
+          <div class="pi-num">01</div>
           <div class="pi-title">Playing</div>
           <div class="pi-desc">Exploring the frontier in Red Dead Redemption 2 or surviving Resident Evil. It's my favorite way to reset.</div>
+          <div class="pi-icon">🎮</div>
         </li>
         <li>
+          <div class="pi-num">02</div>
           <div class="pi-title">Watching</div>
           <div class="pi-desc">Rarely missing a football match, or catching up on the endless journey of One Piece.</div>
+          <div class="pi-icon">⚽</div>
         </li>
         <li>
+          <div class="pi-num">03</div>
           <div class="pi-title">Worldbuilding</div>
           <div class="pi-desc">Building out a fantasy world for years — same instinct as product design, just with dragons instead of dashboards.</div>
+          <div class="pi-icon">🗺️</div>
         </li>
         <li>
+          <div class="pi-num">04</div>
           <div class="pi-title">Curating</div>
           <div class="pi-desc">Blending audio and building the perfect playlists for late-night drives.</div>
+          <div class="pi-icon">🎧</div>
         </li>
       </ul>
     </section>
@@ -727,6 +943,23 @@
     }
   });
 
+  // PROCESS VISUALS LOGIC (CONTINUOUS TRANSFORM)
+  const xrayItems = document.querySelectorAll('.xray-item');
+  const processVisuals = document.getElementById('processVisuals');
+
+  function activatePhase(index){
+    xrayItems.forEach(i => i.classList.remove('active'));
+    xrayItems[index].classList.add('active');
+    if (processVisuals) {
+      processVisuals.setAttribute('data-phase', index);
+    }
+  }
+
+  xrayItems.forEach((item, index) => {
+    item.addEventListener('mouseenter', () => activatePhase(index));
+    item.addEventListener('click', () => activatePhase(index));
+  });
+
   // Journey Line — dynamic zigzag drawn through the actual node positions
   const journeyContainer = document.querySelector('.journey-container');
   const journeySvg = document.getElementById('journeySvg');
@@ -734,43 +967,78 @@
   const pathFill = document.getElementById('journeyPathFill');
   const journeyStops = document.querySelectorAll('.journey-stop');
   let journeyPathLength = 0;
+  let journeyCumulative = [];
+  let journeyPoints = [];
 
   function buildJourneyPath(){
     if(!journeyContainer || !pathFill) return;
-    const cRect = journeyContainer.getBoundingClientRect();
+    const cw = journeyContainer.offsetWidth;
+    const ch = journeyContainer.offsetHeight;
     const nodes = document.querySelectorAll('.j-node');
-    if(!nodes.length) return;
+    if(!nodes.length || !ch) return;
 
-    journeySvg.setAttribute('width', cRect.width);
-    journeySvg.setAttribute('height', cRect.height);
-    journeySvg.setAttribute('viewBox', `0 0 ${cRect.width} ${cRect.height}`);
+    journeySvg.setAttribute('width', cw);
+    journeySvg.setAttribute('height', ch);
+    journeySvg.setAttribute('viewBox', `0 0 ${cw} ${ch}`);
 
-    const points = Array.from(nodes).map(n => {
-      const r = n.getBoundingClientRect();
-      return { x: r.left - cRect.left + r.width/2, y: r.top - cRect.top + r.height/2 };
+    // Use layout offsets, not getBoundingClientRect — the reveal animation's
+    // translateY is a paint-time transform and would throw off measurement
+    // for any point not yet scrolled into view.
+    journeyPoints = Array.from(nodes).map(n => {
+      const stop = n.closest('.journey-stop');
+      const x = stop.offsetLeft + n.offsetLeft + n.offsetWidth/2;
+      const y = stop.offsetTop + n.offsetTop + n.offsetHeight/2;
+      return { x, y };
     });
 
-    let d = `M ${points[0].x},${points[0].y}`;
-    for(let i=0; i<points.length-1; i++){
-      const p0 = points[i], p1 = points[i+1];
+    let d = `M ${journeyPoints[0].x},${journeyPoints[0].y}`;
+    journeyCumulative = [0];
+    for(let i=0; i<journeyPoints.length-1; i++){
+      const p0 = journeyPoints[i], p1 = journeyPoints[i+1];
       const midY = (p0.y + p1.y)/2;
+      const seg = `M ${p0.x},${p0.y} C ${p0.x},${midY} ${p1.x},${midY} ${p1.x},${p1.y}`;
       d += ` C ${p0.x},${midY} ${p1.x},${midY} ${p1.x},${p1.y}`;
+      // Measure this segment alone (reusing the always-present background
+      // path element) so we know exactly how far along the full line, in
+      // real geometric length, each node sits — not just by index.
+      pathBg.setAttribute('d', seg);
+      journeyCumulative.push(journeyCumulative[i] + pathBg.getTotalLength());
     }
 
     pathBg.setAttribute('d', d);
     pathFill.setAttribute('d', d);
     journeyPathLength = pathFill.getTotalLength();
     pathFill.style.strokeDasharray = journeyPathLength;
-    pathFill.style.strokeDashoffset = journeyPathLength;
     updateJourneyScroll();
   }
 
   function updateJourneyScroll(){
-    if(!journeyContainer || !pathFill || !journeyPathLength) return;
-    const rect = journeyContainer.getBoundingClientRect();
-    const scrollPercent = Math.max(0, Math.min(1, (window.innerHeight - rect.top) / (rect.height + window.innerHeight * 0.5)));
-    const drawLength = journeyPathLength * scrollPercent;
-    pathFill.style.strokeDashoffset = journeyPathLength - drawLength;
+    if(!journeyContainer || !pathFill || !journeyPathLength || journeyPoints.length < 2) return;
+
+    // A reference line 3/4 of the way down the viewport. As it sweeps past
+    // each node (in real, continuous scroll position — not a stepped
+    // threshold) the line draws smoothly to exactly that point.
+    const containerTop = journeyContainer.getBoundingClientRect().top;
+    const ref = window.innerHeight * 0.75;
+    const liveY = journeyPoints.map(p => containerTop + p.y);
+
+    let targetLength;
+    if (ref <= liveY[0]) {
+      targetLength = 0;
+    } else if (ref >= liveY[liveY.length - 1]) {
+      targetLength = journeyPathLength;
+    } else {
+      targetLength = journeyPathLength;
+      for (let i = 0; i < liveY.length - 1; i++){
+        if (ref >= liveY[i] && ref <= liveY[i+1]){
+          const span = liveY[i+1] - liveY[i];
+          const frac = span > 0 ? (ref - liveY[i]) / span : 0;
+          targetLength = journeyCumulative[i] + frac * (journeyCumulative[i+1] - journeyCumulative[i]);
+          break;
+        }
+      }
+    }
+    pathFill.style.strokeDashoffset = journeyPathLength - targetLength;
 
     journeyStops.forEach(stop => {
       if (stop.getBoundingClientRect().top < window.innerHeight * 0.85) {
@@ -780,15 +1048,32 @@
   }
 
   if (pathFill && journeyContainer){
-    window.addEventListener('load', buildJourneyPath);
-    window.addEventListener('resize', () => { clearTimeout(window._jRT); window._jRT = setTimeout(buildJourneyPath, 150); });
     window.addEventListener('scroll', updateJourneyScroll, { passive: true });
-    // Fonts loading can shift layout after initial paint — rebuild once settled
-    setTimeout(buildJourneyPath, 300);
-    setTimeout(buildJourneyPath, 900);
+
+    // Rebuild whenever the container's real size changes for any reason
+    // (window resize, image/logo load, late content shifts) instead of
+    // guessing fixed delays.
+    if ('ResizeObserver' in window){
+      const ro = new ResizeObserver(() => {
+        clearTimeout(window._jRO);
+        window._jRO = setTimeout(buildJourneyPath, 60);
+      });
+      ro.observe(journeyContainer);
+    } else {
+      window.addEventListener('resize', () => { clearTimeout(window._jRT); window._jRT = setTimeout(buildJourneyPath, 150); });
+    }
+
+    // Web fonts swapping in changes text wrap and therefore card height —
+    // rebuild once they're actually ready rather than guessing a timeout.
+    if (document.fonts && document.fonts.ready){
+      document.fonts.ready.then(buildJourneyPath);
+    }
+
+    window.addEventListener('load', buildJourneyPath);
+    buildJourneyPath();
+    setTimeout(buildJourneyPath, 400);
   }
 
-  // Tap-to-expand for touch devices (hover has no equivalent there)
   journeyStops.forEach(stop => {
     stop.addEventListener('click', () => {
       const wasExpanded = stop.classList.contains('expanded');

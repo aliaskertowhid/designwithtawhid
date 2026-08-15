@@ -2,120 +2,315 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>RentFinder — Home Rental App Case Study | Tawhid</title>
-<meta name="description" content="A home rental app for Bangladesh — case study by Md Ali Asker Tawhid.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+<title>RentFinder - Home Rental App Case Study | Tawhid</title>
+<meta name="description" content="A home rental app for Bangladesh - case study by Md Ali Asker Tawhid.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,500&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Manrope:wght@500;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,500;0,600;0,700;0,800;1,500;1,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root{
-    --bg:#FBF3EA; --surface:#FFFFFF; --surface-2:#F5E8DA; --ink:#2E2320; --muted:#79695D;
-    --line:#E5D5C0; --accent:#D6456B; --accent-soft:#F7DCE2; --gold:#F2A649; --teal:#2F7A6E;
+    --bg:#FBF3EA; --surface:#FFFFFF; --surface-2:#F5E8DA; --ink:#1F1917; --muted:#6E6157;
+    --line:#E2D2BE; --accent:#C9355C; --accent-soft:#F7DCE2; --gold:#E59638; --teal:#246B60;
     --ease:cubic-bezier(.19,1,.22,1);
   }
-  *{ box-sizing:border-box; margin:0; padding:0; }
+  *{ box-sizing:border-box; margin:0; padding:0; -webkit-tap-highlight-color: transparent; }
   html{ scroll-behavior:smooth; }
-  @media (prefers-reduced-motion: reduce){ html{ scroll-behavior:auto; } *{ animation-duration:.001ms !important; transition-duration:.001ms !important; scroll-behavior:auto !important; } }
-  body{ background:var(--bg); color:var(--ink); font-family:'Plus Jakarta Sans', sans-serif; line-height:1.65; -webkit-font-smoothing:antialiased; }
+  @media (prefers-reduced-motion: reduce){ 
+    html{ scroll-behavior:auto; } 
+    *{ animation-duration:.001ms !important; transition-duration:.001ms !important; scroll-behavior:auto !important; } 
+  }
+  body{ 
+    background:var(--bg); color:var(--ink); 
+    font-family:'Inter', -apple-system, BlinkMacSystemFont, sans-serif; 
+    line-height:1.7; -webkit-font-smoothing:antialiased; 
+    letter-spacing:-0.011em;
+    overflow-x:hidden;
+    width:100%;
+  }
   a{ color:inherit; text-decoration:none; }
-  img{ max-width:100%; display:block; }
+  img{ max-width:100%; height:auto; display:block; }
   ul,ol{ list-style:none; }
   ::selection{ background:var(--accent-soft); color:var(--ink); }
   :focus-visible{ outline:2px solid var(--accent); outline-offset:3px; }
-  h1,h2,h3,h4{ font-family:'Fraunces', serif; font-weight:600; letter-spacing:-0.015em; color:var(--ink); }
+  
+  h1,h2,h3,h4{ 
+    font-family:'Inter Tight', -apple-system, BlinkMacSystemFont, sans-serif; 
+    font-weight:700; 
+    letter-spacing:-0.035em; 
+    color:var(--ink); 
+    line-height:1.18;
+  }
 
-  .btn{ display:inline-flex; align-items:center; gap:8px; font-weight:700; font-size:.85rem; padding:13px 22px; border-radius:100px; border:1.5px solid var(--ink); background:var(--ink); color:var(--bg); transition: transform .25s var(--ease), background .25s var(--ease); cursor:pointer; }
+  .btn{ 
+    display:inline-flex; align-items:center; justify-content:center; gap:8px; 
+    font-family:'Inter', sans-serif; font-weight:600; font-size:.86rem; 
+    letter-spacing:-0.01em; padding:13px 24px; border-radius:100px; 
+    border:1.5px solid var(--ink); background:var(--ink); color:var(--bg); 
+    transition: transform .25s var(--ease), background .25s var(--ease), border-color .25s var(--ease); 
+    cursor:pointer; touch-action: manipulation; white-space: nowrap;
+  }
   .btn:hover{ transform:translateY(-2px); }
+  .btn:active{ transform:translateY(0); }
   .btn.accent{ background:var(--accent); border-color:var(--accent); color:#fff; }
 
-  .app{ display:grid; grid-template-columns:290px 1fr; align-items:start; }
-  @media (max-width:960px){ .app{ grid-template-columns:1fr; } }
-  .side{ position:sticky; top:0; height:100vh; padding:38px 30px; display:flex; flex-direction:column; border-right:1px solid var(--line); background:var(--surface-2); overflow-y:auto; scrollbar-width:thin; scrollbar-color:var(--line) transparent; }
-  .side::-webkit-scrollbar{ width:6px; } .side::-webkit-scrollbar-thumb{ background:var(--line); border-radius:10px; }
+  /* ---------- APP SHELL ---------- */
+  .app{ 
+    display:grid; 
+    grid-template-columns:290px 1fr; 
+    align-items:start; 
+    width:100%; 
+    min-height:100vh; 
+  }
+  @media (max-width:960px){ 
+    .app{ grid-template-columns:1fr; } 
+  }
+  
+  .side{ 
+    position:sticky; top:0; height:100vh; padding:44px 32px; 
+    display:flex; flex-direction:column; border-right:1px solid var(--line); 
+    background:var(--surface-2); overflow-y:auto; scrollbar-width:thin; scrollbar-color:var(--line) transparent; 
+    z-index: 10;
+  }
+  .side::-webkit-scrollbar{ width:6px; } 
+  .side::-webkit-scrollbar-thumb{ background:var(--line); border-radius:10px; }
   .side > *{ flex:0 0 auto; }
-  @media (max-width:960px){ .side{ position:relative; height:auto; padding:26px 24px; border-right:none; border-bottom:1px solid var(--line); } }
-  .back-link{ display:inline-flex; align-items:center; gap:8px; font-weight:700; font-size:.84rem; color:var(--muted); transition:color .2s var(--ease); }
+  
+  @media (max-width:960px){ 
+    .side{ 
+      position:relative; height:auto; padding:28px 24px; 
+      border-right:none; border-bottom:1px solid var(--line); 
+    } 
+  }
+  
+  .back-link{ 
+    display:inline-flex; align-items:center; gap:8px; font-family:'Inter', sans-serif; 
+    font-weight:600; font-size:.84rem; color:var(--muted); transition:color .2s var(--ease); 
+  }
   .back-link:hover{ color:var(--accent); }
-  .side-meta{ margin-top:28px; }
-  .side-meta h1{ font-size:1.1rem; line-height:1.25; }
-  .meta-row{ margin-top:16px; padding-top:13px; border-top:1px solid var(--line); }
-  .meta-row .k{ font-weight:800; font-size:.64rem; letter-spacing:.06em; text-transform:uppercase; color:var(--accent); }
-  .meta-row .v{ font-size:.85rem; color:var(--ink); margin-top:3px; }
-  .side-nav{ margin-top:22px; display:flex; flex-direction:column; gap:1px; }
-  .side-nav a{ font-weight:600; font-size:.79rem; color:var(--muted); padding:6px 0; transition:color .25s var(--ease); display:flex; gap:8px; }
-  .side-nav a .idx{ font-family:'Fraunces'; font-style:italic; font-size:.72rem; color:var(--accent); }
-  .side-nav a:hover, .side-nav a.active{ color:var(--ink); }
-  .side-foot{ margin-top:auto; padding-top:20px; }
+  
+  .side-meta{ margin-top:24px; }
+  .side-meta h1{ font-size:1.15rem; line-height:1.25; letter-spacing:-0.03em; }
+  
+  .meta-row{ margin-top:14px; padding-top:12px; border-top:1px solid var(--line); }
+  .meta-row .k{ font-family:'JetBrains Mono', monospace; font-weight:700; font-size:.65rem; letter-spacing:.08em; text-transform:uppercase; color:var(--accent); }
+  .meta-row .v{ font-size:.9rem; color:var(--ink); margin-top:3px; font-weight:500; }
+  
+  .side-nav{ margin-top:24px; display:flex; flex-direction:column; gap:3px; }
+  @media (max-width: 960px) {
+    .side-nav { display:flex; flex-direction:row; flex-wrap:wrap; gap:8px 14px; margin-top:18px; }
+  }
+  .side-nav a{ 
+    font-weight:500; font-size:.84rem; color:var(--muted); padding:6px 0; 
+    transition:color .2s var(--ease); display:flex; align-items:center; gap:8px; 
+  }
+  .side-nav a .idx{ font-family:'JetBrains Mono', monospace; font-size:.74rem; font-weight:600; color:var(--accent); }
+  .side-nav a:hover, .side-nav a.active{ color:var(--ink); font-weight:600; }
+  
+  .side-foot{ margin-top:auto; padding-top:24px; }
+  @media (max-width: 960px) {
+    .side-foot { margin-top:20px; padding-top:16px; border-top:1px solid var(--line); }
+  }
   .side-foot .btn{ width:100%; justify-content:center; }
 
-  /* ================= RENTFINDER THEME — same ledger system, RentFinder's own palette ================= */
+  /* ================= RENTFINDER THEME ================= */
   .content{
     --blue-deep:#363B44; --blue:#597766; --blue-bright:#84B777; --sky:#F2F6F0;
     --c-ink:#2B2E22; --c-slate:#5C6355; --c-line:#DCE6D6; --c-gold:#E0B04A;
-    --green:#597766; --red:#C6392F; --disp:'Manrope', sans-serif;
-    background:var(--sky); color:var(--c-ink); font-family:'Inter', sans-serif; line-height:1.65;
+    --green:#597766; --red:#C6392F;
+    background:var(--sky); color:var(--c-ink); line-height:1.7;
+    min-width:0; width:100%;
   }
-  .content h1,.content h2,.content h3,.content h4{ font-family:var(--disp); font-weight:800; letter-spacing:-0.02em; color:inherit; }
-  .content .wrap{ max-width:880px; margin:0 auto; padding:0 clamp(24px,5vw,60px); }
-  .content .band{ padding:76px 0; position:relative; }
+  .content h1,.content h2,.content h3,.content h4{ 
+    font-family:'Inter Tight', -apple-system, BlinkMacSystemFont, sans-serif; 
+    font-weight:700; letter-spacing:-0.03em; color:inherit; 
+  }
+  
+  .content .wrap{ 
+    max-width:880px; 
+    margin:0 auto; 
+    padding:0 24px; 
+    width:100%; 
+  }
+  @media (min-width: 768px) {
+    .content .wrap { padding: 0 48px; }
+  }
+  
+  .content .band{ 
+    padding: clamp(52px, 8vw, 84px) 0; 
+    position:relative; 
+  }
   .content .band + .band{ border-top:1px solid var(--c-line); }
 
-  .ledger{ position:relative; padding-left:38px; }
-  .ledger::before{ content:""; position:absolute; left:9px; top:6px; bottom:6px; width:2px; background:var(--c-line); }
-  .stamp{ position:absolute; left:0; top:0; width:20px; height:20px; border-radius:50%; background:var(--blue); color:#fff; font-family:var(--disp); font-weight:800; font-size:10px; display:flex; align-items:center; justify-content:center; box-shadow:0 0 0 4px var(--sky); }
-  .content .band:nth-of-type(odd) .stamp{ background:var(--c-gold); color:#3A2C00; }
+  /* ---------- LEDGER TIMELINE (NO-OVERLAP SAFE MARGINS) ---------- */
+  .content .wrap.ledger{ 
+    position:relative; 
+    padding-left: 64px; 
+    padding-right: 20px;
+  }
+  @media (min-width: 768px){
+    .content .wrap.ledger{ 
+      padding-left: 96px; 
+      padding-right: 48px; 
+    }
+  }
+  
+  /* Vertical Timeline Line */
+  .ledger::before{ 
+    content:""; 
+    position:absolute; 
+    left:28px; 
+    top:6px; 
+    bottom:6px; 
+    width:2px; 
+    background:var(--c-line); 
+    transform: translateX(-50%);
+  }
+  @media (min-width: 768px){
+    .ledger::before{ left:44px; }
+  }
+  
+  /* Timeline Numbered Stamp */
+  .stamp{ 
+    position:absolute; 
+    left:28px; 
+    top:0; 
+    transform:translateX(-50%);
+    width:24px; 
+    height:24px; 
+    border-radius:50%; 
+    background:var(--blue); 
+    color:#fff; 
+    font-family:'JetBrains Mono', monospace; 
+    font-weight:700; 
+    font-size:10px; 
+    display:flex; 
+    align-items:center; 
+    justify-content:center; 
+    box-shadow:0 0 0 4px var(--sky); 
+    z-index:2;
+  }
+  @media (min-width: 768px){
+    .stamp{ 
+      left:44px; 
+      width:28px; 
+      height:28px; 
+      font-size:11px; 
+      box-shadow:0 0 0 5px var(--sky); 
+    }
+  }
+  .content .band:nth-of-type(odd) .stamp{ 
+    background:var(--c-gold); 
+    color:#3A2C00; 
+  }
 
-  .eyebrow{ font-weight:800; font-size:11px; letter-spacing:.09em; text-transform:uppercase; color:var(--blue); margin-bottom:10px; }
-  .title{ font-size:clamp(22px,3vw,32px); max-width:30ch; margin-bottom:14px; }
-  .lead{ color:var(--c-slate); max-width:62ch; font-size:14.5px; }
-  .prose p{ color:var(--c-slate); margin-top:12px; max-width:64ch; font-size:14.5px; }
+  .eyebrow{ 
+    font-family:'JetBrains Mono', monospace; font-weight:700; font-size:11.5px; 
+    letter-spacing:.08em; text-transform:uppercase; color:var(--blue); margin-bottom:12px; 
+  }
+  .title{ font-size:clamp(1.6rem, 4.2vw, 2.25rem); letter-spacing:-0.035em; max-width:28ch; margin-bottom:16px; line-height:1.2; }
+  .lead{ color:var(--c-slate); max-width:62ch; font-size:clamp(0.98rem, 2.5vw, 1.08rem); line-height:1.7; }
+  .prose p{ color:var(--c-slate); margin-top:14px; max-width:64ch; font-size:clamp(0.94rem, 2.5vw, 1rem); line-height:1.7; }
   .prose p strong{ color:var(--c-ink); }
-  .credit-note{ margin-top:14px; font-size:12.5px; color:var(--c-slate); background:#fff; border:1px solid var(--c-line); border-radius:10px; padding:12px 16px; max-width:62ch; }
+  
+  .credit-note{ 
+    margin-top:24px; font-size:13.5px; color:var(--c-slate); background:#fff; 
+    border:1px solid var(--c-line); border-radius:14px; padding:18px 22px; max-width:64ch; 
+    box-shadow: 0 10px 24px -15px rgba(30,40,20,.08);
+  }
   .credit-note strong{ color:var(--c-ink); }
 
+  /* Hero */
   .hero{ background:linear-gradient(160deg, var(--blue-deep), var(--blue)); color:#fff; padding:0; overflow:hidden; }
-  .hero-cover{ width:100%; display:block; }
-  .hero .wrap.hero-text{ max-width:880px; padding:44px 0 40px; }
-  .hero-tag{ display:inline-flex; align-items:center; gap:8px; font-weight:800; font-size:11px; letter-spacing:.08em; text-transform:uppercase; color:var(--c-gold); border:1px solid rgba(224,176,74,.5); padding:7px 13px; border-radius:99px; margin-bottom:18px; }
+  .hero-cover{ width:100%; height:auto; display:block; object-fit:cover; max-height:460px; }
+  .hero .wrap.hero-text{ 
+    padding-top: clamp(36px, 6vw, 52px);
+    padding-bottom: clamp(32px, 6vw, 48px);
+  }
+  
+  .hero-tag{ 
+    display:inline-flex; align-items:center; gap:8px; font-family:'JetBrains Mono', monospace; 
+    font-weight:700; font-size:11px; letter-spacing:.08em; text-transform:uppercase; 
+    color:var(--c-gold); border:1px solid rgba(224,176,74,.5); padding:6px 14px; 
+    border-radius:100px; margin-bottom:18px; 
+  }
   .hero-tag .dot{ width:6px; height:6px; border-radius:50%; background:var(--c-gold); }
-  .hero h1{ color:#fff; font-size:clamp(24px,3.6vw,34px); line-height:1.15; max-width:26ch; margin-bottom:14px; }
-  .hero p.lead{ color:#D8E3D2; max-width:56ch; }
-  .hero-meta{ display:flex; gap:26px; margin-top:24px; flex-wrap:wrap; }
-  .hero-meta .k{ font-size:10px; letter-spacing:.09em; text-transform:uppercase; color:#A9BFA0; margin-bottom:4px; }
-  .hero-meta .v{ font-family:var(--disp); font-weight:800; font-size:14px; color:#fff; }
+  .hero h1{ color:#fff; font-size:clamp(1.8rem, 4.4vw, 2.5rem); line-height:1.16; max-width:26ch; margin-bottom:14px; letter-spacing:-0.035em; }
+  .hero p.lead{ color:#D8E3D2; max-width:58ch; font-size:clamp(0.98rem, 2.5vw, 1.08rem); }
+  
+  .hero-meta{ display:flex; gap:20px 32px; margin-top:28px; flex-wrap:wrap; }
+  .hero-meta .k{ font-family:'JetBrains Mono', monospace; font-size:9.5px; letter-spacing:.08em; text-transform:uppercase; color:#A9BFA0; margin-bottom:4px; }
+  .hero-meta .v{ font-size:14px; font-weight:700; color:#fff; }
 
-  .img-frame{ margin-top:24px; border-radius:16px; overflow:hidden; box-shadow:0 24px 50px -30px rgba(30,40,20,.35); background:#fff; }
-  .img-frame img{ width:100%; }
-  .img-cap{ margin-top:10px; font-size:12px; color:var(--c-slate); text-align:center; }
+  /* Image Frames */
+  .img-frame{ 
+    margin-top:24px; border-radius:14px; overflow:hidden; 
+    box-shadow:0 20px 44px -28px rgba(30,40,20,.35); background:#fff; border:1px solid var(--c-line); 
+  }
+  .img-frame img{ width:100%; height:auto; display:block; }
+  .img-cap{ font-family:'JetBrains Mono', monospace; margin-top:10px; font-size:11.5px; color:var(--c-slate); text-align:center; }
 
-  .statement{ margin-top:24px; border-radius:18px; overflow:hidden; box-shadow:0 20px 44px -32px rgba(30,40,20,.3); }
-  .stmt-head{ background:var(--blue-deep); color:#fff; padding:16px 22px; display:flex; justify-content:space-between; font-family:var(--disp); font-weight:800; font-size:11px; letter-spacing:.06em; text-transform:uppercase; }
-  .stmt-row{ display:grid; grid-template-columns:1fr 90px; gap:10px; padding:14px 22px; background:#fff; border-bottom:1px solid var(--c-line); align-items:center; }
+  /* Statement / Findings Table */
+  .statement{ 
+    margin-top:28px; border-radius:14px; overflow:hidden; 
+    box-shadow:0 16px 36px -28px rgba(30,40,20,.25); border:1px solid var(--c-line); 
+  }
+  .stmt-head{ 
+    background:var(--blue-deep); color:#fff; padding:14px 20px; display:flex; 
+    justify-content:space-between; font-family:'JetBrains Mono', monospace; 
+    font-weight:700; font-size:11px; letter-spacing:.06em; text-transform:uppercase; 
+  }
+  .stmt-row{ 
+    display:flex; justify-content:space-between; align-items:center; gap:16px; 
+    padding:16px 20px; background:#fff; border-bottom:1px solid var(--c-line); 
+  }
   .stmt-row:last-child{ border-bottom:none; }
-  .stmt-row .desc{ font-size:13px; color:var(--c-ink); }
-  .stmt-row .amt{ font-family:var(--disp); font-weight:800; font-size:12.5px; text-align:right; }
+  .stmt-row .desc{ font-size:13.5px; color:var(--c-ink); line-height:1.55; flex:1; }
+  .stmt-row .amt{ 
+    font-family:'JetBrains Mono', monospace; font-weight:700; font-size:11px; 
+    text-transform:uppercase; white-space:nowrap;
+  }
   .stmt-row.debit .amt{ color:var(--red); }
   .stmt-row.credit .amt{ color:var(--green); }
   .stmt-row.credit{ background:#F2F8F0; }
 
-  .swatch-row{ display:flex; gap:12px; margin-top:22px; flex-wrap:wrap; }
-  .swatch{ width:84px; }
-  .swatch .sw{ height:60px; border-radius:12px; box-shadow:0 10px 22px -14px rgba(30,40,20,.4); }
-  .swatch .lbl{ font-size:10.5px; color:var(--c-slate); margin-top:6px; text-align:center; }
-  .swatch .hex{ font-family:var(--disp); font-size:10px; font-weight:700; text-align:center; }
+  @media (max-width: 540px) {
+    .stmt-head{ padding:12px 16px; }
+    .stmt-row{ 
+      flex-direction:column; 
+      align-items:flex-start; 
+      gap:8px; 
+      padding:14px 16px; 
+    }
+    .stmt-row .amt{ 
+      align-self:flex-start; 
+      padding:2px 8px; 
+      border-radius:4px; 
+    }
+    .stmt-row.debit .amt{ background:#FDF2F2; }
+    .stmt-row.credit .amt{ background:#E8F7EE; }
+  }
 
-  .takeaway-list{ margin-top:22px; }
-  .takeaway-item{ display:grid; grid-template-columns:40px 1fr; gap:16px; padding:18px 0; border-top:1px solid var(--c-line); }
+  /* Swatches */
+  .swatch-row{ display:flex; gap:14px; margin-top:24px; flex-wrap:wrap; }
+  .swatch{ width:calc(50% - 7px); max-width:92px; }
+  .swatch .sw{ height:58px; border-radius:10px; box-shadow:0 8px 18px -12px rgba(30,40,20,.35); }
+  .swatch .lbl{ font-family:'JetBrains Mono', monospace; font-size:10px; color:var(--c-slate); margin-top:6px; text-align:center; font-weight:500; }
+  .swatch .hex{ font-family:'JetBrains Mono', monospace; font-size:9.5px; font-weight:700; text-align:center; color:var(--c-ink); }
+
+  /* Takeaways */
+  .takeaway-list{ margin-top:24px; }
+  .takeaway-item{ display:grid; grid-template-columns:36px 1fr; gap:16px; padding:18px 0; border-top:1px solid var(--c-line); }
   .takeaway-item:first-child{ border-top:none; }
-  .takeaway-item .t-num{ font-family:var(--disp); font-weight:800; color:var(--c-gold); font-size:16px; }
-  .takeaway-item h5{ font-family:var(--disp); font-weight:800; font-size:14px; margin-bottom:4px; }
-  .takeaway-item p{ font-size:13px; color:var(--c-slate); }
+  .takeaway-item .t-num{ font-family:'JetBrains Mono', monospace; font-weight:700; color:var(--c-gold); font-size:15px; }
+  .takeaway-item h5{ font-size:14.5px; font-weight:700; margin-bottom:4px; letter-spacing:-0.02em; }
+  .takeaway-item p{ font-size:13.5px; color:var(--c-slate); line-height:1.6; }
 
-  .content-footer{ background:var(--blue-deep); color:#A9BFA0; padding:44px 0; text-align:center; }
-  .content-footer .thanks{ font-family:var(--disp); font-size:19px; color:#fff; margin-bottom:10px; font-weight:800; }
-  .content-footer .fine{ font-size:11px; letter-spacing:.04em; }
-  .content-footer .cta{ margin-top:22px; }
+  /* Footer */
+  .content-footer{ background:var(--blue-deep); color:#A9BFA0; padding:48px 24px; text-align:center; }
+  .content-footer .thanks{ font-size:18px; color:#fff; margin-bottom:8px; font-weight:700; letter-spacing:-0.02em; }
+  .content-footer .fine{ font-family:'JetBrains Mono', monospace; font-size:10.5px; letter-spacing:.04em; }
+  .content-footer .cta{ margin-top:20px; }
 
   .reveal{ opacity:0; transform:translateY(16px); transition:opacity .6s var(--ease), transform .6s var(--ease); }
   .reveal.in{ opacity:1; transform:translateY(0); }
@@ -149,11 +344,11 @@
 
     <!-- HERO -->
     <section class="hero">
-      <img class="hero-cover" src="rent-cover.jpg" alt="RentFinder app cover — property browsing and listing detail screens">
+      <img class="hero-cover" src="rent-cover.jpg" alt="RentFinder app cover - property browsing and listing detail screens">
       <div class="wrap hero-text">
         <div class="reveal in">
           <div class="hero-tag"><span class="dot"></span>Case Study, Real Estate</div>
-          <h1>RentFinder — Simplifying Property Rentals</h1>
+          <h1>RentFinder - Simplifying Property Rentals</h1>
           <p class="lead">A premium home rental app built for Bangladesh, designed to make finding a verified, trustworthy rental faster for students, professionals, and families.</p>
           <div class="hero-meta">
             <div><div class="k">Timeline</div><div class="v">May – June 2023</div></div>
@@ -251,7 +446,7 @@
         <h2 class="title reveal">Large photography, honest pricing, map-first search.</h2>
         <div class="prose reveal"><p>The interface favors large, honest photography, clear pricing up front, and a map-first layout, so location and commute are obvious before anything else.</p></div>
 
-        <div class="img-frame reveal" style="margin-top:30px;">
+        <div class="img-frame reveal" style="margin-top:28px;">
           <img src="rent-filters-map.png" alt="Filter panel and map-based property search">
         </div>
         <div class="img-cap reveal">Filters and map-based search</div>
@@ -264,8 +459,8 @@
         <div class="img-frame reveal" style="margin-top:24px;"><img src="rent-bangla-compare.png" alt="Home screen shown side by side in English and Bangla"></div>
         <div class="img-cap reveal">English and Bangla versions, side by side</div>
 
-        <div class="eyebrow reveal" style="margin-top:40px;">Style Guide</div>
-        <div class="prose reveal"><p>Typeset in Gilroy, with a warm, grounded color palette meant to feel trustworthy rather than flashy.</p></div>
+        <div class="eyebrow reveal" style="margin-top:36px;">Style Guide</div>
+        <div class="prose reveal"><p>Typeset in clean negative-tracked sans-serif, with a warm, grounded color palette meant to feel trustworthy rather than flashy.</p></div>
         <div class="swatch-row reveal">
           <div class="swatch"><div class="sw" style="background:#FFE174;"></div><div class="lbl">Primary Yellow</div><div class="hex">#FFE174</div></div>
           <div class="swatch"><div class="sw" style="background:#597766;"></div><div class="lbl">Deep Green</div><div class="hex">#597766</div></div>
@@ -283,7 +478,7 @@
         <span class="stamp">07</span>
         <div class="eyebrow reveal">Full App Gallery</div>
         <h2 class="title reveal">The rest of the app.</h2>
-        <div class="prose reveal"><p>Beyond the core flows shown above, the app was designed end to end — onboarding, listings, messaging, payments, and property management.</p></div>
+        <div class="prose reveal"><p>Beyond the core flows shown above, the app was designed end to end onboarding, listings, messaging, payments, and property management.</p></div>
         <div class="img-frame reveal"><img src="rent-all-screens.png" alt="Composite grid of the full RentFinder app screen set"></div>
       </div>
     </section>
@@ -305,7 +500,7 @@
     <!-- BEHANCE LINK -->
     <section class="band" style="padding-top:0;">
       <div class="wrap">
-        <div class="credit-note reveal" style="max-width:none; text-align:center; padding:22px;">
+        <div class="credit-note reveal" style="max-width:none; text-align:center; padding:20px 24px;">
           Want the fuller, more visually polished version of this case study? <strong><a href="https://www.behance.net/gallery/173127915/Home-Rental-App-Design-UIUX-Case-Study" target="_blank" rel="noopener" style="color:var(--blue); text-decoration:underline;">View it on Behance →</a></strong>
         </div>
       </div>

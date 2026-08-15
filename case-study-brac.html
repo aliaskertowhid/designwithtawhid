@@ -2,126 +2,325 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
 <title>BRAC Bank Mobile App Redesign — Case Study | Tawhid</title>
-<meta name="description" content="A mobile banking app redesign for BRAC Bank — case study by Md Ali Asker Tawhid.">
+<meta name="description" content="A mobile banking app redesign for BRAC Bank - case study by Md Ali Asker Tawhid.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,500&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Manrope:wght@500;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,500;0,600;0,700;0,800;1,500;1,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root{
-    --bg:#FBF3EA; --surface:#FFFFFF; --surface-2:#F5E8DA; --ink:#2E2320; --muted:#79695D;
-    --line:#E5D5C0; --accent:#D6456B; --accent-soft:#F7DCE2; --gold:#F2A649; --teal:#2F7A6E;
+    --bg:#FBF3EA; --surface:#FFFFFF; --surface-2:#F5E8DA; --ink:#1F1917; --muted:#6E6157;
+    --line:#E2D2BE; --accent:#C9355C; --accent-soft:#F7DCE2; --gold:#E59638; --teal:#246B60;
     --ease:cubic-bezier(.19,1,.22,1);
   }
-  *{ box-sizing:border-box; margin:0; padding:0; }
+  *{ box-sizing:border-box; margin:0; padding:0; -webkit-tap-highlight-color: transparent; }
   html{ scroll-behavior:smooth; }
-  @media (prefers-reduced-motion: reduce){ html{ scroll-behavior:auto; } *{ animation-duration:.001ms !important; transition-duration:.001ms !important; scroll-behavior:auto !important; } }
-  body{ background:var(--bg); color:var(--ink); font-family:'Plus Jakarta Sans', sans-serif; line-height:1.65; -webkit-font-smoothing:antialiased; }
+  @media (prefers-reduced-motion: reduce){ 
+    html{ scroll-behavior:auto; } 
+    *{ animation-duration:.001ms !important; transition-duration:.001ms !important; scroll-behavior:auto !important; } 
+  }
+  body{ 
+    background:var(--bg); color:var(--ink); 
+    font-family:'Inter', -apple-system, BlinkMacSystemFont, sans-serif; 
+    line-height:1.7; -webkit-font-smoothing:antialiased; 
+    letter-spacing:-0.011em;
+    overflow-x:hidden;
+    width:100%;
+  }
   a{ color:inherit; text-decoration:none; }
-  img{ max-width:100%; display:block; }
+  img{ max-width:100%; height:auto; display:block; }
   ul,ol{ list-style:none; }
   ::selection{ background:var(--accent-soft); color:var(--ink); }
   :focus-visible{ outline:2px solid var(--accent); outline-offset:3px; }
-  h1,h2,h3,h4{ font-family:'Fraunces', serif; font-weight:600; letter-spacing:-0.015em; color:var(--ink); }
+  
+  h1,h2,h3,h4{ 
+    font-family:'Inter Tight', -apple-system, BlinkMacSystemFont, sans-serif; 
+    font-weight:700; 
+    letter-spacing:-0.035em; 
+    color:var(--ink); 
+    line-height:1.18;
+  }
 
-  .btn{ display:inline-flex; align-items:center; gap:8px; font-weight:700; font-size:.85rem; padding:13px 22px; border-radius:100px; border:1.5px solid var(--ink); background:var(--ink); color:var(--bg); transition: transform .25s var(--ease), background .25s var(--ease); cursor:pointer; }
+  .btn{ 
+    display:inline-flex; align-items:center; justify-content:center; gap:8px; 
+    font-family:'Inter', sans-serif; font-weight:600; font-size:.86rem; 
+    letter-spacing:-0.01em; padding:13px 24px; border-radius:100px; 
+    border:1.5px solid var(--ink); background:var(--ink); color:var(--bg); 
+    transition: transform .25s var(--ease), background .25s var(--ease), border-color .25s var(--ease); 
+    cursor:pointer; touch-action: manipulation; white-space: nowrap;
+  }
   .btn:hover{ transform:translateY(-2px); }
+  .btn:active{ transform:translateY(0); }
   .btn.accent{ background:var(--accent); border-color:var(--accent); color:#fff; }
 
-  .app{ display:grid; grid-template-columns:290px 1fr; align-items:start; }
-  @media (max-width:960px){ .app{ grid-template-columns:1fr; } }
-  .side{ position:sticky; top:0; height:100vh; padding:38px 30px; display:flex; flex-direction:column; border-right:1px solid var(--line); background:var(--surface-2); overflow-y:auto; scrollbar-width:thin; scrollbar-color:var(--line) transparent; }
-  .side::-webkit-scrollbar{ width:6px; } .side::-webkit-scrollbar-thumb{ background:var(--line); border-radius:10px; }
+  /* ---------- APP SHELL ---------- */
+  .app{ 
+    display:grid; 
+    grid-template-columns:290px 1fr; 
+    align-items:start; 
+    width:100%; 
+    min-height:100vh; 
+  }
+  @media (max-width:960px){ 
+    .app{ grid-template-columns:1fr; } 
+  }
+  
+  .side{ 
+    position:sticky; top:0; height:100vh; padding:44px 32px; 
+    display:flex; flex-direction:column; border-right:1px solid var(--line); 
+    background:var(--surface-2); overflow-y:auto; scrollbar-width:thin; scrollbar-color:var(--line) transparent; 
+    z-index: 10;
+  }
+  .side::-webkit-scrollbar{ width:6px; } 
+  .side::-webkit-scrollbar-thumb{ background:var(--line); border-radius:10px; }
   .side > *{ flex:0 0 auto; }
-  @media (max-width:960px){ .side{ position:relative; height:auto; padding:26px 24px; border-right:none; border-bottom:1px solid var(--line); } }
-  .back-link{ display:inline-flex; align-items:center; gap:8px; font-weight:700; font-size:.84rem; color:var(--muted); transition:color .2s var(--ease); }
+  
+  @media (max-width:960px){ 
+    .side{ 
+      position:relative; height:auto; padding:28px 20px 24px; 
+      border-right:none; border-bottom:1px solid var(--line); 
+    } 
+  }
+  
+  .back-link{ 
+    display:inline-flex; align-items:center; gap:8px; font-family:'Inter', sans-serif; 
+    font-weight:600; font-size:.84rem; color:var(--muted); transition:color .2s var(--ease); 
+  }
   .back-link:hover{ color:var(--accent); }
-  .side-meta{ margin-top:28px; }
-  .side-meta h1{ font-size:1.1rem; line-height:1.25; }
-  .meta-row{ margin-top:16px; padding-top:13px; border-top:1px solid var(--line); }
-  .meta-row .k{ font-weight:800; font-size:.64rem; letter-spacing:.06em; text-transform:uppercase; color:var(--accent); }
-  .meta-row .v{ font-size:.85rem; color:var(--ink); margin-top:3px; }
-  .side-nav{ margin-top:22px; display:flex; flex-direction:column; gap:1px; }
-  .side-nav a{ font-weight:600; font-size:.79rem; color:var(--muted); padding:6px 0; transition:color .25s var(--ease); display:flex; gap:8px; }
-  .side-nav a .idx{ font-family:'Fraunces'; font-style:italic; font-size:.72rem; color:var(--accent); }
-  .side-nav a:hover, .side-nav a.active{ color:var(--ink); }
-  .side-foot{ margin-top:auto; padding-top:20px; }
+  
+  .side-meta{ margin-top:24px; }
+  .side-meta h1{ font-size:1.15rem; line-height:1.25; letter-spacing:-0.03em; }
+  
+  .meta-row{ margin-top:14px; padding-top:12px; border-top:1px solid var(--line); }
+  .meta-row .k{ font-family:'JetBrains Mono', monospace; font-weight:700; font-size:.65rem; letter-spacing:.08em; text-transform:uppercase; color:var(--accent); }
+  .meta-row .v{ font-size:.9rem; color:var(--ink); margin-top:3px; font-weight:500; }
+  
+  .side-nav{ margin-top:24px; display:flex; flex-direction:column; gap:3px; }
+  @media (max-width: 960px) {
+    .side-nav { display:flex; flex-direction:row; flex-wrap:wrap; gap:8px 14px; margin-top:18px; }
+  }
+  .side-nav a{ 
+    font-weight:500; font-size:.84rem; color:var(--muted); padding:6px 0; 
+    transition:color .2s var(--ease); display:flex; align-items:center; gap:8px; 
+  }
+  .side-nav a .idx{ font-family:'JetBrains Mono', monospace; font-size:.74rem; font-weight:600; color:var(--accent); }
+  .side-nav a:hover, .side-nav a.active{ color:var(--ink); font-weight:600; }
+  
+  .side-foot{ margin-top:auto; padding-top:24px; }
+  @media (max-width: 960px) {
+    .side-foot { margin-top:20px; padding-top:16px; border-top:1px solid var(--line); }
+  }
   .side-foot .btn{ width:100%; justify-content:center; }
 
-  /* ================= BRAC BANK THEME — statement / passbook ledger ================= */
+  /* ================= BRAC BANK THEME ================= */
   .content{
-    --blue-deep:#00284D; --blue:#0057B8; --blue-bright:#1E7FE0; --sky:#EEF5FC;
-    --c-ink:#111827; --c-slate:#51677F; --c-line:#D8E3EE; --c-gold:#F5A623;
-    --green:#00A651; --red:#C6392F; --disp:'Manrope', sans-serif;
-    background:var(--sky); color:var(--c-ink); font-family:'Inter', sans-serif; line-height:1.65;
+    --blue-deep:#002447; --blue:#0052B4; --blue-bright:#1976D2; --sky:#F0F5FA;
+    --c-ink:#111827; --c-slate:#50657B; --c-line:#D4E0EC; --c-gold:#E09418;
+    --green:#008A44; --red:#C0342B;
+    background:var(--sky); color:var(--c-ink); line-height:1.7;
+    min-width:0; width:100%;
   }
-  .content h1,.content h2,.content h3,.content h4{ font-family:var(--disp); font-weight:800; letter-spacing:-0.02em; color:inherit; }
-  .content .wrap{ max-width:880px; margin:0 auto; padding:0 clamp(24px,5vw,60px); }
-  .content .band{ padding:76px 0; position:relative; }
+  .content h1,.content h2,.content h3,.content h4{ 
+    font-family:'Inter Tight', -apple-system, BlinkMacSystemFont, sans-serif; 
+    font-weight:700; letter-spacing:-0.03em; color:inherit; 
+  }
+  
+  .content .wrap{ 
+    max-width:880px; 
+    margin:0 auto; 
+    padding:0 24px; 
+    width:100%; 
+  }
+  @media (min-width: 768px) {
+    .content .wrap { padding: 0 48px; }
+  }
+  
+  .content .band{ 
+    padding: clamp(52px, 8vw, 84px) 0; 
+    position:relative; 
+  }
   .content .band + .band{ border-top:1px solid var(--c-line); }
 
-  .ledger{ position:relative; padding-left:38px; }
-  .ledger::before{ content:""; position:absolute; left:9px; top:6px; bottom:6px; width:2px; background:var(--c-line); }
-  .stamp{ position:absolute; left:0; top:0; width:20px; height:20px; border-radius:50%; background:var(--blue); color:#fff; font-family:var(--disp); font-weight:800; font-size:10px; display:flex; align-items:center; justify-content:center; box-shadow:0 0 0 4px var(--sky); }
-  .content .band:nth-of-type(odd) .stamp{ background:var(--c-gold); color:#3A2400; }
+  /* ---------- LEDGER TIMELINE (FIXED NO-OVERLAP SPACING) ---------- */
+  .content .wrap.ledger{ 
+    position:relative; 
+    padding-left: 64px; 
+    padding-right: 20px;
+  }
+  @media (min-width: 768px){
+    .content .wrap.ledger{ 
+      padding-left: 96px; 
+      padding-right: 48px; 
+    }
+  }
+  
+  /* Vertical Timeline Line */
+  .ledger::before{ 
+    content:""; 
+    position:absolute; 
+    left:28px; 
+    top:6px; 
+    bottom:6px; 
+    width:2px; 
+    background:var(--c-line); 
+    transform: translateX(-50%);
+  }
+  @media (min-width: 768px){
+    .ledger::before{ left:44px; }
+  }
+  
+  /* Timeline Numbered Stamp */
+  .stamp{ 
+    position:absolute; 
+    left:28px; 
+    top:0; 
+    transform:translateX(-50%);
+    width:24px; 
+    height:24px; 
+    border-radius:50%; 
+    background:var(--blue); 
+    color:#fff; 
+    font-family:'JetBrains Mono', monospace; 
+    font-weight:700; 
+    font-size:10px; 
+    display:flex; 
+    align-items:center; 
+    justify-content:center; 
+    box-shadow:0 0 0 4px var(--sky); 
+    z-index:2;
+  }
+  @media (min-width: 768px){
+    .stamp{ 
+      left:44px; 
+      width:28px; 
+      height:28px; 
+      font-size:11px; 
+      box-shadow:0 0 0 5px var(--sky); 
+    }
+  }
+  .content .band:nth-of-type(odd) .stamp{ 
+    background:var(--c-gold); 
+    color:#2A1A00; 
+  }
 
-  .eyebrow{ font-weight:800; font-size:11px; letter-spacing:.09em; text-transform:uppercase; color:var(--blue); margin-bottom:10px; }
-  .title{ font-size:clamp(22px,3vw,32px); max-width:30ch; margin-bottom:14px; }
-  .lead{ color:var(--c-slate); max-width:62ch; font-size:14.5px; }
-  .prose p{ color:var(--c-slate); margin-top:12px; max-width:64ch; font-size:14.5px; }
+  .eyebrow{ 
+    font-family:'JetBrains Mono', monospace; font-weight:700; font-size:11.5px; 
+    letter-spacing:.08em; text-transform:uppercase; color:var(--blue); margin-bottom:12px; 
+  }
+  .title{ font-size:clamp(1.6rem, 4.2vw, 2.25rem); letter-spacing:-0.035em; max-width:28ch; margin-bottom:16px; line-height:1.2; }
+  .lead{ color:var(--c-slate); max-width:62ch; font-size:clamp(0.98rem, 2.5vw, 1.08rem); line-height:1.7; }
+  .prose p{ color:var(--c-slate); margin-top:14px; max-width:64ch; font-size:clamp(0.94rem, 2.5vw, 1rem); line-height:1.7; }
   .prose p strong{ color:var(--c-ink); }
-  .credit-note{ margin-top:14px; font-size:12.5px; color:var(--c-slate); background:#fff; border:1px solid var(--c-line); border-radius:10px; padding:12px 16px; max-width:62ch; }
+  
+  .credit-note{ 
+    margin-top:24px; font-size:13.5px; color:var(--c-slate); background:#fff; 
+    border:1px solid var(--c-line); border-radius:14px; padding:18px 22px; max-width:64ch; 
+    box-shadow: 0 10px 24px -15px rgba(0,20,50,.08);
+  }
   .credit-note strong{ color:var(--c-ink); }
 
+  /* Hero */
   .hero{ background:linear-gradient(160deg, var(--blue-deep), var(--blue)); color:#fff; padding:0; overflow:hidden; }
-  .hero-cover{ width:100%; display:block; }
-  .hero .wrap.hero-text{ max-width:880px; padding:44px 0 40px; }
-  .hero-tag{ display:inline-flex; align-items:center; gap:8px; font-weight:800; font-size:11px; letter-spacing:.08em; text-transform:uppercase; color:var(--c-gold); border:1px solid rgba(245,166,35,.5); padding:7px 13px; border-radius:99px; margin-bottom:18px; }
+  .hero-cover{ width:100%; height:auto; display:block; object-fit:cover; max-height:460px; }
+  .hero .wrap.hero-text{ 
+    padding-top: clamp(36px, 6vw, 52px);
+    padding-bottom: clamp(32px, 6vw, 48px);
+  }
+  
+  .hero-tag{ 
+    display:inline-flex; align-items:center; gap:8px; font-family:'JetBrains Mono', monospace; 
+    font-weight:700; font-size:11px; letter-spacing:.08em; text-transform:uppercase; 
+    color:var(--c-gold); border:1px solid rgba(224,148,24,.4); padding:6px 14px; 
+    border-radius:100px; margin-bottom:18px; 
+  }
   .hero-tag .dot{ width:6px; height:6px; border-radius:50%; background:var(--c-gold); }
-  .hero h1{ color:#fff; font-size:clamp(24px,3.6vw,34px); line-height:1.15; max-width:26ch; margin-bottom:14px; }
-  .hero p.lead{ color:#C6DBF2; max-width:56ch; }
-  .hero-meta{ display:flex; gap:26px; margin-top:24px; flex-wrap:wrap; }
-  .hero-meta .k{ font-size:10px; letter-spacing:.09em; text-transform:uppercase; color:#8FB4DD; margin-bottom:4px; }
-  .hero-meta .v{ font-family:var(--disp); font-weight:800; font-size:14px; color:#fff; }
+  .hero h1{ color:#fff; font-size:clamp(1.8rem, 4.4vw, 2.5rem); line-height:1.16; max-width:26ch; margin-bottom:14px; letter-spacing:-0.035em; }
+  .hero p.lead{ color:#C8DCF0; max-width:58ch; font-size:clamp(0.98rem, 2.5vw, 1.08rem); }
+  
+  .hero-meta{ display:flex; gap:20px 32px; margin-top:28px; flex-wrap:wrap; }
+  .hero-meta .k{ font-family:'JetBrains Mono', monospace; font-size:9.5px; letter-spacing:.08em; text-transform:uppercase; color:#8EB4DE; margin-bottom:4px; }
+  .hero-meta .v{ font-size:14px; font-weight:700; color:#fff; }
 
-  .img-frame{ margin-top:24px; border-radius:16px; overflow:hidden; box-shadow:0 24px 50px -30px rgba(0,20,50,.35); background:#fff; }
-  .img-frame img{ width:100%; }
-  .img-cap{ margin-top:10px; font-size:12px; color:var(--c-slate); text-align:center; }
+  /* Image Frames */
+  .img-frame{ 
+    margin-top:24px; border-radius:14px; overflow:hidden; 
+    box-shadow:0 20px 44px -28px rgba(0,20,50,.3); background:#fff; border:1px solid var(--c-line); 
+  }
+  .img-frame img{ width:100%; height:auto; display:block; }
+  .img-cap{ font-family:'JetBrains Mono', monospace; margin-top:10px; font-size:11.5px; color:var(--c-slate); text-align:center; }
 
-  .statement{ margin-top:24px; border-radius:18px; overflow:hidden; box-shadow:0 20px 44px -32px rgba(0,20,50,.3); }
-  .stmt-head{ background:var(--blue-deep); color:#fff; padding:16px 22px; display:flex; justify-content:space-between; font-family:var(--disp); font-weight:800; font-size:11px; letter-spacing:.06em; text-transform:uppercase; }
-  .stmt-row{ display:grid; grid-template-columns:1fr 90px; gap:10px; padding:15px 22px; background:#fff; border-bottom:1px solid var(--c-line); align-items:center; }
+  /* Statement / Findings Table */
+  .statement{ 
+    margin-top:28px; border-radius:14px; overflow:hidden; 
+    box-shadow:0 16px 36px -28px rgba(0,20,50,.2); border:1px solid var(--c-line); 
+  }
+  .stmt-head{ 
+    background:var(--blue-deep); color:#fff; padding:14px 20px; display:flex; 
+    justify-content:space-between; font-family:'JetBrains Mono', monospace; 
+    font-weight:700; font-size:11px; letter-spacing:.06em; text-transform:uppercase; 
+  }
+  .stmt-row{ 
+    display:flex; justify-content:space-between; align-items:center; gap:16px; 
+    padding:16px 20px; background:#fff; border-bottom:1px solid var(--c-line); 
+  }
   .stmt-row:last-child{ border-bottom:none; }
-  .stmt-row .desc{ font-size:13.5px; color:var(--c-ink); }
-  .stmt-row .amt{ font-family:var(--disp); font-weight:800; font-size:13px; text-align:right; }
+  .stmt-row .desc{ font-size:13.5px; color:var(--c-ink); line-height:1.55; flex:1; }
+  .stmt-row .amt{ 
+    font-family:'JetBrains Mono', monospace; font-weight:700; font-size:11px; 
+    text-transform:uppercase; white-space:nowrap;
+  }
   .stmt-row.debit .amt{ color:var(--red); }
   .stmt-row.credit .amt{ color:var(--green); }
-  .stmt-row.credit{ background:#F3FAF5; }
+  .stmt-row.credit{ background:#F3FAF6; }
 
-  .empathy-grid{ display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:24px; }
-  @media (max-width:600px){ .empathy-grid{ grid-template-columns:1fr; } }
-  .em-card{ background:#fff; border-radius:14px; padding:20px; box-shadow:0 16px 36px -30px rgba(0,20,50,.3); }
-  .em-card h5{ font-family:var(--disp); font-weight:800; font-size:11px; text-transform:uppercase; letter-spacing:.08em; margin-bottom:10px; color:var(--blue); }
-  .em-card p{ font-size:13px; color:var(--c-slate); }
+  @media (max-width: 540px) {
+    .stmt-head{ padding:12px 16px; }
+    .stmt-row{ 
+      flex-direction:column; 
+      align-items:flex-start; 
+      gap:8px; 
+      padding:14px 16px; 
+    }
+    .stmt-row .amt{ 
+      align-self:flex-start; 
+      padding:2px 8px; 
+      border-radius:4px; 
+    }
+    .stmt-row.debit .amt{ background:#FDF2F2; }
+    .stmt-row.credit .amt{ background:#E8F7EE; }
+  }
 
-  .swatch-row{ display:flex; gap:12px; margin-top:22px; flex-wrap:wrap; }
-  .swatch{ width:84px; }
-  .swatch .sw{ height:60px; border-radius:12px; box-shadow:0 10px 22px -14px rgba(0,20,50,.4); }
-  .swatch .lbl{ font-size:10.5px; color:var(--c-slate); margin-top:6px; text-align:center; }
-  .swatch .hex{ font-family:var(--disp); font-size:10px; font-weight:700; text-align:center; }
+  /* Empathy Grid */
+  .empathy-grid{ display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top:24px; }
+  @media (max-width:640px){ .empathy-grid{ grid-template-columns:1fr; } }
+  .em-card{ 
+    background:#fff; border-radius:14px; padding:20px 22px; 
+    border:1px solid var(--c-line); box-shadow:0 12px 28px -24px rgba(0,20,50,.15); 
+  }
+  .em-card h5{ font-family:'JetBrains Mono', monospace; font-weight:700; font-size:11px; text-transform:uppercase; letter-spacing:.08em; margin-bottom:8px; color:var(--blue); }
+  .em-card p{ font-size:13.5px; color:var(--c-slate); line-height:1.6; }
 
-  .takeaway-list{ margin-top:22px; }
-  .takeaway-item{ display:grid; grid-template-columns:40px 1fr; gap:16px; padding:18px 0; border-top:1px solid var(--c-line); }
+  /* Swatches */
+  .swatch-row{ display:flex; gap:14px; margin-top:24px; flex-wrap:wrap; }
+  .swatch{ width:calc(50% - 7px); max-width:92px; }
+  .swatch .sw{ height:58px; border-radius:10px; box-shadow:0 8px 18px -12px rgba(0,20,50,.35); }
+  .swatch .lbl{ font-family:'JetBrains Mono', monospace; font-size:10px; color:var(--c-slate); margin-top:6px; text-align:center; font-weight:500; }
+  .swatch .hex{ font-family:'JetBrains Mono', monospace; font-size:9.5px; font-weight:700; text-align:center; color:var(--c-ink); }
+
+  /* Takeaways */
+  .takeaway-list{ margin-top:24px; }
+  .takeaway-item{ display:grid; grid-template-columns:36px 1fr; gap:16px; padding:18px 0; border-top:1px solid var(--c-line); }
   .takeaway-item:first-child{ border-top:none; }
-  .takeaway-item .t-num{ font-family:var(--disp); font-weight:800; color:var(--c-gold); font-size:16px; }
-  .takeaway-item h5{ font-family:var(--disp); font-weight:800; font-size:14px; margin-bottom:4px; }
-  .takeaway-item p{ font-size:13px; color:var(--c-slate); }
+  .takeaway-item .t-num{ font-family:'JetBrains Mono', monospace; font-weight:700; color:var(--c-gold); font-size:15px; }
+  .takeaway-item h5{ font-size:14.5px; font-weight:700; margin-bottom:4px; letter-spacing:-0.02em; }
+  .takeaway-item p{ font-size:13.5px; color:var(--c-slate); line-height:1.6; }
 
-  .content-footer{ background:var(--blue-deep); color:#8FB4DD; padding:44px 0; text-align:center; }
-  .content-footer .thanks{ font-family:var(--disp); font-size:19px; color:#fff; margin-bottom:10px; font-weight:800; }
-  .content-footer .fine{ font-size:11px; letter-spacing:.04em; }
-  .content-footer .cta{ margin-top:22px; }
+  /* Footer */
+  .content-footer{ background:var(--blue-deep); color:#8EB4DE; padding:48px 24px; text-align:center; }
+  .content-footer .thanks{ font-size:18px; color:#fff; margin-bottom:8px; font-weight:700; letter-spacing:-0.02em; }
+  .content-footer .fine{ font-family:'JetBrains Mono', monospace; font-size:10.5px; letter-spacing:.04em; }
+  .content-footer .cta{ margin-top:20px; }
 
   .reveal{ opacity:0; transform:translateY(16px); transition:opacity .6s var(--ease), transform .6s var(--ease); }
   .reveal.in{ opacity:1; transform:translateY(0); }
@@ -159,8 +358,8 @@
       <div class="wrap hero-text">
         <div class="reveal in">
           <div class="hero-tag"><span class="dot"></span>Case Study, Mobile Banking</div>
-          <h1>BRAC Bank — Mobile Banking UX Redesign</h1>
-          <p class="lead">BRAC Bank's app brings effortless, secure banking to your fingertips — this redesign focused on unifying accounts, simplifying transfers, and making the app feel modern and trustworthy.</p>
+          <h1>BRAC Bank - Mobile Banking UX Redesign</h1>
+          <p class="lead">BRAC Bank's app brings effortless, secure banking to your fingertips - this redesign focused on unifying accounts, simplifying transfers, and making the app feel modern and trustworthy.</p>
           <div class="hero-meta">
             <div><div class="k">Timeline</div><div class="v">6 Weeks</div></div>
             <div><div class="k">Role</div><div class="v">UI/UX Designer</div></div>
@@ -177,8 +376,8 @@
         <div class="eyebrow reveal">Project Overview</div>
         <h2 class="title reveal">One of Bangladesh's largest banks, reworked for everyday use.</h2>
         <div class="prose reveal">
-          <p>BRAC Bank is a leading commercial bank in Bangladesh, serving millions of customers through its branch network and digital channels. Its mobile app sits at the center of that digital strategy, so this case study looks closely at the app's design, features, and overall experience — and what a redesign could do for it.</p>
-          <p><strong>I rebuilt the app around a refreshed interface and a few key upgrades:</strong> unified account management, a simplified transfer flow, and personalized product recommendations — all aimed at boosting customer satisfaction and supporting the bank's broader digital transformation.</p>
+          <p>BRAC Bank is a leading commercial bank in Bangladesh, serving millions of customers through its branch network and digital channels. Its mobile app sits at the center of that digital strategy, so this case study looks closely at the app's design, features, and overall experience and what a redesign could do for it.</p>
+          <p><strong>I rebuilt the app around a refreshed interface and a few key upgrades:</strong> unified account management, a simplified transfer flow, and personalized product recommendations, All aimed at boosting customer satisfaction and supporting the bank's broader digital transformation.</p>
         </div>
       </div>
     </section>
@@ -190,6 +389,7 @@
         <div class="eyebrow reveal">Research &amp; Discovery</div>
         <h2 class="title reveal">Finding out where the friction really lived.</h2>
         <div class="prose reveal"><p>Before touching the interface, I spoke with existing app users and mapped the current account, transfer, and recommendation flows. I also went through App Store and Play Store reviews, along with BRAC Bank's Facebook page and post comments, to see where real users were getting stuck.</p></div>
+        
         <div class="img-frame reveal"><img src="brac-research-reviews.png" alt="Sample of real one-star app store reviews highlighting recurring complaints"></div>
         <div class="img-cap reveal">Desk research — recurring complaints pulled from App Store, Play Store, and Facebook reviews</div>
 
@@ -250,7 +450,7 @@
         <span class="stamp">05</span>
         <div class="eyebrow reveal">Scope &amp; Timeline</div>
         <h2 class="title reveal">Six weeks, three phases.</h2>
-        <div class="prose reveal"><p>Research and persona work came first, followed by experience design — user flows, journey mapping, and wireframes — before moving into visual design and prototyping.</p></div>
+        <div class="prose reveal"><p>Research and persona work came first, followed by experience design, user flows, journey mapping, and wireframes before moving into visual design and prototyping.</p></div>
         <div class="img-frame reveal"><img src="brac-timeline.png" alt="Project timeline: Research weeks 1-3, Experience Design weeks 3-5, Visual Design weeks 5-6"></div>
       </div>
     </section>
@@ -263,14 +463,14 @@
         <h2 class="title reveal">Built on BRAC Bank's own brand blue.</h2>
         <div class="prose reveal"><p>The visual system leans on BRAC Bank's brand blue, paired with generous whitespace and clear typographic hierarchy, so account numbers and balances stay scannable at a glance.</p></div>
         <div class="swatch-row reveal">
-          <div class="swatch"><div class="sw" style="background:#0057B8;"></div><div class="lbl">Primary Blue</div><div class="hex">#0057B8</div></div>
-          <div class="swatch"><div class="sw" style="background:#00A651;"></div><div class="lbl">Success Green</div><div class="hex">#00A651</div></div>
-          <div class="swatch"><div class="sw" style="background:#F5A623;"></div><div class="lbl">Alert Amber</div><div class="hex">#F5A623</div></div>
+          <div class="swatch"><div class="sw" style="background:#0052B4;"></div><div class="lbl">Primary Blue</div><div class="hex">#0052B4</div></div>
+          <div class="swatch"><div class="sw" style="background:#008A44;"></div><div class="lbl">Success Green</div><div class="hex">#008A44</div></div>
+          <div class="swatch"><div class="sw" style="background:#E09418;"></div><div class="lbl">Alert Amber</div><div class="hex">#E09418</div></div>
           <div class="swatch"><div class="sw" style="background:#111827;"></div><div class="lbl">Ink</div><div class="hex">#111827</div></div>
           <div class="swatch"><div class="sw" style="background:#F4F5F7; border:1px solid var(--c-line);"></div><div class="lbl">Surface</div><div class="hex">#F4F5F7</div></div>
         </div>
 
-        <div class="img-frame reveal" style="margin-top:30px;"><img src="brac-visual-screens.png" alt="Redesigned screens: add beneficiary, home, statement, and payment details"></div>
+        <div class="img-frame reveal" style="margin-top:28px;"><img src="brac-visual-screens.png" alt="Redesigned screens: add beneficiary, home, statement, and payment details"></div>
         <div class="img-cap reveal">Add beneficiary, home, statement, and payment screens</div>
 
         <div class="img-frame reveal" style="margin-top:24px;"><img src="brac-bangla-compare.png" alt="Home screen shown side by side in English and Bangla"></div>
@@ -284,7 +484,7 @@
         <span class="stamp">07</span>
         <div class="eyebrow reveal">100+ Other Screens</div>
         <h2 class="title reveal">The rest of the app.</h2>
-        <div class="prose reveal"><p>Beyond the core flows shown above, the redesign covered the app end to end — onboarding, transfers, bill pay, loans, notifications, and more.</p></div>
+        <div class="prose reveal"><p>Beyond the core flows shown above, the redesign covered the app end to end onboarding, transfers, bill pay, loans, notifications, and more.</p></div>
         <div class="img-frame reveal"><img src="brac-all-screens.png" alt="Composite grid of over 100 additional app screens covering onboarding, transfers, bill pay, loans, and notifications"></div>
       </div>
     </section>
@@ -296,7 +496,7 @@
         <div class="eyebrow reveal">Key Takeaways</div>
         <h2 class="title reveal">What this project reinforced.</h2>
         <div class="takeaway-list reveal">
-          <div class="takeaway-item"><span class="t-num">01</span><div><h5>Unify before you decorate</h5><p>Consolidating accounts into one dashboard mattered more to users than any visual polish — it removed the biggest daily friction point first.</p></div></div>
+          <div class="takeaway-item"><span class="t-num">01</span><div><h5>Unify before you decorate</h5><p>Consolidating accounts into one dashboard mattered more to users than any visual polish. It removed the biggest daily friction point first.</p></div></div>
           <div class="takeaway-item"><span class="t-num">02</span><div><h5>Shorten the path to money movement</h5><p>Cutting the transfer flow down, with saved beneficiaries, was the single change users mentioned most in follow-up interviews.</p></div></div>
           <div class="takeaway-item"><span class="t-num">03</span><div><h5>Personalization needs real data</h5><p>Recommendations only felt useful once they were grounded in actual spending patterns rather than generic product pushes.</p></div></div>
         </div>
@@ -306,7 +506,7 @@
     <!-- BEHANCE LINK -->
     <section class="band" style="padding-top:0;">
       <div class="wrap">
-        <div class="credit-note reveal" style="max-width:none; text-align:center; padding:22px;">
+        <div class="credit-note reveal" style="max-width:none; text-align:center; padding:20px 24px;">
           Want the fuller, more visually polished version of this case study? <strong><a href="https://www.behance.net/gallery/162626567/Brac-Bank-Mobile-App-Redesign" target="_blank" rel="noopener" style="color:var(--blue); text-decoration:underline;">View it on Behance →</a></strong>
         </div>
       </div>

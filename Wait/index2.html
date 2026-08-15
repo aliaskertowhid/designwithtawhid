@@ -7,7 +7,7 @@
 <meta name="description" content="Md Ali Asker Tawhid is a Product Designer based in Toronto, focused on Fintech and Banking systems.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,500&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,500&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
   :root{
     --bg:#FBF3EA;
@@ -178,99 +178,128 @@
   .work-body{ color:var(--muted); margin-top:16px; max-width:52ch; }
   .work-cta{ margin-top:24px; }
 
-  /* ---------- PROCESS SPREAD (TERMINAL — HOW I THINK & WORK) ---------- */
-  .beliefs-lede{ color: var(--muted); max-width: 58ch; margin-top: -6px; font-size: .98rem; }
+  /* ---------- PROCESS SPREAD (X-RAY LENS) ---------- */
+  .xray-section {
+    display: grid;
+    grid-template-columns: 1fr 1.1fr;
+    gap: 60px;
+    align-items: center;
+    margin-top: 40px;
+  }
+  .xray-list {
+    display: flex;
+    flex-direction: column;
+  }
+  .xray-item {
+    display: flex; gap: 20px;
+    padding: 26px 0;
+    border-bottom: 1px solid var(--line);
+    cursor: pointer;
+    opacity: 0.35;
+    transition: opacity 0.4s var(--ease), padding-left 0.4s var(--ease), border-color 0.4s;
+  }
+  .xray-item:hover { opacity: 0.7; }
+  .xray-item.active { opacity: 1; padding-left: 18px; border-color: var(--ink); }
+  .x-num {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 1.8rem;
+    color: var(--accent);
+    line-height: 1;
+  }
+  .x-text h4 { font-size: 1.25rem; margin-bottom: 6px; color: var(--ink); }
+  .x-text p { font-size: 0.95rem; color: var(--muted); line-height: 1.5; }
+  .x-chips{ display:flex; gap:8px; flex-wrap:wrap; margin-top: 12px; }
+  .x-chip{ font-size:.72rem; font-weight:600; color:var(--muted); border:1px solid var(--line); padding:5px 11px; border-radius:100px; transition: border-color .3s var(--ease), color .3s var(--ease); }
+  .xray-item.active .x-chip{ border-color: var(--accent); color: var(--accent); }
 
-  .terminal-wrap{
-    margin-top: 30px;
-    border-radius: 14px;
+  /* X-Ray Visuals Container */
+  .xray-visuals {
+    position: relative;
+    aspect-ratio: 1 / 1;
+    border-radius: 24px;
     overflow: hidden;
-    background: #15110C;
-    border: 1px solid #2B2317;
-    box-shadow: 0 34px 68px -32px rgba(20,15,5,.5);
+    background: var(--surface-2);
+    border: 1px solid var(--line);
+    /* Blueprint base pattern */
+    background-image: radial-gradient(var(--line) 2px, transparent 2px);
+    background-size: 24px 24px;
+    cursor: crosshair;
+    --x: 50%;
+    --y: 50%;
   }
-  .terminal-bar{
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 12px 18px;
-    background: #201A12;
-    border-bottom: 1px solid #2B2317;
+
+  .xray-layer {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transition: opacity 0.5s var(--ease), clip-path 0.5s var(--ease);
+    clip-path: circle(150% at 50% 50%); /* Fully visible by default */
   }
-  .t-bar-left{ display: flex; align-items: center; gap: 8px; }
-  .t-dot{ width: 11px; height: 11px; border-radius: 50%; flex: 0 0 auto; }
-  .t-dot.red{ background: #FF5F57; } .t-dot.yellow{ background: #FEBC2E; } .t-dot.green{ background: #28C840; }
+  .xray-layer.active {
+    opacity: 1;
+    z-index: 2;
+  }
   
-  .terminal-title{
-    margin-left: 6px;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 11.5px;
-    font-weight: 500;
-    color: #9C9482;
-    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  /* When hovering the visual box, engage the Lens X-Ray effect */
+  .xray-visuals:hover .xray-layer.active {
+    clip-path: circle(140px at var(--x) var(--y));
+    transition: clip-path 0.1s; /* Fast follow for mouse */
   }
-  .t-reset-btn{
-    background: transparent; border: 1px solid #3A3122; border-radius: 6px;
-    color: #8A8272; font-family: 'JetBrains Mono', monospace; font-size: 11px;
-    padding: 3px 9px; cursor: pointer; display: inline-flex; align-items: center; gap: 4px;
-    transition: all .2s var(--ease);
-  }
-  .t-reset-btn:hover{ color: #F2C14E; border-color: #F2C14E; background: rgba(242,193,78,.08); }
 
-  .terminal-body{
-    padding: 20px 24px;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 12.8px;
-    line-height: 1.7;
-    color: #E7E1D3;
-    height: 320px;
-    overflow-y: auto;
-    scrollbar-width: thin;
-    scrollbar-color: #3A3225 transparent;
+  /* The outer ring and dimming shadow of the lens */
+  .xray-ring {
+    position: absolute;
+    width: 280px; height: 280px;
+    border: 2px solid var(--accent);
+    border-radius: 50%;
+    top: var(--y); left: var(--x);
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    z-index: 10;
+    opacity: 0;
+    /* This huge shadow dims everything outside the lens ring */
+    box-shadow: inset 0 0 30px rgba(0,0,0,0.06), 0 0 0 9999px rgba(251, 243, 234, 0.75); 
+    transition: opacity 0.4s var(--ease);
   }
-  .terminal-body::-webkit-scrollbar{ width: 6px; }
-  .terminal-body::-webkit-scrollbar-thumb{ background: #3A3225; border-radius: 10px; }
-  .t-line{ margin-bottom: 5px; white-space: pre-wrap; word-break: break-word; }
-  .t-prompt{ color: #7FBF7F; }
-  .t-cmd{ color: #F2C14E; font-weight: 600; }
-  .t-output{ color: #C9C2AF; margin-bottom: 12px; }
-  .t-muted{ color: #6E6653; }
-  .cursor{
-    display: inline-block; width: 7px; height: 15px;
-    background: #E7E1D3; margin-left: 2px; vertical-align: -2px;
-    animation: t-blink 1s steps(1) infinite;
-  }
-  @keyframes t-blink{ 50%{ opacity: 0; } }
+  .xray-visuals:hover .xray-ring { opacity: 1; }
 
-  .terminal-input-row{
-    display: flex; align-items: center; gap: 8px;
-    padding: 13px 24px;
-    border-top: 1px solid #2B2317;
-    background: #19140E;
-  }
-  .terminal-input-row .t-prompt{ font-family: 'JetBrains Mono', monospace; font-size: 13px; flex: 0 0 auto; }
-  .terminal-input{
-    flex: 1; min-width: 0;
-    background: none; border: none; outline: none;
-    font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #E7E1D3;
-  }
-  .terminal-input::placeholder{ color: #5C5443; }
+  /* Pure CSS Graphics for the 4 Layers (So it looks great immediately) */
+  /* L1: Discovery */
+  .xl-1 { background: #FDF9EC; }
+  .css-sticky { position: absolute; width: 140px; height: 140px; padding: 20px; font-family: 'Fraunces', serif; font-size: 1.1rem; font-weight: 600; color: #3A2400; box-shadow: 2px 6px 16px rgba(0,0,0,0.08); display: flex; align-items: center; text-align: center; line-height: 1.3; }
+  
+  /* L2: Analysis */
+  .xl-2 { background: #EAF0F6; }
+  .css-node { position: absolute; background: #fff; border: 2px solid var(--teal); padding: 12px 24px; border-radius: 100px; font-size: 0.85rem; font-weight: 700; color: var(--teal); box-shadow: 0 4px 12px rgba(47,122,110,0.1); }
+  .css-line { position: absolute; background: var(--teal); }
 
-  .terminal-chips{
-    display: flex; gap: 8px; flex-wrap: wrap;
-    padding: 14px 24px 18px;
-    border-top: 1px solid #2B2317;
-    background: #15110C;
-  }
-  .t-chip{
-    font-family: 'JetBrains Mono', monospace; font-size: 11px;
-    color: #C9C2AF; background: #201A12; border: 1px solid #332A1C;
-    padding: 6px 12px; border-radius: 6px; cursor: pointer;
-    transition: border-color .2s var(--ease), color .2s var(--ease), transform .2s var(--ease);
-  }
-  .t-chip:hover{ border-color: #F2C14E; color: #F2C14E; transform: translateY(-2px); }
+  /* L3: Architecture */
+  .xl-3 { background: #F5F5F5; }
+  .css-wire-bg { position: absolute; top: 10%; left: 10%; right: 10%; bottom: 10%; background: #fff; border: 2px solid #D0D0D0; border-radius: 8px; padding: 20px; display: flex; flex-direction: column; gap: 20px; }
+  .css-wire-head { height: 30px; border: 2px solid #D0D0D0; border-radius: 4px; }
+  .css-wire-hero { flex: 1; border: 2px solid #D0D0D0; border-radius: 4px; background: linear-gradient(to top right, transparent calc(50% - 1px), #D0D0D0 calc(50% - 1px), #D0D0D0 calc(50% + 1px), transparent calc(50% + 1px)), linear-gradient(to bottom right, transparent calc(50% - 1px), #D0D0D0 calc(50% - 1px), #D0D0D0 calc(50% + 1px), transparent calc(50% + 1px)); }
+  .css-wire-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; height: 80px; }
+  .css-wire-box { border: 2px solid #D0D0D0; border-radius: 4px; }
 
-  @media (max-width: 700px) {
-    .terminal-body{ font-size: 12px; height: 280px; padding: 16px; }
-    .terminal-input-row, .terminal-chips{ padding-left: 16px; padding-right: 16px; }
+  /* L4: Design */
+  .xl-4 { background: linear-gradient(135deg, #F7DCE2, #F2A649); display: flex; align-items: center; justify-content: center; }
+  .css-ui-card { width: 280px; background: #fff; border-radius: 20px; box-shadow: 0 24px 48px rgba(46,35,32,0.2); overflow: hidden; }
+  .css-ui-img { height: 160px; background: linear-gradient(135deg, #2F7A6E, #84B777); position: relative; }
+  .css-ui-img::after { content: ''; position: absolute; top: 20px; right: 20px; width: 40px; height: 40px; background: rgba(255,255,255,0.2); border-radius: 50%; }
+  .css-ui-body { padding: 24px; }
+  .css-ui-title { width: 70%; height: 16px; background: var(--ink); border-radius: 8px; margin-bottom: 14px; }
+  .css-ui-sub { width: 100%; height: 10px; background: var(--line); border-radius: 5px; margin-bottom: 10px; }
+  .css-ui-sub.short { width: 80%; margin-bottom: 28px; }
+  .css-ui-btn { width: 100%; height: 44px; background: var(--accent); border-radius: 100px; }
+
+  @media (max-width: 940px) {
+    .xray-section { grid-template-columns: 1fr; gap: 40px; }
+    .xray-visuals { aspect-ratio: 4/3; }
+    .xray-item.active { padding-left: 10px; }
+    /* Disable lens on mobile for better touch UX, defaults to straight crossfade */
+    .xray-visuals:hover .xray-layer.active { clip-path: circle(150% at 50% 50%); }
+    .xray-visuals:hover .xray-ring { opacity: 0; }
   }
 
 
@@ -289,7 +318,8 @@
     pointer-events: none;
     overflow: visible;
   }
-  
+  /* intentionally no transition here — the line must track scroll position
+     in real time; a transition fights rapid scroll events and reads as lag */
   .journey-stop {
     position: relative;
     z-index: 1;
@@ -317,16 +347,14 @@
     border-radius: 50%;
     background: var(--surface);
     border: 3px solid var(--line);
-    transform: translate(-50%, -50%);
-    z-index: 2;
+    transform: translate(-50%,-50%);
     transition: border-color 0.4s var(--ease), transform 0.3s var(--ease), box-shadow 0.3s var(--ease);
   }
   .journey-stop.left .j-node{ left: 18%; }
   .journey-stop.right .j-node{ left: 82%; }
-  
   .journey-stop:hover .j-node, .journey-stop.expanded .j-node {
     border-color: var(--accent);
-    transform: translate(-50%, -50%) scale(1.3);
+    transform: translate(-50%,-50%) scale(1.3);
     box-shadow: 0 0 15px var(--accent-soft);
   }
   .pulse-node {
@@ -384,7 +412,7 @@
 
   @media (max-width: 768px) {
     .journey-stop.left, .journey-stop.right { justify-content: flex-end; }
-    .journey-stop.left .j-node, .journey-stop.right .j-node{ left: 8%; }
+    .journey-stop.left .j-node, .journey-stop.right .j-node{ left: 10%; }
     .journey-stop.left .j-content, .journey-stop.right .j-content{ margin-left:0; margin-right:0; width: 84%; padding: 22px; }
   }
 
@@ -515,7 +543,7 @@
       <a class="btn accent" href="#contact">Let's talk</a>
       <div class="side-social">
         <a href="https://dribbble.com/aliaskertowhid" target="_blank" rel="noopener">Dribbble</a>
-        <a href="https://www.behance.net/aliaskertowhid" target="_blank" rel="noopener">Behance</a>
+        <a href="https://www.behance.net/aliasker4" target="_blank" rel="noopener">Behance</a>
         <a href="https://www.linkedin.com/in/aliaskertowhid/" target="_blank" rel="noopener">LinkedIn</a>
       </div>
     </div>
@@ -569,34 +597,88 @@
       </div>
     </section>
 
-    <!-- PROCESS (INTERACTIVE DESIGN PLAYBOOK) -->
+    <!-- PROCESS (X-RAY LENS) -->
     <section id="process" class="spread">
       <span class="margin-label">02 — How I Work</span>
-      <h2 class="pull-quote reveal">How to work with me.</h2>
-      <p class="beliefs-lede reveal">My case studies already show how I design interfaces. This interactive console reveals how I actually operate, prioritize, and structure systems day-to-day. Click a prompt below or type your own.</p>
-
-      <div class="terminal-wrap reveal" id="terminalWrap">
-        <div class="terminal-bar">
-          <div class="t-bar-left">
-            <span class="t-dot red"></span><span class="t-dot yellow"></span><span class="t-dot green"></span>
-            <span class="terminal-title">Interactive Design Playbook — Tawhid</span>
+      <h2 class="pull-quote reveal">Same four moves, every time.</h2>
+      
+      <div class="xray-section reveal">
+        <div class="xray-list">
+          <div class="xray-item active" data-index="0">
+            <div class="x-num">01</div>
+            <div class="x-text">
+              <h4>Discovery</h4>
+              <p>Problem framing, stakeholder input, and constraints mapping — before assuming what the solution should be.</p>
+              <div class="x-chips"><span class="x-chip">Problem brief</span><span class="x-chip">Stakeholder notes</span><span class="x-chip">Constraints doc</span></div>
+            </div>
           </div>
-          <button class="t-reset-btn" id="terminalReset" title="Reset terminal session">↺ Clear</button>
+          <div class="xray-item" data-index="1">
+            <div class="x-num">02</div>
+            <div class="x-text">
+              <h4>Analysis</h4>
+              <p>Systems and edge cases mapped out, a competitive scan run, every flow traced end to end.</p>
+              <div class="x-chips"><span class="x-chip">Flow maps</span><span class="x-chip">Competitive scan</span><span class="x-chip">Edge-case list</span></div>
+            </div>
+          </div>
+          <div class="xray-item" data-index="2">
+            <div class="x-num">03</div>
+            <div class="x-text">
+              <h4>Architecture</h4>
+              <p>That analysis turned into information architecture, wireframes, and a plan for how every component fits together.</p>
+              <div class="x-chips"><span class="x-chip">Sitemap</span><span class="x-chip">Wireframes</span><span class="x-chip">Component plan</span></div>
+            </div>
+          </div>
+          <div class="xray-item" data-index="3">
+            <div class="x-num">04</div>
+            <div class="x-text">
+              <h4>Design</h4>
+              <p>Hi-fi UI and a working design system, with handoff docs clean enough that engineering never has to guess.</p>
+              <div class="x-chips"><span class="x-chip">Hi-fi UI</span><span class="x-chip">Design system</span><span class="x-chip">Handoff docs</span></div>
+            </div>
+          </div>
         </div>
-        
-        <div class="terminal-body" id="terminalBody"></div>
-        
-        <div class="terminal-input-row">
-          <span class="t-prompt">$</span>
-          <input type="text" class="terminal-input" id="terminalInput" placeholder="type a command — try 'process', 'moscow', or 'help'" autocomplete="off" spellcheck="false">
-        </div>
-        
-        <div class="terminal-chips">
-          <span class="t-chip" data-cmd="process">process</span>
-          <span class="t-chip" data-cmd="fintech">fintech</span>
-          <span class="t-chip" data-cmd="systems">systems</span>
-          <span class="t-chip" data-cmd="feedback">feedback</span>
-          <span class="t-chip" data-cmd="help">help</span>
+
+        <div class="xray-visuals">
+          <div class="xray-ring"></div>
+          
+          <!-- L1: Discovery -->
+          <div class="xray-layer active xl-1">
+            <div class="css-sticky" style="top:25%; left:20%; transform:rotate(-4deg); background:#FFE174;">Problem Framing</div>
+            <div class="css-sticky" style="top:45%; left:45%; transform:rotate(5deg); background:#FFB5B5;">Stakeholder Interviews</div>
+          </div>
+          
+          <!-- L2: Analysis -->
+          <div class="xray-layer xl-2">
+            <div class="css-node" style="top:25%; left:50%; transform:translateX(-50%);">User Auth</div>
+            <div class="css-line" style="top:38%; left:50%; width:2px; height:30px; transform:translateX(-50%);"></div>
+            <div class="css-line" style="top:52%; left:25%; width:50%; height:2px;"></div>
+            <div class="css-node" style="top:60%; left:25%; transform:translateX(-50%);">Success</div>
+            <div class="css-node" style="top:60%; left:75%; transform:translateX(-50%);">Error State</div>
+          </div>
+
+          <!-- L3: Architecture -->
+          <div class="xray-layer xl-3">
+            <div class="css-wire-bg">
+              <div class="css-wire-head"></div>
+              <div class="css-wire-hero"></div>
+              <div class="css-wire-row">
+                <div class="css-wire-box"></div><div class="css-wire-box"></div><div class="css-wire-box"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- L4: Design -->
+          <div class="xray-layer xl-4">
+            <div class="css-ui-card">
+              <div class="css-ui-img"></div>
+              <div class="css-ui-body">
+                <div class="css-ui-title"></div>
+                <div class="css-ui-sub"></div>
+                <div class="css-ui-sub short"></div>
+                <div class="css-ui-btn"></div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -607,20 +689,20 @@
       <h2 class="pull-quote reveal" style="max-width: 24ch;">The path wasn't a straight line.</h2>
 
       <div class="journey-container reveal" style="margin-top: 60px;">
-        <!-- The SVG zigzag line — drawn dynamically in JS so it precisely intersects every node center -->
+        <!-- The SVG zigzag line — drawn dynamically in JS so it always matches the node positions -->
         <svg class="journey-line-svg" id="journeySvg">
           <path id="journeyPath" fill="none" stroke="var(--line)" stroke-width="2" stroke-linecap="round"/>
           <path id="journeyPathFill" fill="none" stroke="var(--accent)" stroke-width="3" stroke-linecap="round"/>
         </svg>
 
-        <!-- Stop 1 -->
+        <!-- Point A -->
         <div class="journey-stop left">
           <div class="j-node"></div>
           <div class="j-content">
-            <div class="j-tag">Roots</div>
+            <div class="j-tag">Point A</div>
             <span class="j-when">2013 · Sylhet</span>
-            <h3 class="j-title">Early Visual Design</h3>
-            <p class="j-desc">Started with hands-on graphic and print design — marketing collateral, identity marks, banners, and layout design under tight turnarounds for small local businesses. Built a foundational instinct for visual hierarchy, typography, and clear communication under real deadlines.</p>
+            <h3 class="j-title">First Lines</h3>
+            <p class="j-desc">It started with volunteer graphic design work — flyers, banners, logos, business cards — turned around fast for a small local shop. Nothing formal, no design theory yet, just a first instinct for making things that had to communicate something under a deadline.</p>
           </div>
         </div>
 
@@ -628,10 +710,10 @@
         <div class="journey-stop right">
           <div class="j-node"></div>
           <div class="j-content">
-            <div class="j-tag">Systems & Infrastructure</div>
+            <div class="j-tag">The Foundation</div>
             <span class="j-when">2018–2021 · Toronto</span>
-            <h3 class="j-title">Computer Systems & IT Engineering</h3>
-            <p class="j-desc">Completed a Computer Systems Technician diploma, Google IT Support credentials, and NPower Canada's Junior IT Analyst program. Learned operating systems, networking architecture, troubleshooting, and Agile fundamentals — developing an understanding of how technical systems operate under the hood before stepping into interface design.</p>
+            <h3 class="j-title">Learning How Things Work</h3>
+            <p class="j-desc">A Computer Systems Technician diploma, a Google IT Support certificate, and NPower Canada's Junior IT Analyst program — operating systems, networking, troubleshooting, Agile fundamentals. Before I ever touched a design tool, I learned how the systems underneath actually behave.</p>
           </div>
         </div>
 
@@ -639,10 +721,10 @@
         <div class="journey-stop left">
           <div class="j-node"></div>
           <div class="j-content">
-            <div class="j-tag">Independent Practice</div>
+            <div class="j-tag">The Leap</div>
             <span class="j-when">Jan 2021 – Present · Worldwide</span>
-            <h3 class="j-title">Freelance Product Design</h3>
-            <p class="j-desc">Began consulting and delivering end-to-end UX/UI projects for startups and small enterprises globally — conducting user research, wireframing workflows, and building responsive web and mobile interfaces that solve real operational friction.</p>
+            <h3 class="j-title">Going Independent</h3>
+            <p class="j-desc">Started taking on freelance UX/UI work — websites, landing pages, research, wireframes — for clients ranging from individuals to small companies. It's stayed a constant thread running underneath everything since.</p>
           </div>
         </div>
 
@@ -650,10 +732,10 @@
         <div class="journey-stop right">
           <div class="j-node"></div>
           <div class="j-content">
-            <div class="j-tag">Agency Internship</div>
+            <div class="j-tag">The Apprenticeship</div>
             <span class="j-when">Apr–Oct 2022 · Sylhet</span>
-            <h3 class="j-title">UX Design Internship · Twinkle Creative</h3>
-            <p class="j-desc">Assisted research initiatives and usability testing on mobile platforms. Built user journeys, wireframes, and interactive Figma prototypes alongside senior designers, gaining firsthand experience in structured agency workflows and collaborative product sprints.</p>
+            <h3 class="j-title">Learning From Someone Else's Process</h3>
+            <p class="j-desc">A UX internship at Twinkle Creative — assisting with research and usability testing on a mobile app, building wireframes and prototypes in Figma alongside senior designers, and getting a first real look at how a design team actually operates.</p>
           </div>
         </div>
 
@@ -661,10 +743,10 @@
         <div class="journey-stop left">
           <div class="j-node"></div>
           <div class="j-content">
-            <div class="j-tag">Product Ownership</div>
+            <div class="j-tag">The First Seat</div>
             <span class="j-when">Nov 2022 – May 2024 · Sylhet</span>
-            <h3 class="j-title">UX/UI Designer · Twinkle Creative</h3>
-            <p class="j-desc">Stepped into a full-time role owning interface design and design system architecture across client mobile and web applications. Led cross-functional handoffs, established accessibility guidelines, and worked directly with engineering teams to ensure pixel-perfect production delivery.</p>
+            <h3 class="j-title">First Full-Time Role</h3>
+            <p class="j-desc">Moved into a full-time UX/UI Designer role at Twinkle Creative, redesigning their design system and working directly with product leads — real ownership over interfaces, accessibility, and how design handed off to development.</p>
           </div>
         </div>
 
@@ -672,21 +754,21 @@
         <div class="journey-stop right">
           <div class="j-node"></div>
           <div class="j-content">
-            <div class="j-tag">Fintech & Scale</div>
+            <div class="j-tag">The Present Chapter</div>
             <span class="j-when">Mar 2024 – Present · Toronto (Remote)</span>
-            <h3 class="j-title">UX/UI Designer · Aero Design Agency</h3>
-            <p class="j-desc">Designing scalable platform features, complex data-dense interfaces, and component systems. Focused on fintech workflows, navigation models, and high-clarity interaction patterns that hold up in real-world production environments.</p>
+            <h3 class="j-title">Where I Am Now</h3>
+            <p class="j-desc">UX/UI Designer at Aero Design Agency, refining platform features and design systems remotely — continuing to sharpen the same instincts: systems thinking, accessibility, and interfaces that hold up under real use.</p>
           </div>
         </div>
 
-        <!-- Stop 7 -->
+        <!-- Point B -->
         <div class="journey-stop left">
           <div class="j-node pulse-node"></div>
           <div class="j-content">
-            <div class="j-tag">Post-Graduate Craft</div>
+            <div class="j-tag">Point B</div>
             <span class="j-when">2025 – Present · Toronto</span>
-            <h3 class="j-title">UX Design Graduate Studies · Humber Polytechnic</h3>
-            <p class="j-desc">Completing advanced graduate studies in User Experience Design at Humber Polytechnic — synthesizing technical systems engineering, years of industry product design, and formal human-centered research methodologies into a unified, rigorous design practice.</p>
+            <h3 class="j-title">Formalizing the Craft</h3>
+            <p class="j-desc">Currently completing a UX Design graduate certificate at Humber Polytechnic — bringing everything before it (the systems thinking, the operational grounding, the years of real client work) into one deliberate, formal design practice.</p>
           </div>
         </div>
 
@@ -819,201 +901,41 @@
     }
   });
 
-  // TERMINAL ENGINE — COMPREHENSIVE KNOWLEDGE & CASUAL DIALOGUE
-  (function(){
-    const wrap = document.getElementById('terminalWrap');
-    const body = document.getElementById('terminalBody');
-    const input = document.getElementById('terminalInput');
-    const resetBtn = document.getElementById('terminalReset');
-    if (!wrap || !body || !input) return;
+  // X-RAY LENS LOGIC
+  const xrayItems = document.querySelectorAll('.xray-item');
+  const xrayLayers = document.querySelectorAll('.xray-layer');
+  const xrayVisuals = document.querySelector('.xray-visuals');
 
-    const COMMANDS = {
-      // 1. Process & Methodology
-      process: "I don't force a rigid playbook. Early exploration? We go wide with research. Tight sprint? We ruthlessly prioritize an MVP and iterate. Process serves the product, not the other way around.",
-      "double-diamond": "Diverge to find the real problem, converge on what matters, explore multiple solutions, then deliver clean UI. It stops us from jumping into Figma before knowing what we're actually building.",
-      doublediamond: "Diverge to find the real problem, converge on what matters, explore multiple solutions, then deliver clean UI. It stops us from jumping into Figma before knowing what we're actually building.",
-      moscow: "Must, Should, Could, Won't. Before writing code, we separate what will block launch from what's just 'nice to have'. Saves everyone from last-minute deadline panic.",
-      agile: "Two-week sprints are great if communication is async and demos are frequent. I keep designs 1-2 sprints ahead of engineering so developers never sit waiting for specs.",
-      scrum: "Sprints work when tickets have real design specs attached. I join grooming to catch edge cases early before devs start estimating story points.",
-      mvp: "A real MVP shouldn't feel broken or half-baked. It should do ONE thing exceptionally well without the extra bloat.",
-      scope: "I ask 'why' before I draw a single rectangle. It's 10x cheaper to kill a bad feature in a discussion than in Figma, and 100x cheaper than in production.",
-      research: "I look at real customer friction—reviews, complaints, interview transcripts, screen recordings. Designing without real feedback is just guessing with confidence.",
-      "user-testing": "Testing with 5 real users will expose 80% of usability problems faster than 5 weeks of internal stakeholder meetings.",
-      usertesting: "Testing with 5 real users will expose 80% of usability problems faster than 5 weeks of internal stakeholder meetings.",
-      metrics: "Good design shows up in the numbers: faster checkout completion, lower drop-offs, fewer support tickets, and higher retention.",
+  function activateXray(index){
+    xrayItems.forEach(i => i.classList.remove('active'));
+    xrayLayers.forEach(l => l.classList.remove('active'));
+    xrayItems[index].classList.add('active');
+    xrayLayers[index].classList.add('active');
+  }
 
-      // 2. Fintech & Craft
-      fintech: "Financial UI rule: high contrast, zero jargon, and crystal-clear transaction trails. Make daily flows instant, and put deliberate friction/confirmation on high-stakes money moves.",
-      banking: "Banking apps get messy fast. My goal is unifying accounts, keeping ledger balances legible at a glance, and making transfers feel effortless.",
-      trust: "Trust is won during edge cases—declined cards, disputed charges, network drops. Explain what happened in plain English and give the user an immediate next step.",
-      accessibility: "Accessibility isn't a checklist at the end. High contrast ratios, 44px+ tap targets, legible typography, and keyboard navigation are built into day one.",
-      a11y: "Accessibility isn't a checklist at the end. High contrast ratios, 44px+ tap targets, legible typography, and keyboard navigation are built into day one.",
-      darkmode: "Dark mode isn't just inverting colors. It's re-calibrating elevation shadows, softening pure blacks to dark slates, and maintaining WCAG AAA contrast for numbers.",
-      typography: "Numbers need tabular lining fonts (like JetBrains Mono or Inter numbers) so balances align cleanly. Headlines should feel human, body copy should stay invisible.",
-      microcopy: "Write like a human speaking to another human. 'Payment Scheduled for Monday' beats 'Transaction ID #4029 queued for clearing'.",
-      "edge-cases": "I design the unhappy paths first: empty states, 500 errors, zero balances, slow network timeouts, and character overflow limits.",
-      edgecases: "I design the unhappy paths first: empty states, 500 errors, zero balances, slow network timeouts, and character overflow limits.",
+  xrayItems.forEach((item, index) => {
+    // Hover feels great on desktop pointers...
+    item.addEventListener('mouseenter', () => activateXray(index));
+    // ...but touch devices never fire mouseenter, so tap must work too.
+    item.addEventListener('click', () => activateXray(index));
+  });
 
-      // 3. Systems & Dev Handoff
-      systems: "Design systems aren't just Figma kits—they are shared contracts between design and engineering. If a button token changes in Figma, it should map 1:1 in the codebase.",
-      tokens: "Semantic tokens (e.g. surface-primary, accent-default, text-muted) allow instant theming, dark mode, and seamless code sync.",
-      components: "Every component needs all its states defined: Default, Hover, Active, Focused, Disabled, Loading/Skeleton, and Error. No developer should have to guess.",
-      handoff: "No guessing for developers. I build with 100% responsive Auto-Layout, map real token names, and document interaction specs directly in Figma dev mode.",
-      code: "I have an IT engineering background and write HTML/CSS. I design with DOM structure, flexbox, and responsive constraints in mind so engineering handoff is smooth.",
-      tools: "Figma for interface design and component libraries, FigJam for messy brainstorming, ProtoPie for high-fidelity micro-interactions, and VS Code for code reality checks.",
-      figma: "Heavy auto-layout user, strict naming conventions, organized component variants, and tokenized styles. Clean files make fast teams.",
-      wireframes: "I intentionally start in low-fi grayscale. It forces everyone to critique information hierarchy and logic rather than arguing about button colors.",
-      prototyping: "Low-fi click-throughs for flow validation; high-fidelity interactive prototypes for usability tests and executive buy-in.",
-
-      // 4. Working Style & Collaboration
-      feedback: "Give it to me straight and early. I'd rather trash a rough wireframe on day two than rebuild 40 polished screens the week before release.",
-      pressure: "Calm and methodical. Tight deadlines actually help—they force everyone to cut through the fluff and focus purely on what moves the needle.",
-      ownership: "High ownership. For small UI bugs and edge cases, I fix and document them. For larger architectural shifts, I present two viable options with tradeoffs.",
-      collaboration: "Tag me in the thread, not just the meeting invite. I do my best deep work asynchronously and bring concrete solutions to live syncs.",
-      speed: "Fast in discovery and wireframes, thorough in system design, precise in final token handoff.",
-
-      // 5. About & Background
-      whoami: "Product Designer based in Toronto. Focused on fintech, banking, and data-dense systems. I take complicated numbers and make them feel simple.",
-      background: "Started in print design, earned a Computer Systems Technician diploma in Toronto, worked in agencies and tech teams, and completed UX graduate studies at Humber Polytechnic.",
-      humber: "Studied UX Design at Humber Polytechnic in Toronto, sharpening research methods, usability heuristics, and design system governance.",
-      contact: "Email me at aliaskertowhid@gmail.com or connect with me on LinkedIn at /in/aliaskertowhid/.",
-      availability: "Currently open to Full-time Product Design and Senior UX roles (Toronto local or Remote worldwide).",
-      location: "Based in Toronto, Ontario, Canada (EST timezone).",
-      resume: "Check out my background journey in Section 03 right below this console, or email me for my full PDF resume.",
-
-      // 6. Extras
-      gaming: "Big fan of Red Dead Redemption 2 and Resident Evil. Immersive worlds are the ultimate form of UX.",
-      anime: "One Piece fan for years. That level of long-term worldbuilding and consistency is inspiring.",
-      music: "Curating late-night driving playlists and acoustic tracks. Audio sets the rhythm for deep design flow.",
-      quote: "'Simplicity is about subtracting the obvious and adding the meaningful.' — John Maeda",
-
-      // Help Directory
-      help: `AVAILABLE COMMANDS:
-
-[ PROCESS & STRATEGY ]
-• process, double-diamond, moscow, agile, scrum, mvp, scope, research, user-testing, metrics
-
-[ CRAFT & FINTECH ]
-• fintech, banking, trust, accessibility, darkmode, typography, microcopy, edge-cases
-
-[ SYSTEMS & ENGINEERING ]
-• systems, tokens, components, handoff, code, tools, figma, wireframes, prototyping
-
-[ WORKING WITH ME ]
-• feedback, pressure, ownership, collaboration, speed
-
-[ ABOUT TAWHID ]
-• whoami, background, humber, contact, availability, location, resume
-
-[ EXTRAS ]
-• gaming, anime, music, quote, clear`
-    };
-
-    let typing = false;
-    const queue = [];
-
-    function scrollToEnd(){ 
-      body.scrollTop = body.scrollHeight; 
-    }
-
-    function typeText(el, text, speed, done){
-      let i = 0;
-      const cursor = document.createElement('span');
-      cursor.className = 'cursor';
-      el.appendChild(cursor);
-      (function step(){
-        if (i < text.length){
-          cursor.insertAdjacentText('beforebegin', text[i]);
-          i++;
-          scrollToEnd();
-          setTimeout(step, speed);
-        } else {
-          cursor.remove();
-          if (done) done();
-        }
-      })();
-    }
-
-    function processQueue(){
-      if (typing || !queue.length) return;
-      typing = true;
-      const job = queue.shift();
-      job(() => { typing = false; processQueue(); });
-    }
-
-    function clearTerminal(){
-      queue.length = 0;
-      typing = false;
-      body.innerHTML = '';
-      const resetMsg = document.createElement('div');
-      resetMsg.className = 't-line t-muted';
-      resetMsg.textContent = 'Session reset. Type a command or pick a prompt below:';
-      body.appendChild(resetMsg);
-    }
-
-    function runCommand(name){
-      const key = name.trim().toLowerCase();
-
-      if (key === 'clear' || key === 'cls'){
-        clearTerminal();
-        return;
-      }
-
-      queue.push((next) => {
-        const cmdLine = document.createElement('div');
-        cmdLine.className = 't-line';
-        cmdLine.innerHTML = '<span class="t-prompt">visitor@designwithtawhid</span><span class="t-muted">:~$</span> ';
-        body.appendChild(cmdLine);
-        const cmdSpan = document.createElement('span');
-        cmdSpan.className = 't-cmd';
-        cmdLine.appendChild(cmdSpan);
-        typeText(cmdSpan, key, 20, next);
-      });
-
-      queue.push((next) => {
-        const outLine = document.createElement('div');
-        outLine.className = 't-line t-output';
-        body.appendChild(outLine);
-
-        if (COMMANDS[key]){
-          typeText(outLine, COMMANDS[key], 6, next);
-        } else {
-          typeText(outLine, `command not found: "${key}" — try typing 'help' to see the full command list`, 6, next);
-        }
-      });
-
-      processQueue();
-    }
-
-    input.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter' && input.value.trim()){
-        runCommand(input.value);
-        input.value = '';
-      }
+  if (xrayVisuals) {
+    xrayVisuals.addEventListener('mousemove', (e) => {
+      const rect = xrayVisuals.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      xrayVisuals.style.setProperty('--x', `${x}px`);
+      xrayVisuals.style.setProperty('--y', `${y}px`);
     });
-
-    if (resetBtn){
-      resetBtn.addEventListener('click', clearTerminal);
-    }
-
-    document.querySelectorAll('.t-chip').forEach(chip => {
-      chip.addEventListener('click', () => runCommand(chip.dataset.cmd));
+    xrayVisuals.addEventListener('mouseleave', () => {
+      // Re-center when mouse leaves
+      xrayVisuals.style.setProperty('--x', `50%`);
+      xrayVisuals.style.setProperty('--y', `50%`);
     });
+  }
 
-    // Boot sequence on first view
-    const bootObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting && !wrap.dataset.booted){
-          wrap.dataset.booted = '1';
-          runCommand('process');
-          bootObserver.unobserve(wrap);
-        }
-      });
-    }, { threshold: .25 });
-    bootObserver.observe(wrap);
-  })();
-
-  // Journey Line — dynamic zigzag drawn through the exact node center coordinates
+  // Journey Line — dynamic zigzag drawn through the actual node positions
   const journeyContainer = document.querySelector('.journey-container');
   const journeySvg = document.getElementById('journeySvg');
   const pathBg = document.getElementById('journeyPath');
@@ -1024,46 +946,38 @@
   let journeyPoints = [];
 
   function buildJourneyPath(){
-    if(!journeyContainer || !pathFill || !pathBg || !journeySvg || !journeyStops.length) return;
-    
-    const cw = journeyContainer.clientWidth;
-    const ch = journeyContainer.clientHeight;
-    if(!cw || !ch) return;
+    if(!journeyContainer || !pathFill) return;
+    const cw = journeyContainer.offsetWidth;
+    const ch = journeyContainer.offsetHeight;
+    const nodes = document.querySelectorAll('.j-node');
+    if(!nodes.length || !ch) return;
 
     journeySvg.setAttribute('width', cw);
     journeySvg.setAttribute('height', ch);
     journeySvg.setAttribute('viewBox', `0 0 ${cw} ${ch}`);
 
-    // Map exact node centers directly using clean offsets
-    const isMobile = window.innerWidth <= 768;
-    journeyPoints = Array.from(journeyStops).map(stop => {
-      const isLeft = stop.classList.contains('left');
-      const xRatio = isMobile ? 0.08 : (isLeft ? 0.18 : 0.82);
-      const x = stop.offsetWidth * xRatio;
-      const y = stop.offsetTop + (stop.offsetHeight / 2);
+    // Use layout offsets, not getBoundingClientRect — the reveal animation's
+    // translateY is a paint-time transform and would throw off measurement
+    // for any point not yet scrolled into view.
+    journeyPoints = Array.from(nodes).map(n => {
+      const stop = n.closest('.journey-stop');
+      const x = stop.offsetLeft + n.offsetLeft + n.offsetWidth/2;
+      const y = stop.offsetTop + n.offsetTop + n.offsetHeight/2;
       return { x, y };
     });
 
-    if (journeyPoints.length < 2) return;
-
     let d = `M ${journeyPoints[0].x},${journeyPoints[0].y}`;
     journeyCumulative = [0];
-
-    for(let i = 0; i < journeyPoints.length - 1; i++){
-      const p0 = journeyPoints[i];
-      const p1 = journeyPoints[i+1];
-      const dy = p1.y - p0.y;
-      
-      const cp1x = p0.x;
-      const cp1y = p0.y + dy * 0.5;
-      const cp2x = p1.x;
-      const cp2y = p1.y - dy * 0.5;
-      
-      d += ` C ${cp1x},${cp1y} ${cp2x},${cp2y} ${p1.x},${p1.y}`;
-      
-      const tempPath = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-      tempPath.setAttribute('d', `M ${p0.x},${p0.y} C ${cp1x},${cp1y} ${cp2x},${cp2y} ${p1.x},${p1.y}`);
-      journeyCumulative.push(journeyCumulative[i] + tempPath.getTotalLength());
+    for(let i=0; i<journeyPoints.length-1; i++){
+      const p0 = journeyPoints[i], p1 = journeyPoints[i+1];
+      const midY = (p0.y + p1.y)/2;
+      const seg = `M ${p0.x},${p0.y} C ${p0.x},${midY} ${p1.x},${midY} ${p1.x},${p1.y}`;
+      d += ` C ${p0.x},${midY} ${p1.x},${midY} ${p1.x},${p1.y}`;
+      // Measure this segment alone (reusing the always-present background
+      // path element) so we know exactly how far along the full line, in
+      // real geometric length, each node sits — not just by index.
+      pathBg.setAttribute('d', seg);
+      journeyCumulative.push(journeyCumulative[i] + pathBg.getTotalLength());
     }
 
     pathBg.setAttribute('d', d);
@@ -1076,6 +990,9 @@
   function updateJourneyScroll(){
     if(!journeyContainer || !pathFill || !journeyPathLength || journeyPoints.length < 2) return;
 
+    // A reference line 3/4 of the way down the viewport. As it sweeps past
+    // each node (in real, continuous scroll position — not a stepped
+    // threshold) the line draws smoothly to exactly that point.
     const containerTop = journeyContainer.getBoundingClientRect().top;
     const ref = window.innerHeight * 0.75;
     const liveY = journeyPoints.map(p => containerTop + p.y);
@@ -1108,23 +1025,28 @@
   if (pathFill && journeyContainer){
     window.addEventListener('scroll', updateJourneyScroll, { passive: true });
 
+    // Rebuild whenever the container's real size changes for any reason
+    // (window resize, image/logo load, late content shifts) instead of
+    // guessing fixed delays.
     if ('ResizeObserver' in window){
       const ro = new ResizeObserver(() => {
         clearTimeout(window._jRO);
-        window._jRO = setTimeout(buildJourneyPath, 50);
+        window._jRO = setTimeout(buildJourneyPath, 60);
       });
       ro.observe(journeyContainer);
     } else {
-      window.addEventListener('resize', () => { clearTimeout(window._jRT); window._jRT = setTimeout(buildJourneyPath, 100); });
+      window.addEventListener('resize', () => { clearTimeout(window._jRT); window._jRT = setTimeout(buildJourneyPath, 150); });
     }
 
+    // Web fonts swapping in changes text wrap and therefore card height —
+    // rebuild once they're actually ready rather than guessing a timeout.
     if (document.fonts && document.fonts.ready){
       document.fonts.ready.then(buildJourneyPath);
     }
 
     window.addEventListener('load', buildJourneyPath);
     buildJourneyPath();
-    setTimeout(buildJourneyPath, 300);
+    setTimeout(buildJourneyPath, 400);
   }
 
   journeyStops.forEach(stop => {
@@ -1132,7 +1054,6 @@
       const wasExpanded = stop.classList.contains('expanded');
       journeyStops.forEach(s => s.classList.remove('expanded'));
       if(!wasExpanded) stop.classList.add('expanded');
-      setTimeout(buildJourneyPath, 400);
     });
   });
 </script>

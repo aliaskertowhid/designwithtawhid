@@ -13,6 +13,11 @@
     --bg:#FBF3EA; --surface:#FFFFFF; --surface-2:#F5E8DA; --ink:#1F1917; --muted:#6E6157;
     --line:#E2D2BE; --accent:#C9355C; --accent-soft:#F7DCE2; --gold:#E59638; --teal:#246B60;
     --ease:cubic-bezier(.19,1,.22,1);
+
+    /* Walmart brand specific tokens */
+    --w-navy:#041E42; --w-blue:#0071CE; --w-blue-glow:#3E9EFF; --w-yellow:#FFC220;
+    --w-sky:#F0F5FA; --w-ink:#0F1720; --w-slate:#506072; --w-line:#D4E0EC;
+    --w-green:#1E8E3E; --w-red:#D93025;
   }
   *{ box-sizing:border-box; margin:0; padding:0; -webkit-tap-highlight-color: transparent; }
   html{ scroll-behavior:smooth; }
@@ -113,12 +118,9 @@
   }
   .side-foot .btn{ width:100%; justify-content:center; }
 
-  /* ================= WALMART REWARDS MASTERCARD THEME ================= */
+  /* ================= WALMART CONTENT ================= */
   .content{
-    --blue-deep:#041E42; --blue:#0071CE; --blue-bright:#3E9EFF; --sky:#F2F6FA;
-    --c-ink:#0F1720; --c-slate:#526071; --c-line:#D6E0EA; --c-gold:#E59638;
-    --green:#1E8E3E; --red:#D93025;
-    background:var(--sky); color:var(--c-ink); line-height:1.7;
+    background:var(--w-sky); color:var(--w-ink); line-height:1.7;
     min-width:0; width:100%;
   }
   .content h1,.content h2,.content h3,.content h4{ 
@@ -127,102 +129,71 @@
   }
   
   .content .wrap{ 
-    max-width:880px; 
+    max-width:920px; 
     margin:0 auto; 
-    padding:0 24px; 
+    padding:0 clamp(20px, 5vw, 44px); 
     width:100%; 
   }
-  @media (min-width: 768px) {
-    .content .wrap { padding: 0 48px; }
-  }
-  
   .content .band{ 
     padding: clamp(52px, 8vw, 84px) 0; 
     position:relative; 
   }
-  .content .band + .band{ border-top:1px solid var(--c-line); }
+  .content .band + .band{ border-top:1px solid var(--w-line); }
 
-  /* ---------- LEDGER TIMELINE (PROVEN NON-OVERLAPPING GUTTERS) ---------- */
+  /* Vertical timeline track with safe gutters */
   .content .wrap.ledger{ 
     position:relative; 
-    padding-left: 64px; 
-    padding-right: 20px;
-  }
-  @media (min-width: 768px){
-    .content .wrap.ledger{ 
-      padding-left: 96px; 
-      padding-right: 48px; 
-    }
+    padding-left: clamp(56px, 8vw, 88px);
+    padding-right: clamp(20px, 4vw, 36px);
   }
   
-  /* Vertical Timeline Line */
   .ledger::before{ 
     content:""; 
     position:absolute; 
-    left:28px; 
-    top:6px; 
-    bottom:6px; 
+    left:clamp(22px, 3.5vw, 34px); 
+    top:8px; 
+    bottom:8px; 
     width:2px; 
-    background:var(--c-line); 
+    background:var(--w-line); 
     transform: translateX(-50%);
   }
-  @media (min-width: 768px){
-    .ledger::before{ left:44px; }
-  }
   
-  /* Timeline Numbered Stamp */
   .stamp{ 
     position:absolute; 
-    left:28px; 
+    left:clamp(22px, 3.5vw, 34px); 
     top:0; 
     transform:translateX(-50%);
-    width:24px; 
-    height:24px; 
+    width:26px; 
+    height:26px; 
     border-radius:50%; 
-    background:var(--blue); 
+    background:var(--w-blue); 
     color:#fff; 
     font-family:'JetBrains Mono', monospace; 
     font-weight:700; 
-    font-size:10px; 
+    font-size:11px; 
     display:flex; 
     align-items:center; 
     justify-content:center; 
-    box-shadow:0 0 0 4px var(--sky); 
+    box-shadow:0 0 0 4px var(--w-sky); 
     z-index:2;
   }
-  @media (min-width: 768px){
-    .stamp{ 
-      left:44px; 
-      width:28px; 
-      height:28px; 
-      font-size:11px; 
-      box-shadow:0 0 0 5px var(--sky); 
-    }
-  }
   .content .band:nth-of-type(odd) .stamp{ 
-    background:var(--c-gold); 
-    color:#2A1A00; 
+    background:var(--w-yellow); 
+    color:#2B1E00; 
   }
 
   .eyebrow{ 
     font-family:'JetBrains Mono', monospace; font-weight:700; font-size:11.5px; 
-    letter-spacing:.08em; text-transform:uppercase; color:var(--blue); margin-bottom:12px; 
+    letter-spacing:.08em; text-transform:uppercase; color:var(--w-blue); margin-bottom:12px; 
   }
-  .title{ font-size:clamp(1.6rem, 4.2vw, 2.25rem); letter-spacing:-0.035em; max-width:28ch; margin-bottom:16px; line-height:1.2; }
-  .lead{ color:var(--c-slate); max-width:62ch; font-size:clamp(0.98rem, 2.5vw, 1.08rem); line-height:1.7; }
-  .prose p{ color:var(--c-slate); margin-top:14px; max-width:64ch; font-size:clamp(0.94rem, 2.5vw, 1rem); line-height:1.7; }
-  .prose p strong{ color:var(--c-ink); }
-  
-  .credit-note{ 
-    margin-top:24px; font-size:13.5px; color:var(--c-slate); background:#fff; 
-    border:1px solid var(--c-line); border-radius:14px; padding:18px 22px; max-width:64ch; 
-    box-shadow: 0 10px 24px -15px rgba(4,30,66,.08);
-  }
-  .credit-note strong{ color:var(--c-ink); }
+  .title{ font-size:clamp(1.65rem, 4.2vw, 2.3rem); letter-spacing:-0.035em; max-width:28ch; margin-bottom:16px; line-height:1.2; }
+  .lead{ color:var(--w-slate); max-width:64ch; font-size:clamp(0.98rem, 2.5vw, 1.08rem); line-height:1.7; }
+  .prose p{ color:var(--w-slate); margin-top:14px; max-width:64ch; font-size:clamp(0.94rem, 2.5vw, 1rem); line-height:1.7; }
+  .prose p strong{ color:var(--w-ink); }
 
   /* Hero */
-  .hero{ background:linear-gradient(160deg, var(--blue-deep), var(--blue)); color:#fff; padding:0; overflow:hidden; }
-  .hero-cover{ width:100%; height:auto; display:block; object-fit:cover; max-height:460px; }
+  .hero{ background:linear-gradient(160deg, var(--w-navy), var(--w-blue)); color:#fff; padding:0; overflow:hidden; }
+  .hero-cover{ width:100%; height:auto; display:block; object-fit:cover; max-height:480px; }
   .hero .wrap.hero-text{ 
     padding-top: clamp(36px, 6vw, 52px);
     padding-bottom: clamp(32px, 6vw, 48px);
@@ -231,102 +202,97 @@
   .hero-tag{ 
     display:inline-flex; align-items:center; gap:8px; font-family:'JetBrains Mono', monospace; 
     font-weight:700; font-size:11px; letter-spacing:.08em; text-transform:uppercase; 
-    color:var(--c-gold); border:1px solid rgba(229,150,56,.4); padding:6px 14px; 
+    color:var(--w-yellow); border:1px solid rgba(255,194,32,.4); padding:6px 14px; 
     border-radius:100px; margin-bottom:18px; 
   }
-  .hero-tag .dot{ width:6px; height:6px; border-radius:50%; background:var(--c-gold); }
-  .hero h1{ color:#fff; font-size:clamp(1.8rem, 4.4vw, 2.5rem); line-height:1.16; max-width:26ch; margin-bottom:14px; letter-spacing:-0.035em; }
+  .hero-tag .dot{ width:6px; height:6px; border-radius:50%; background:var(--w-yellow); }
+  .hero h1{ color:#fff; font-size:clamp(1.85rem, 4.4vw, 2.6rem); line-height:1.16; max-width:26ch; margin-bottom:14px; letter-spacing:-0.035em; }
   .hero p.lead{ color:#C8DCF0; max-width:58ch; font-size:clamp(0.98rem, 2.5vw, 1.08rem); }
   
   .hero-meta{ display:flex; gap:20px 32px; margin-top:28px; flex-wrap:wrap; }
   .hero-meta .k{ font-family:'JetBrains Mono', monospace; font-size:9.5px; letter-spacing:.08em; text-transform:uppercase; color:#8EB4DE; margin-bottom:4px; }
   .hero-meta .v{ font-size:14px; font-weight:700; color:#fff; }
 
-  /* Image Frames */
-  .img-frame{ 
-    margin-top:24px; border-radius:14px; overflow:hidden; 
-    box-shadow:0 20px 44px -28px rgba(4,30,66,.25); background:#fff; border:1px solid var(--c-line); 
+  /* Visual Mockup Frame System */
+  .visual-showcase{ 
+    margin-top:28px; border-radius:16px; overflow:hidden; 
+    box-shadow:0 24px 50px -28px rgba(4,30,66,.25); background:#fff; border:1px solid var(--w-line); 
   }
-  .img-frame img{ width:100%; height:auto; display:block; }
-  .img-cap{ font-family:'JetBrains Mono', monospace; margin-top:10px; font-size:11.5px; color:var(--c-slate); text-align:center; }
+  .visual-showcase img{ width:100%; height:auto; display:block; }
+  .visual-cap{ 
+    padding:12px 18px; background:#fff; border-top:1px solid var(--w-line); 
+    font-family:'JetBrains Mono', monospace; font-size:11.5px; color:var(--w-slate); 
+    display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;
+  }
+  .visual-cap span.badge{ background:var(--w-sky); color:var(--w-blue); padding:3px 8px; border-radius:6px; font-weight:700; }
 
-  /* Statement / Findings Table */
+  /* Feature Deep Dive Grid */
+  .feature-spotlight{ margin-top:32px; display:flex; flex-direction:column; gap:28px; }
+  .spotlight-card{ background:#fff; border-radius:16px; border:1px solid var(--w-line); overflow:hidden; box-shadow:0 18px 40px -28px rgba(4,30,66,.18); }
+  .spotlight-body{ padding:24px 26px; }
+  .spotlight-body h4{ font-size:1.3rem; margin-bottom:8px; color:var(--w-ink); }
+  .spotlight-body p{ font-size:.95rem; color:var(--w-slate); line-height:1.65; max-width:62ch; }
+
+  /* Statement Comparison Table */
   .statement{ 
     margin-top:28px; border-radius:14px; overflow:hidden; 
-    box-shadow:0 16px 36px -28px rgba(4,30,66,.18); border:1px solid var(--c-line); 
+    box-shadow:0 16px 36px -28px rgba(4,30,66,.18); border:1px solid var(--w-line); 
   }
   .stmt-head{ 
-    background:var(--blue-deep); color:#fff; padding:14px 20px; display:flex; 
+    background:var(--w-navy); color:#fff; padding:14px 20px; display:flex; 
     justify-content:space-between; font-family:'JetBrains Mono', monospace; 
     font-weight:700; font-size:11px; letter-spacing:.06em; text-transform:uppercase; 
   }
   .stmt-row{ 
     display:flex; justify-content:space-between; align-items:center; gap:16px; 
-    padding:16px 20px; background:#fff; border-bottom:1px solid var(--c-line); 
+    padding:16px 20px; background:#fff; border-bottom:1px solid var(--w-line); 
   }
   .stmt-row:last-child{ border-bottom:none; }
-  .stmt-row .desc{ font-size:13.5px; color:var(--c-ink); line-height:1.55; flex:1; }
+  .stmt-row .desc{ font-size:13.5px; color:var(--w-ink); line-height:1.55; flex:1; }
   .stmt-row .amt{ 
     font-family:'JetBrains Mono', monospace; font-weight:700; font-size:11px; 
     text-transform:uppercase; white-space:nowrap;
   }
-  .stmt-row.debit .amt{ color:var(--red); }
-  .stmt-row.credit .amt{ color:var(--green); }
+  .stmt-row.debit .amt{ color:var(--w-red); }
+  .stmt-row.credit .amt{ color:var(--w-green); }
   .stmt-row.credit{ background:#F3FAF6; }
 
   @media (max-width: 540px) {
     .stmt-head{ padding:12px 16px; }
-    .stmt-row{ 
-      flex-direction:column; 
-      align-items:flex-start; 
-      gap:8px; 
-      padding:14px 16px; 
-    }
-    .stmt-row .amt{ 
-      align-self:flex-start; 
-      padding:2px 8px; 
-      border-radius:4px; 
-    }
+    .stmt-row{ flex-direction:column; align-items:flex-start; gap:8px; padding:14px 16px; }
+    .stmt-row .amt{ align-self:flex-start; padding:2px 8px; border-radius:4px; }
     .stmt-row.debit .amt{ background:#FDF2F2; }
     .stmt-row.credit .amt{ background:#E8F7EE; }
   }
 
-  /* Two column card layout */
+  /* 2-column cards */
   .two-col-grid{ display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top:24px; }
-  @media (max-width:640px){ .two-col-grid{ grid-template-columns:1fr; } }
+  @media (max-width:680px){ .two-col-grid{ grid-template-columns:1fr; } }
   
-  .feature-card{ 
-    background:#fff; border-radius:14px; padding:20px 22px; 
-    border:1px solid var(--c-line); box-shadow:0 12px 28px -24px rgba(4,30,66,.12); 
+  .info-card{ 
+    background:#fff; border-radius:14px; padding:22px; 
+    border:1px solid var(--w-line); box-shadow:0 12px 28px -24px rgba(4,30,66,.12); 
   }
-  .feature-card h5{ font-family:'JetBrains Mono', monospace; font-weight:700; font-size:11px; text-transform:uppercase; letter-spacing:.08em; margin-bottom:8px; color:var(--blue); }
-  .feature-card p{ font-size:13.5px; color:var(--c-slate); line-height:1.6; }
-
-  /* Persona Card */
-  .persona-block{ background:#fff; border-radius:16px; padding:24px; border:1px solid var(--c-line); margin-top:24px; box-shadow:0 14px 32px -24px rgba(4,30,66,.12); }
-  .persona-header{ display:flex; gap:16px; align-items:center; margin-bottom:18px; }
-  .persona-avatar{ width:54px; height:54px; border-radius:50%; background:linear-gradient(135deg,var(--blue),var(--blue-deep)); color:#fff; display:flex; align-items:center; justify-content:center; font-weight:700; font-size:1.3rem; flex-shrink:0; }
-  .persona-name{ font-size:1.2rem; font-weight:700; }
-  .persona-role{ font-family:'JetBrains Mono', monospace; font-size:.78rem; color:var(--c-slate); }
-  .persona-quote{ font-style:italic; font-size:.95rem; color:var(--blue-deep); margin-bottom:18px; padding-left:14px; border-left:3px solid var(--blue); }
+  .info-card h5{ font-family:'JetBrains Mono', monospace; font-weight:700; font-size:11px; text-transform:uppercase; letter-spacing:.08em; margin-bottom:8px; color:var(--w-blue); }
+  .info-card p{ font-size:13.5px; color:var(--w-slate); line-height:1.6; }
 
   /* Swatches */
   .swatch-row{ display:flex; gap:14px; margin-top:24px; flex-wrap:wrap; }
   .swatch{ width:calc(50% - 7px); max-width:92px; }
   .swatch .sw{ height:58px; border-radius:10px; box-shadow:0 8px 18px -12px rgba(4,30,66,.3); }
-  .swatch .lbl{ font-family:'JetBrains Mono', monospace; font-size:10px; color:var(--c-slate); margin-top:6px; text-align:center; font-weight:500; }
-  .swatch .hex{ font-family:'JetBrains Mono', monospace; font-size:9.5px; font-weight:700; text-align:center; color:var(--c-ink); }
+  .swatch .lbl{ font-family:'JetBrains Mono', monospace; font-size:10px; color:var(--w-slate); margin-top:6px; text-align:center; font-weight:500; }
+  .swatch .hex{ font-family:'JetBrains Mono', monospace; font-size:9.5px; font-weight:700; text-align:center; color:var(--w-ink); }
 
   /* Takeaways */
   .takeaway-list{ margin-top:24px; }
-  .takeaway-item{ display:grid; grid-template-columns:36px 1fr; gap:16px; padding:18px 0; border-top:1px solid var(--c-line); }
+  .takeaway-item{ display:grid; grid-template-columns:36px 1fr; gap:16px; padding:18px 0; border-top:1px solid var(--w-line); }
   .takeaway-item:first-child{ border-top:none; }
-  .takeaway-item .t-num{ font-family:'JetBrains Mono', monospace; font-weight:700; color:var(--c-gold); font-size:15px; }
+  .takeaway-item .t-num{ font-family:'JetBrains Mono', monospace; font-weight:700; color:var(--gold); font-size:15px; }
   .takeaway-item h5{ font-size:14.5px; font-weight:700; margin-bottom:4px; letter-spacing:-0.02em; }
-  .takeaway-item p{ font-size:13.5px; color:var(--c-slate); line-height:1.6; }
+  .takeaway-item p{ font-size:13.5px; color:var(--w-slate); line-height:1.6; }
 
   /* Footer */
-  .content-footer{ background:var(--blue-deep); color:#8EB4DE; padding:48px 24px; text-align:center; }
+  .content-footer{ background:var(--w-navy); color:#8EB4DE; padding:48px 24px; text-align:center; }
   .content-footer .thanks{ font-size:18px; color:#fff; margin-bottom:8px; font-weight:700; letter-spacing:-0.02em; }
   .content-footer .fine{ font-family:'JetBrains Mono', monospace; font-size:10.5px; letter-spacing:.04em; }
   .content-footer .cta{ margin-top:20px; }
@@ -368,12 +334,12 @@
 
     <!-- HERO -->
     <section class="hero">
-      <img class="hero-cover" src="walmart-cover.png" alt="Walmart Rewards Mastercard app case study cover showcasing key app screens and balance ledger">
+      <img class="hero-cover" src="walmart-cover.png" alt="Walmart Rewards Mastercard App case study hero cover graphic">
       <div class="wrap hero-text">
         <div class="reveal in">
           <div class="hero-tag"><span class="dot"></span>Case Study, Fintech &amp; Retail</div>
           <h1>Walmart Rewards Mastercard App</h1>
-          <p class="lead">A dedicated native financial experience for the Walmart Rewards Mastercard — balance, instant payments, transparent instalment plans, and real-time reward redemption built for everyday shoppers.</p>
+          <p class="lead">A dedicated native financial experience for the Walmart Rewards Mastercard — balance, payments, transparent instalment plans, and real-time reward redemption built for everyday shoppers.</p>
           <div class="hero-meta">
             <div><div class="k">Timeline</div><div class="v">8 Weeks</div></div>
             <div><div class="k">Role</div><div class="v">UI/UX Designer</div></div>
@@ -390,18 +356,18 @@
         <div class="eyebrow reveal">Project Overview</div>
         <h2 class="title reveal">Bringing native clarity to one of retail's most held cards.</h2>
         <div class="prose reveal">
-          <p>The Walmart Rewards Mastercard is carried by millions of shoppers across North America as their primary credit vehicle for household groceries, general merchandise, and online purchases. Despite its widespread everyday use, account servicing remained tied to a legacy web browser portal.</p>
-          <p><strong>My goal was to design an end-to-end native mobile application</strong> that empowers cardholders to track live balances, manage instalments directly from recent purchases, toggle on-demand security controls, and redeem rewards with complete clarity.</p>
+          <p>The Walmart Rewards Mastercard is carried by millions of shoppers across North America as their primary credit card for groceries, household essentials, and online orders. Despite its massive daily volume, account management historically required logging into a third-party banking website through a mobile browser.</p>
+          <p><strong>This case study designs a standalone, native mobile experience:</strong> unified balances, transparent instalment plans, instant on-demand security controls, and rewards made spendable at checkout.</p>
         </div>
 
-        <div class="two-col-grid reveal" style="margin-top:28px;">
-          <div class="feature-card">
+        <div class="two-col-grid reveal" style="margin-top:24px;">
+          <div class="info-card">
             <h5>Responsibilities</h5>
-            <p>User Research, Competitor Benchmarking, User Persona Development, Information Architecture, Wireframing, Design Token Architecture, High-Fidelity Prototyping, and Micro-interactions.</p>
+            <p>End-to-End Product Design, User Research, Qualitative Interviews, Information Architecture, Wireframing, Design Tokens, Interactive Figma Prototyping, and Production Handoff.</p>
           </div>
-          <div class="feature-card">
+          <div class="info-card">
             <h5>Target User</h5>
-            <p>Everyday family shoppers, students, and budget-conscious individuals who use their Walmart Mastercard regularly and want seamless tracking without navigating browser portals.</p>
+            <p>Budget-conscious households, frequent in-store Walmart shoppers, and students seeking instant clarity over balances, payment dates, and rewards without web portal friction.</p>
           </div>
         </div>
       </div>
@@ -413,10 +379,7 @@
         <span class="stamp">02</span>
         <div class="eyebrow reveal">The Problem</div>
         <h2 class="title reveal">What people run into vs. what the app answers with.</h2>
-        <div class="prose reveal">
-          <p>Cardholders frequently run into friction when trying to check essential numbers on the go. Below is the direct comparison between current user pain points and the solutions introduced in this redesign.</p>
-        </div>
-
+        
         <div class="statement reveal">
           <div class="stmt-head"><span>What People Run Into</span><span>What The App Answers With</span></div>
           <div class="stmt-row debit"><div class="desc">No native app; cardholders are forced through browser logins every time.</div><div class="amt">Problem</div></div>
@@ -438,26 +401,16 @@
       <div class="wrap ledger">
         <span class="stamp">03</span>
         <div class="eyebrow reveal">Design Process</div>
-        <h2 class="title reveal">An iterative roadmap from discovery to delivery.</h2>
+        <h2 class="title reveal">A structured sprint from research to delivery.</h2>
         <div class="prose reveal">
-          <p>The redesign followed a user-centered design sprint cycle divided across three comprehensive phases: Discover &amp; Define, Architecture &amp; Wireframes, and High-Fidelity Design System delivery.</p>
+          <p>Divided into distinct collaborative phases to move from problem definition, heuristic analysis, and wireframes to component tokenization and high-fidelity testing.</p>
         </div>
-        <div class="two-col-grid reveal">
-          <div class="feature-card">
-            <h5>Phase 1 — Discovery &amp; Research</h5>
-            <p>Desk research, competitive app benchmarking, and qualitative user interview sessions to identify where retail cardholders drop off.</p>
-          </div>
-          <div class="feature-card">
-            <h5>Phase 2 — Information Architecture</h5>
-            <p>User journey mapping, task flow optimization, low-fidelity paper wireframes, and digital structural layouts.</p>
-          </div>
-          <div class="feature-card">
-            <h5>Phase 3 — Visual System &amp; Testing</h5>
-            <p>Establishing Walmart's native design tokens, crafting high-contrast UI components, and validating usability across edge cases.</p>
-          </div>
-          <div class="feature-card">
-            <h5>Phase 4 — End-to-End Production</h5>
-            <p>Generating the 100+ production screen set covering onboarding, balance tracking, instalments, and security management.</p>
+
+        <div class="visual-showcase reveal">
+          <img src="walmart-process.png" alt="Walmart Rewards Mastercard design process diagram showing Research, Define, Ideation, Design, and Testing">
+          <div class="visual-cap">
+            <span>Walmart Mastercard Design Process Roadmap</span>
+            <span class="badge">walmart-process.png</span>
           </div>
         </div>
       </div>
@@ -468,42 +421,40 @@
       <div class="wrap ledger">
         <span class="stamp">04</span>
         <div class="eyebrow reveal">Research</div>
-        <h2 class="title reveal">Uncovering friction in retail card management.</h2>
+        <h2 class="title reveal">Finding the breaking points of retail card servicing.</h2>
         <div class="prose reveal">
-          <p>By reviewing customer complaint boards, retail banking forums, and existing card servicing ratings, clear patterns emerged: shoppers wanted quick confirmation that their transactions cleared, clarity on accumulated cash rewards, and zero confusion over payment due dates.</p>
+          <p>By auditing credit card community boards, store customer feedback, and App Store reviews for competing retail store cards, three major friction categories emerged: verification drop-offs, reward ambiguity, and opaque payment posting times.</p>
         </div>
-        <div class="two-col-grid reveal" style="margin-top:20px;">
-          <div class="feature-card">
-            <h5>68% Drop-off Rate</h5>
-            <p>Users reported frequently abandoning browser-based balance checks due to repeated multi-factor web prompts and session timeouts.</p>
-          </div>
-          <div class="feature-card">
-            <h5>Reward Disconnect</h5>
-            <p>Over 74% of cardholders did not know their exact reward dollar balance until prompted at physical self-checkout registers.</p>
+
+        <div class="visual-showcase reveal">
+          <img src="walmart-research-insights.png" alt="Research synthesis and friction findings for the Walmart Mastercard app">
+          <div class="visual-cap">
+            <span>Desk research &amp; cardholder community feedback analysis</span>
+            <span class="badge">walmart-research-insights.png</span>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- 05 INTERVIEW -->
+    <!-- 05 USER INTERVIEW -->
     <section id="interview" class="band">
       <div class="wrap ledger">
         <span class="stamp">05</span>
         <div class="eyebrow reveal">User Interview</div>
         <h2 class="title reveal">Questions asked &amp; what we heard.</h2>
         <div class="prose reveal">
-          <p>I conducted 1-on-1 interview sessions with frequent Walmart shoppers holding the Mastercard to understand their monthly routines, budget tracking habits, and security concerns.</p>
+          <p>I engaged active cardholders in guided interviews focusing on their weekly routines, payment habits, and pain points when making unplanned larger purchases.</p>
         </div>
 
         <div class="two-col-grid reveal">
-          <div class="feature-card">
+          <div class="info-card">
             <h5>Questions Asked</h5>
             <p>• "How do you check your card balance before making large shopping trips?"<br>
             • "Have you ever tried to set up an instalment plan on a major purchase?"<br>
             • "How clear is it when and how your rewards can be applied to statements?"<br>
             • "What is the first thing you do if you misplace your card while shopping?"</p>
           </div>
-          <div class="feature-card">
+          <div class="info-card">
             <h5>What We Heard</h5>
             <p>• "I hate having to open Chrome on my phone just to see if my payment cleared."<br>
             • "I bought a TV last month and wanted to split it, but the website made it impossible."<br>
@@ -519,58 +470,39 @@
       <div class="wrap ledger">
         <span class="stamp">06</span>
         <div class="eyebrow reveal">User Persona</div>
-        <h2 class="title reveal">Designing around real customer behaviors.</h2>
-        
-        <div class="persona-block reveal">
-          <div class="persona-header">
-            <div class="persona-avatar">MA</div>
-            <div>
-              <div class="persona-name">Maliyat Ahmed</div>
-              <div class="persona-role">29 · Marketing Coordinator &amp; Weekly Shopper · Toronto, ON</div>
-            </div>
-          </div>
-          <div class="persona-quote">"I want to track my weekly household grocery budget and rewards points without jumping through hoops every single time."</div>
-          
-          <div class="two-col-grid">
-            <div>
-              <h5 style="font-family:'JetBrains Mono',monospace; font-size:.78rem; text-transform:uppercase; color:var(--blue); margin-bottom:8px;">Core Goals</h5>
-              <p style="font-size:.9rem; color:var(--c-slate); line-height:1.6;">• Check available credit and due dates at a glance.<br>• Split major appliance or electronics purchases into simple monthly instalments.<br>• Instantly redeem cash rewards points against her monthly statement balance.</p>
-            </div>
-            <div>
-              <h5 style="font-family:'JetBrains Mono',monospace; font-size:.78rem; text-transform:uppercase; color:var(--red); margin-bottom:8px;">Frustrations</h5>
-              <p style="font-size:.9rem; color:var(--c-slate); line-height:1.6;">• Clunky browser sessions that time out during shopping trips.<br>• Unclear transaction descriptions with missing merchant details.<br>• Lack of real-time push alerts for payment due dates and card charges.</p>
-            </div>
+        <h2 class="title reveal">Designing for Maliyat Ahmed.</h2>
+        <div class="prose reveal">
+          <p>A composite persona representing weekly shoppers who balance busy careers with family grocery budgets and desire complete financial clarity on their phones.</p>
+        </div>
+
+        <div class="visual-showcase reveal">
+          <img src="walmart-persona-maliyat.png" alt="User persona sheet for Maliyat Ahmed, detailing goals, behaviors, and frustrations">
+          <div class="visual-cap">
+            <span>Primary Persona Profile — Maliyat Ahmed (29, Marketing Coordinator)</span>
+            <span class="badge">walmart-persona-maliyat.png</span>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- 07 COMPETITIVE -->
+    <!-- 07 COMPETITIVE ANALYSIS -->
     <section id="competitive" class="band">
       <div class="wrap ledger">
         <span class="stamp">07</span>
         <div class="eyebrow reveal">Competitive Analysis</div>
         <h2 class="title reveal">Benchmarked against industry leaders.</h2>
         <div class="prose reveal">
-          <p>I evaluated leading retail and banking applications to synthesize interaction models that customers already trust and expect.</p>
+          <p>Evaluated leading retail cards (Apple Card, Target Circle, Amazon Prime Card, Capital One) to identify UX benchmarks across rewards visibility, instalment clarity, and on-demand controls.</p>
         </div>
 
         <div class="two-col-grid reveal">
-          <div class="feature-card">
-            <h5>Apple Card</h5>
-            <p><strong>Benchmark:</strong> Clear real-time cash back tracking and simplified interest calculators.<br><strong>Takeaway:</strong> Plain-language statements eliminate payment anxiety.</p>
+          <div class="info-card">
+            <h5>Apple Card &amp; Capital One</h5>
+            <p><strong>Benchmark:</strong> Real-time category tracking, plain-language interest terms, and instant biometric authorization.<br><strong>Opportunity:</strong> Translate transparent balance reporting into a dedicated retail card experience.</p>
           </div>
-          <div class="feature-card">
-            <h5>Target Circle Card</h5>
-            <p><strong>Benchmark:</strong> Seamless integration between store perks and card accounts.<br><strong>Takeaway:</strong> Surfacing rewards alongside recent store receipts drives high engagement.</p>
-          </div>
-          <div class="feature-card">
-            <h5>Amazon Prime Card</h5>
-            <p><strong>Benchmark:</strong> Zero-effort point redemption directly applied to future orders.<br><strong>Takeaway:</strong> Points must be actionable within two taps from the primary home dashboard.</p>
-          </div>
-          <div class="feature-card">
-            <h5>Capital One Mobile</h5>
-            <p><strong>Benchmark:</strong> Instant on-demand card controls and virtual number provisioning.<br><strong>Takeaway:</strong> Freeze/unfreeze must be accessible directly without diving into settings.</p>
+          <div class="info-card">
+            <h5>Target Circle &amp; Amazon Prime</h5>
+            <p><strong>Benchmark:</strong> Zero-effort automatic discounts and one-click rewards redemption directly at points of purchase.<br><strong>Opportunity:</strong> Connect in-store Walmart receipts with digital statement rewards credit.</p>
           </div>
         </div>
       </div>
@@ -583,25 +515,14 @@
         <div class="eyebrow reveal">User Flow</div>
         <h2 class="title reveal">Four essential journeys, mapped end to end.</h2>
         <div class="prose reveal">
-          <p>Architecture maps were engineered to eliminate unnecessary friction and keep high-priority tasks reachable within seconds.</p>
+          <p>Mapped critical task journeys: Card Activation, Purchase-to-Instalment conversions, Single-Tap Bill Pay, and In-App Card Freezing.</p>
         </div>
 
-        <div class="two-col-grid reveal">
-          <div class="feature-card">
-            <h5>1. Instant Card Activation</h5>
-            <p>Scan physical card with camera → SMS OTP confirmation → Set PIN → Auto-add to Apple/Google Wallet → Ready to spend.</p>
-          </div>
-          <div class="feature-card">
-            <h5>2. Purchase-to-Instalment Flow</h5>
-            <p>Transaction feed → Select eligible charge ($100+) → Choose 3, 6, or 12-month term → Review monthly fee → Confirm plan.</p>
-          </div>
-          <div class="feature-card">
-            <h5>3. One-Tap Reward Redemption</h5>
-            <p>Home dashboard → View live rewards points ($1 = 100 pts) → Select "Apply to Statement" or "Redeem in Store" → Success receipt.</p>
-          </div>
-          <div class="feature-card">
-            <h5>4. Security &amp; Card Controls</h5>
-            <p>Account tab → Instant Card Freeze toggle → Lock international spend / online orders → Biometric confirmation.</p>
+        <div class="visual-showcase reveal">
+          <img src="walmart-user-flow.png" alt="Comprehensive User Flow diagram mapping card activation, payments, and instalment conversions">
+          <div class="visual-cap">
+            <span>Complete Task Architecture &amp; Decision Tree Diagram</span>
+            <span class="badge">walmart-user-flow.png</span>
           </div>
         </div>
       </div>
@@ -612,25 +533,29 @@
       <div class="wrap ledger">
         <span class="stamp">09</span>
         <div class="eyebrow reveal">Wireframe</div>
-        <h2 class="title reveal">Structure before decoration.</h2>
+        <h2 class="title reveal">Paper sketches to structural layouts.</h2>
         <div class="prose reveal">
-          <p>From initial paper sketches to high-fidelity grayscale Figma wireframes, I prioritized visual hierarchy so balance figures, due dates, and instalment prompts maintain distinct spatial separation before applying brand colors.</p>
+          <p>Tested card balance density, ledger scroll behaviors, and term-selection sliders in low-fidelity grayscale wireframes before introducing Walmart’s color palette.</p>
         </div>
-        <div class="img-frame reveal">
-          <img src="walmart-cover.png" alt="Wireframe progression and UI architecture for the Walmart Mastercard app">
+
+        <div class="visual-showcase reveal">
+          <img src="walmart-wireframes.png" alt="Paper sketches and digital grayscale wireframe progressions">
+          <div class="visual-cap">
+            <span>Exploratory sketches &amp; digital wireframes</span>
+            <span class="badge">walmart-wireframes.png</span>
+          </div>
         </div>
-        <div class="img-cap reveal">Structural wireframe evolution: defining high-contrast hierarchy for dashboard and transaction flows</div>
       </div>
     </section>
 
-    <!-- 10 STYLE GUIDE & COMPONENTS -->
+    <!-- 10 STYLE GUIDE & UI COMPONENTS -->
     <section id="style" class="band">
       <div class="wrap ledger">
         <span class="stamp">10</span>
         <div class="eyebrow reveal">Style Guide &amp; UI Components</div>
         <h2 class="title reveal">Walmart brand language, elevated for modern fintech.</h2>
         <div class="prose reveal">
-          <p>Typeset in <strong>Inter Tight</strong> for authoritative, negative-tracked headlines and <strong>JetBrains Mono</strong> for precision financial balances, paired with Walmart's iconic blue and spark yellow palette.</p>
+          <p>Typeset in <strong>Inter Tight</strong> and <strong>Everyday Sans</strong> for crisp negative-tracked headlines, paired with <strong>JetBrains Mono</strong> for tabular numbers, Walmart Blue (#0071CE), and Spark Yellow (#FFC220).</p>
         </div>
 
         <div class="swatch-row reveal">
@@ -638,55 +563,76 @@
           <div class="swatch"><div class="sw" style="background:#FFC220;"></div><div class="lbl">Spark Yellow</div><div class="hex">#FFC220</div></div>
           <div class="swatch"><div class="sw" style="background:#041E42;"></div><div class="lbl">Midnight Navy</div><div class="hex">#041E42</div></div>
           <div class="swatch"><div class="sw" style="background:#1E8E3E;"></div><div class="lbl">Success Green</div><div class="hex">#1E8E3E</div></div>
-          <div class="swatch"><div class="sw" style="background:#F2F6FA; border:1px solid var(--c-line);"></div><div class="lbl">Surface Sky</div><div class="hex">#F2F6FA</div></div>
+          <div class="swatch"><div class="sw" style="background:#F0F5FA; border:1px solid var(--w-line);"></div><div class="lbl">Surface Sky</div><div class="hex">#F0F5FA</div></div>
         </div>
 
-        <div class="two-col-grid reveal" style="margin-top:28px;">
-          <div class="feature-card">
-            <h5>Typography Hierarchy</h5>
-            <p>• Display: <strong>Inter Tight</strong> (-0.035em tracking) for balances &amp; titles.<br>• Body: <strong>Inter</strong> for clean, readable guidance copy.<br>• Numeric: <strong>JetBrains Mono</strong> for tabular transaction alignment.</p>
-          </div>
-          <div class="feature-card">
-            <h5>Component Library</h5>
-            <p>Built with 100% responsive Auto-Layout variants in Figma: Available credit cards, payment sliders, instalment term selectors, and active state chips.</p>
+        <div class="visual-showcase reveal">
+          <img src="walmart-design-system.png" alt="Walmart Mastercard design tokens, component variants, and typography system">
+          <div class="visual-cap">
+            <span>Component Library — Buttons, cards, instalment chips &amp; typography spec</span>
+            <span class="badge">walmart-design-system.png</span>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- 11 VISUAL DESIGN -->
+    <!-- 11 VISUAL DESIGN (FEATURE SPOTLIGHTS) -->
     <section id="visual" class="band">
       <div class="wrap ledger">
         <span class="stamp">11</span>
         <div class="eyebrow reveal">Visual Design</div>
-        <h2 class="title reveal">The core screens that redefine the experience.</h2>
-        
+        <h2 class="title reveal">The core screens that redefine the card experience.</h2>
         <div class="prose reveal">
-          <p>The final design focuses on five key functional areas that solve the historical friction points uncovered during research.</p>
+          <p>The core features designed to solve the primary friction points uncovered in research, presented in full production fidelity.</p>
         </div>
 
-        <div class="two-col-grid reveal" style="margin-top:20px;">
-          <div class="feature-card">
-            <h5>Home, in One Glance</h5>
-            <p>High-contrast ledger display showing available credit, rewards balance, and next minimum payment with instant 1-tap "Pay Card" action.</p>
-          </div>
-          <div class="feature-card">
-            <h5>Instalments, from Purchase to Plan</h5>
-            <p>Converts any eligible purchase over $100 into transparent 3, 6, or 12-month instalments with zero hidden fees and clear monthly terms.</p>
-          </div>
-          <div class="feature-card">
-            <h5>Controls Where People Expect Them</h5>
-            <p>Direct access to card freeze, online transaction locks, international switches, and replacement requests without nested sub-menus.</p>
-          </div>
-          <div class="feature-card">
-            <h5>Activation That Ends in a Working Card</h5>
-            <p>Camera scan card recognition, frictionless SMS security verification, and automatic single-tap Apple Pay and Google Wallet provisioning.</p>
-          </div>
-        </div>
+        <div class="feature-spotlight reveal">
 
-        <div class="feature-card reveal" style="margin-top:16px;">
-          <h5>Every Charge, Explained</h5>
-          <p>No more vague statement line items. Every transaction features clear retailer branding, mapped location pins, categorized expense tagging, and a direct in-app dispute button.</p>
+          <!-- Feature 1: Home in one glance -->
+          <div class="spotlight-card">
+            <img src="walmart-feature-home.png" alt="Home in one glance feature mockup showing balance, available credit, and quick actions">
+            <div class="spotlight-body">
+              <h4>Home, in one glance</h4>
+              <p>A unified financial card showing real-time balance ($2,317.42), available credit, cash reward totals, payment due dates, and one-tap payment scheduling without navigating menus.</p>
+            </div>
+          </div>
+
+          <!-- Feature 2: Instalments -->
+          <div class="spotlight-card">
+            <img src="walmart-feature-instalments.png" alt="Instalments feature showing purchase to plan selection on an item">
+            <div class="spotlight-body">
+              <h4>Instalments, from purchase to plan</h4>
+              <p>Directly convert qualifying retail purchases ($100+) into 3, 6, or 12-month instalment plans with transparent dollar fees, clear monthly commitments, and zero hidden penalties.</p>
+            </div>
+          </div>
+
+          <!-- Feature 3: Controls -->
+          <div class="spotlight-card">
+            <img src="walmart-feature-controls.png" alt="Controls feature screen showing freeze card toggle and security options">
+            <div class="spotlight-body">
+              <h4>Controls where people expect them</h4>
+              <p>Instant card freeze/unfreeze toggle, online transaction locking, international use switches, and replacement card ordering accessible in one tap.</p>
+            </div>
+          </div>
+
+          <!-- Feature 4: Activation -->
+          <div class="spotlight-card">
+            <img src="walmart-feature-activation.png" alt="Card activation screen with camera scanner and Apple Wallet integration">
+            <div class="spotlight-body">
+              <h4>Activation that ends in a working card</h4>
+              <p>Frictionless optical camera scanning of the physical card, SMS two-factor verification, and instant auto-provisioning to Apple Wallet and Google Pay.</p>
+            </div>
+          </div>
+
+          <!-- Feature 5: Transactions -->
+          <div class="spotlight-card">
+            <img src="walmart-feature-transactions.png" alt="Detailed transaction explanation screen with receipts and dispute tools">
+            <div class="spotlight-body">
+              <h4>Every charge, explained</h4>
+              <p>Eliminates cryptic statement lines. Each transaction displays verified merchant logos, mapped store locations, itemized receipt histories, and an in-app dispute button.</p>
+            </div>
+          </div>
+
         </div>
       </div>
     </section>
@@ -696,14 +642,18 @@
       <div class="wrap ledger">
         <span class="stamp">12</span>
         <div class="eyebrow reveal">100+ Other Screens</div>
-        <h2 class="title reveal">The full production app experience.</h2>
+        <h2 class="title reveal">The rest of the app.</h2>
         <div class="prose reveal">
-          <p>Beyond the primary flows, the comprehensive Figma system covers all edge cases: paperless statement exports, dark mode contrast calibration, custom push notifications, reward catalog browsing, and multi-card management.</p>
+          <p>Beyond the core flows, the comprehensive Figma system covers all edge cases: paperless statement exports, dark mode contrast calibration, custom push notifications, reward catalog browsing, and multi-card management.</p>
         </div>
-        <div class="img-frame reveal">
-          <img src="walmart-cover.png" alt="Comprehensive screen overview of the Walmart Mastercard application design system">
+
+        <div class="visual-showcase reveal">
+          <img src="walmart-all-screens.png" alt="Composite grid of 100+ screens covering onboarding, account settings, reward redemption, and error states">
+          <div class="visual-cap">
+            <span>Complete end-to-end design suite spanning over 100 responsive mobile application states</span>
+            <span class="badge">walmart-all-screens.png</span>
+          </div>
         </div>
-        <div class="img-cap reveal">Complete end-to-end design suite spanning over 100 responsive mobile application states</div>
       </div>
     </section>
 
@@ -713,6 +663,7 @@
         <span class="stamp">13</span>
         <div class="eyebrow reveal">Key Takeaways</div>
         <h2 class="title reveal">What this project reinforced.</h2>
+        
         <div class="takeaway-list reveal">
           <div class="takeaway-item">
             <span class="t-num">01</span>
@@ -749,15 +700,15 @@
     <!-- BEHANCE LINK -->
     <section class="band" style="padding-top:0;">
       <div class="wrap">
-        <div class="credit-note reveal" style="max-width:none; text-align:center; padding:20px 24px;">
-          Want to explore the complete, interactive Behance case study? <strong><a href="https://www.behance.net/gallery/255205115/Walmart-Rewards-Mastercard-App-UXUI-Case-Study" target="_blank" rel="noopener" style="color:var(--blue); text-decoration:underline;">View it on Behance →</a></strong>
+        <div class="credit-note reveal" style="max-width:none; text-align:center; padding:22px 24px;">
+          Want to explore the complete, interactive Behance case study? <strong><a href="https://www.behance.net/gallery/255205115/Walmart-Rewards-Mastercard-App-UXUI-Case-Study" target="_blank" rel="noopener" style="color:var(--w-blue); text-decoration:underline;">View it on Behance →</a></strong>
         </div>
       </div>
     </section>
 
     <footer class="content-footer">
       <div class="wrap">
-        <div class="thanks">Thanks for reading.</div>
+        <div class="thanks">Thanks for watching!</div>
         <div class="fine">WALMART REWARDS MASTERCARD APP · CASE STUDY · 2026</div>
         <div class="cta"><a class="btn accent" href="index.html">Back to portfolio</a></div>
       </div>

@@ -1,855 +1,756 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-  <title>Walmart Credit Card App — Case Study | Tawhid</title>
-  <meta name="description" content="A native app concept for the Walmart Credit Card — case study by Md Ali Asker Tawhid.">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,500;0,600;0,700;0,800;1,500;1,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --bg: #FBF3EA;
-      --surface: #FFFFFF;
-      --surface-2: #F5E8DA;
-      --ink: #1F1917;
-      --muted: #6E6157;
-      --line: #E2D2BE;
-      --accent: #C9355C;
-      --accent-soft: #F7DCE2;
-      --gold: #E59638;
-      --teal: #246B60;
-      --ease: cubic-bezier(.19,1,.22,1);
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+<title>Walmart Rewards Mastercard App — Case Study | Tawhid</title>
+<meta name="description" content="Walmart Rewards Mastercard App mobile experience redesign — case study by Md Ali Asker Tawhid.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,500;0,600;0,700;0,800;1,500;1,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#FBF3EA; --surface:#FFFFFF; --surface-2:#F5E8DA; --ink:#1F1917; --muted:#6E6157;
+    --line:#E2D2BE; --accent:#C9355C; --accent-soft:#F7DCE2; --gold:#E59638; --teal:#246B60;
+    --ease:cubic-bezier(.19,1,.22,1);
+  }
+  *{ box-sizing:border-box; margin:0; padding:0; -webkit-tap-highlight-color: transparent; }
+  html{ scroll-behavior:smooth; }
+  @media (prefers-reduced-motion: reduce){ 
+    html{ scroll-behavior:auto; } 
+    *{ animation-duration:.001ms !important; transition-duration:.001ms !important; scroll-behavior:auto !important; } 
+  }
+  body{ 
+    background:var(--bg); color:var(--ink); 
+    font-family:'Inter', -apple-system, BlinkMacSystemFont, sans-serif; 
+    line-height:1.7; -webkit-font-smoothing:antialiased; 
+    letter-spacing:-0.011em;
+    overflow-x:hidden;
+    width:100%;
+  }
+  a{ color:inherit; text-decoration:none; }
+  img{ max-width:100%; height:auto; display:block; }
+  ul,ol{ list-style:none; }
+  ::selection{ background:var(--accent-soft); color:var(--ink); }
+  :focus-visible{ outline:2px solid var(--accent); outline-offset:3px; }
+  
+  h1,h2,h3,h4{ 
+    font-family:'Inter Tight', -apple-system, BlinkMacSystemFont, sans-serif; 
+    font-weight:700; 
+    letter-spacing:-0.035em; 
+    color:var(--ink); 
+    line-height:1.18;
+  }
+
+  .btn{ 
+    display:inline-flex; align-items:center; justify-content:center; gap:8px; 
+    font-family:'Inter', sans-serif; font-weight:600; font-size:.86rem; 
+    letter-spacing:-0.01em; padding:13px 24px; border-radius:100px; 
+    border:1.5px solid var(--ink); background:var(--ink); color:var(--bg); 
+    transition: transform .25s var(--ease), background .25s var(--ease), border-color .25s var(--ease); 
+    cursor:pointer; touch-action: manipulation; white-space: nowrap;
+  }
+  .btn:hover{ transform:translateY(-2px); }
+  .btn:active{ transform:translateY(0); }
+  .btn.accent{ background:var(--accent); border-color:var(--accent); color:#fff; }
+
+  /* ---------- APP SHELL ---------- */
+  .app{ 
+    display:grid; 
+    grid-template-columns:290px 1fr; 
+    align-items:start; 
+    width:100%; 
+    min-height:100vh; 
+  }
+  @media (max-width:960px){ 
+    .app{ grid-template-columns:1fr; } 
+  }
+  
+  .side{ 
+    position:sticky; top:0; height:100vh; padding:44px 32px; 
+    display:flex; flex-direction:column; border-right:1px solid var(--line); 
+    background:var(--surface-2); overflow-y:auto; scrollbar-width:thin; scrollbar-color:var(--line) transparent; 
+    z-index: 10;
+  }
+  .side::-webkit-scrollbar{ width:6px; } 
+  .side::-webkit-scrollbar-thumb{ background:var(--line); border-radius:10px; }
+  .side > *{ flex:0 0 auto; }
+  
+  @media (max-width:960px){ 
+    .side{ 
+      position:relative; height:auto; padding:28px 20px 24px; 
+      border-right:none; border-bottom:1px solid var(--line); 
+    } 
+  }
+  
+  .back-link{ 
+    display:inline-flex; align-items:center; gap:8px; font-family:'Inter', sans-serif; 
+    font-weight:600; font-size:.84rem; color:var(--muted); transition:color .2s var(--ease); 
+  }
+  .back-link:hover{ color:var(--accent); }
+  
+  .side-meta{ margin-top:24px; }
+  .side-meta h1{ font-size:1.15rem; line-height:1.25; letter-spacing:-0.03em; }
+  
+  .meta-row{ margin-top:14px; padding-top:12px; border-top:1px solid var(--line); }
+  .meta-row .k{ font-family:'JetBrains Mono', monospace; font-weight:700; font-size:.65rem; letter-spacing:.08em; text-transform:uppercase; color:var(--accent); }
+  .meta-row .v{ font-size:.9rem; color:var(--ink); margin-top:3px; font-weight:500; }
+  
+  .side-nav{ margin-top:24px; display:flex; flex-direction:column; gap:3px; }
+  @media (max-width: 960px) {
+    .side-nav { display:flex; flex-direction:row; flex-wrap:wrap; gap:8px 14px; margin-top:18px; }
+  }
+  .side-nav a{ 
+    font-weight:500; font-size:.84rem; color:var(--muted); padding:6px 0; 
+    transition:color .2s var(--ease); display:flex; align-items:center; gap:8px; 
+  }
+  .side-nav a .idx{ font-family:'JetBrains Mono', monospace; font-size:.74rem; font-weight:600; color:var(--accent); }
+  .side-nav a:hover, .side-nav a.active{ color:var(--ink); font-weight:600; }
+  
+  .side-foot{ margin-top:auto; padding-top:24px; }
+  @media (max-width: 960px) {
+    .side-foot { margin-top:20px; padding-top:16px; border-top:1px solid var(--line); }
+  }
+  .side-foot .btn{ width:100%; justify-content:center; }
+
+  /* ================= WALMART REWARDS MASTERCARD THEME ================= */
+  .content{
+    --blue-deep:#041E42; --blue:#0071CE; --blue-bright:#3E9EFF; --sky:#F2F6FA;
+    --c-ink:#0F1720; --c-slate:#526071; --c-line:#D6E0EA; --c-gold:#E59638;
+    --green:#1E8E3E; --red:#D93025;
+    background:var(--sky); color:var(--c-ink); line-height:1.7;
+    min-width:0; width:100%;
+  }
+  .content h1,.content h2,.content h3,.content h4{ 
+    font-family:'Inter Tight', -apple-system, BlinkMacSystemFont, sans-serif; 
+    font-weight:700; letter-spacing:-0.03em; color:inherit; 
+  }
+  
+  .content .wrap{ 
+    max-width:880px; 
+    margin:0 auto; 
+    padding:0 24px; 
+    width:100%; 
+  }
+  @media (min-width: 768px) {
+    .content .wrap { padding: 0 48px; }
+  }
+  
+  .content .band{ 
+    padding: clamp(52px, 8vw, 84px) 0; 
+    position:relative; 
+  }
+  .content .band + .band{ border-top:1px solid var(--c-line); }
+
+  /* ---------- LEDGER TIMELINE (PROVEN NON-OVERLAPPING GUTTERS) ---------- */
+  .content .wrap.ledger{ 
+    position:relative; 
+    padding-left: 64px; 
+    padding-right: 20px;
+  }
+  @media (min-width: 768px){
+    .content .wrap.ledger{ 
+      padding-left: 96px; 
+      padding-right: 48px; 
     }
-    
-    * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
-    html { scroll-behavior: smooth; }
-    @media (prefers-reduced-motion: reduce) {
-      html { scroll-behavior: auto; }
-      * { animation-duration: .001ms !important; transition-duration: .001ms !important; scroll-behavior: auto !important; }
+  }
+  
+  /* Vertical Timeline Line */
+  .ledger::before{ 
+    content:""; 
+    position:absolute; 
+    left:28px; 
+    top:6px; 
+    bottom:6px; 
+    width:2px; 
+    background:var(--c-line); 
+    transform: translateX(-50%);
+  }
+  @media (min-width: 768px){
+    .ledger::before{ left:44px; }
+  }
+  
+  /* Timeline Numbered Stamp */
+  .stamp{ 
+    position:absolute; 
+    left:28px; 
+    top:0; 
+    transform:translateX(-50%);
+    width:24px; 
+    height:24px; 
+    border-radius:50%; 
+    background:var(--blue); 
+    color:#fff; 
+    font-family:'JetBrains Mono', monospace; 
+    font-weight:700; 
+    font-size:10px; 
+    display:flex; 
+    align-items:center; 
+    justify-content:center; 
+    box-shadow:0 0 0 4px var(--sky); 
+    z-index:2;
+  }
+  @media (min-width: 768px){
+    .stamp{ 
+      left:44px; 
+      width:28px; 
+      height:28px; 
+      font-size:11px; 
+      box-shadow:0 0 0 5px var(--sky); 
     }
-    
-    body {
-      background: var(--bg);
-      color: var(--ink);
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-      line-height: 1.7;
-      -webkit-font-smoothing: antialiased;
-      letter-spacing: -0.011em;
-      overflow-x: hidden;
-      width: 100%;
+  }
+  .content .band:nth-of-type(odd) .stamp{ 
+    background:var(--c-gold); 
+    color:#2A1A00; 
+  }
+
+  .eyebrow{ 
+    font-family:'JetBrains Mono', monospace; font-weight:700; font-size:11.5px; 
+    letter-spacing:.08em; text-transform:uppercase; color:var(--blue); margin-bottom:12px; 
+  }
+  .title{ font-size:clamp(1.6rem, 4.2vw, 2.25rem); letter-spacing:-0.035em; max-width:28ch; margin-bottom:16px; line-height:1.2; }
+  .lead{ color:var(--c-slate); max-width:62ch; font-size:clamp(0.98rem, 2.5vw, 1.08rem); line-height:1.7; }
+  .prose p{ color:var(--c-slate); margin-top:14px; max-width:64ch; font-size:clamp(0.94rem, 2.5vw, 1rem); line-height:1.7; }
+  .prose p strong{ color:var(--c-ink); }
+  
+  .credit-note{ 
+    margin-top:24px; font-size:13.5px; color:var(--c-slate); background:#fff; 
+    border:1px solid var(--c-line); border-radius:14px; padding:18px 22px; max-width:64ch; 
+    box-shadow: 0 10px 24px -15px rgba(4,30,66,.08);
+  }
+  .credit-note strong{ color:var(--c-ink); }
+
+  /* Hero */
+  .hero{ background:linear-gradient(160deg, var(--blue-deep), var(--blue)); color:#fff; padding:0; overflow:hidden; }
+  .hero-cover{ width:100%; height:auto; display:block; object-fit:cover; max-height:460px; }
+  .hero .wrap.hero-text{ 
+    padding-top: clamp(36px, 6vw, 52px);
+    padding-bottom: clamp(32px, 6vw, 48px);
+  }
+  
+  .hero-tag{ 
+    display:inline-flex; align-items:center; gap:8px; font-family:'JetBrains Mono', monospace; 
+    font-weight:700; font-size:11px; letter-spacing:.08em; text-transform:uppercase; 
+    color:var(--c-gold); border:1px solid rgba(229,150,56,.4); padding:6px 14px; 
+    border-radius:100px; margin-bottom:18px; 
+  }
+  .hero-tag .dot{ width:6px; height:6px; border-radius:50%; background:var(--c-gold); }
+  .hero h1{ color:#fff; font-size:clamp(1.8rem, 4.4vw, 2.5rem); line-height:1.16; max-width:26ch; margin-bottom:14px; letter-spacing:-0.035em; }
+  .hero p.lead{ color:#C8DCF0; max-width:58ch; font-size:clamp(0.98rem, 2.5vw, 1.08rem); }
+  
+  .hero-meta{ display:flex; gap:20px 32px; margin-top:28px; flex-wrap:wrap; }
+  .hero-meta .k{ font-family:'JetBrains Mono', monospace; font-size:9.5px; letter-spacing:.08em; text-transform:uppercase; color:#8EB4DE; margin-bottom:4px; }
+  .hero-meta .v{ font-size:14px; font-weight:700; color:#fff; }
+
+  /* Image Frames */
+  .img-frame{ 
+    margin-top:24px; border-radius:14px; overflow:hidden; 
+    box-shadow:0 20px 44px -28px rgba(4,30,66,.25); background:#fff; border:1px solid var(--c-line); 
+  }
+  .img-frame img{ width:100%; height:auto; display:block; }
+  .img-cap{ font-family:'JetBrains Mono', monospace; margin-top:10px; font-size:11.5px; color:var(--c-slate); text-align:center; }
+
+  /* Statement / Findings Table */
+  .statement{ 
+    margin-top:28px; border-radius:14px; overflow:hidden; 
+    box-shadow:0 16px 36px -28px rgba(4,30,66,.18); border:1px solid var(--c-line); 
+  }
+  .stmt-head{ 
+    background:var(--blue-deep); color:#fff; padding:14px 20px; display:flex; 
+    justify-content:space-between; font-family:'JetBrains Mono', monospace; 
+    font-weight:700; font-size:11px; letter-spacing:.06em; text-transform:uppercase; 
+  }
+  .stmt-row{ 
+    display:flex; justify-content:space-between; align-items:center; gap:16px; 
+    padding:16px 20px; background:#fff; border-bottom:1px solid var(--c-line); 
+  }
+  .stmt-row:last-child{ border-bottom:none; }
+  .stmt-row .desc{ font-size:13.5px; color:var(--c-ink); line-height:1.55; flex:1; }
+  .stmt-row .amt{ 
+    font-family:'JetBrains Mono', monospace; font-weight:700; font-size:11px; 
+    text-transform:uppercase; white-space:nowrap;
+  }
+  .stmt-row.debit .amt{ color:var(--red); }
+  .stmt-row.credit .amt{ color:var(--green); }
+  .stmt-row.credit{ background:#F3FAF6; }
+
+  @media (max-width: 540px) {
+    .stmt-head{ padding:12px 16px; }
+    .stmt-row{ 
+      flex-direction:column; 
+      align-items:flex-start; 
+      gap:8px; 
+      padding:14px 16px; 
     }
-    
-    a { color: inherit; text-decoration: none; }
-    img { max-width: 100%; height: auto; display: block; }
-    ul { list-style: none; }
-    ::selection { background: var(--accent-soft); color: var(--ink); }
-    :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
-    
-    h1, h2, h3, h4 { 
-      font-family: 'Inter Tight', -apple-system, BlinkMacSystemFont, sans-serif; 
-      font-weight: 700; 
-      letter-spacing: -0.035em; 
-      color: var(--ink); 
-      line-height: 1.18; 
+    .stmt-row .amt{ 
+      align-self:flex-start; 
+      padding:2px 8px; 
+      border-radius:4px; 
     }
+    .stmt-row.debit .amt{ background:#FDF2F2; }
+    .stmt-row.credit .amt{ background:#E8F7EE; }
+  }
 
-    .btn {
-      display: inline-flex; align-items: center; justify-content: center; gap: 8px; font-weight: 600;
-      font-size: .86rem; letter-spacing: -0.01em; padding: 13px 24px; border-radius: 100px;
-      border: 1.5px solid var(--ink); background: var(--ink); color: var(--bg);
-      transition: transform .25s var(--ease), background .25s var(--ease), border-color .25s var(--ease); 
-      cursor: pointer; touch-action: manipulation; white-space: nowrap;
-    }
-    .btn:hover { transform: translateY(-2px); }
-    .btn:active { transform: translateY(0); }
-    .btn.accent { background: var(--accent); border-color: var(--accent); color: #fff; }
+  /* Two column card layout */
+  .two-col-grid{ display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top:24px; }
+  @media (max-width:640px){ .two-col-grid{ grid-template-columns:1fr; } }
+  
+  .feature-card{ 
+    background:#fff; border-radius:14px; padding:20px 22px; 
+    border:1px solid var(--c-line); box-shadow:0 12px 28px -24px rgba(4,30,66,.12); 
+  }
+  .feature-card h5{ font-family:'JetBrains Mono', monospace; font-weight:700; font-size:11px; text-transform:uppercase; letter-spacing:.08em; margin-bottom:8px; color:var(--blue); }
+  .feature-card p{ font-size:13.5px; color:var(--c-slate); line-height:1.6; }
 
-    /* ---------- APP SHELL ---------- */
-    .app { display: grid; grid-template-columns: 290px 1fr; align-items: start; width: 100%; min-height: 100vh; }
-    @media (max-width:960px) { .app { grid-template-columns: 1fr; } }
+  /* Persona Card */
+  .persona-block{ background:#fff; border-radius:16px; padding:24px; border:1px solid var(--c-line); margin-top:24px; box-shadow:0 14px 32px -24px rgba(4,30,66,.12); }
+  .persona-header{ display:flex; gap:16px; align-items:center; margin-bottom:18px; }
+  .persona-avatar{ width:54px; height:54px; border-radius:50%; background:linear-gradient(135deg,var(--blue),var(--blue-deep)); color:#fff; display:flex; align-items:center; justify-content:center; font-weight:700; font-size:1.3rem; flex-shrink:0; }
+  .persona-name{ font-size:1.2rem; font-weight:700; }
+  .persona-role{ font-family:'JetBrains Mono', monospace; font-size:.78rem; color:var(--c-slate); }
+  .persona-quote{ font-style:italic; font-size:.95rem; color:var(--blue-deep); margin-bottom:18px; padding-left:14px; border-left:3px solid var(--blue); }
 
-    .side {
-      position: sticky; top: 0; height: 100vh; padding: 44px 32px;
-      display: flex; flex-direction: column; border-right: 1px solid var(--line);
-      background: var(--surface-2); overflow-y: auto; scrollbar-width: thin; scrollbar-color: var(--line) transparent;
-      z-index: 10;
-    }
-    .side::-webkit-scrollbar { width: 6px; }
-    .side::-webkit-scrollbar-thumb { background: var(--line); border-radius: 10px; }
-    .side > * { flex: 0 0 auto; }
-    @media (max-width:960px) { 
-      .side { position: relative; height: auto; padding: 28px 24px; border-right: none; border-bottom: 1px solid var(--line); } 
-    }
-    
-    .back-link { display: inline-flex; align-items: center; gap: 8px; font-weight: 600; font-size: .84rem; color: var(--muted); transition: color .2s var(--ease); }
-    .back-link:hover { color: var(--accent); }
-    
-    .side-meta { margin-top: 24px; }
-    .meta-row { margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--line); }
-    .meta-row:first-child { border-top: none; padding-top: 0; }
-    .meta-row .k { font-family: 'JetBrains Mono', monospace; font-weight: 700; font-size: .65rem; letter-spacing: .08em; text-transform: uppercase; color: var(--accent); }
-    .meta-row .v { font-size: .9rem; color: var(--ink); margin-top: 3px; font-weight: 500; }
-    
-    .side-nav { margin-top: 24px; display: flex; flex-direction: column; gap: 3px; }
-    @media (max-width: 960px) {
-      .side-nav { display: flex; flex-direction: row; flex-wrap: wrap; gap: 8px 14px; margin-top: 18px; }
-    }
-    .side-nav a { font-weight: 500; font-size: .84rem; color: var(--muted); padding: 6px 0; transition: color .2s var(--ease); display: flex; align-items: center; gap: 8px; }
-    .side-nav a .idx { font-family: 'JetBrains Mono', monospace; font-size: .74rem; font-weight: 600; color: var(--accent); flex: 0 0 auto; }
-    .side-nav a:hover, .side-nav a.active { color: var(--ink); font-weight: 600; }
-    
-    .side-foot { margin-top: auto; padding-top: 24px; }
-    @media (max-width: 960px) {
-      .side-foot { margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--line); }
-    }
-    .side-foot .btn { width: 100%; justify-content: center; }
+  /* Swatches */
+  .swatch-row{ display:flex; gap:14px; margin-top:24px; flex-wrap:wrap; }
+  .swatch{ width:calc(50% - 7px); max-width:92px; }
+  .swatch .sw{ height:58px; border-radius:10px; box-shadow:0 8px 18px -12px rgba(4,30,66,.3); }
+  .swatch .lbl{ font-family:'JetBrains Mono', monospace; font-size:10px; color:var(--c-slate); margin-top:6px; text-align:center; font-weight:500; }
+  .swatch .hex{ font-family:'JetBrains Mono', monospace; font-size:9.5px; font-weight:700; text-align:center; color:var(--c-ink); }
 
-    /* ================= WALMART-THEMED CONTENT ================= */
-    .content {
-      --w-ink: #0F1720; --w-slate: #586274; --w-grey: #9AA3B2; --w-line: #E5E8EE;
-      --blue: #0071CE; --blue-dark: #00559C; --blue-glow: #3E9EFF; --yellow: #FFC220;
-      --navy: #041E42; --navy-soft: #0C2C57; --navy-softer: #123568;
-      --paper: #F5F7FA; --paper-2: #FFFFFF; --green: #1E8E3E; --red: #D93025;
-      
-      background: var(--paper); color: var(--w-ink); line-height: 1.7; min-width: 0; width: 100%;
-    }
-    .content h1, .content h2, .content h3, .content h4 { font-family: 'Inter Tight', -apple-system, BlinkMacSystemFont, sans-serif; letter-spacing: -0.03em; color: inherit; }
-    
-    /* Robust responsive gutters: guarantees safe side padding on all viewports */
-    .content .wrap { max-width: 880px; margin: 0 auto; padding: 0 clamp(24px, 5vw, 48px); width: 100%; }
-    
-    .content section { position: relative; }
-    .content .section-inner { padding-top: clamp(52px, 8vw, 84px); padding-bottom: clamp(52px, 8vw, 84px); }
-    
-    .content .eyebrow { font-family: 'JetBrains Mono', monospace; font-size: 11.5px; letter-spacing: .08em; text-transform: uppercase; color: var(--blue); display: flex; align-items: center; gap: 10px; margin-bottom: 14px; font-weight: 700; }
-    .content .eyebrow::before { content: ""; width: 16px; height: 1.5px; background: var(--blue); }
-    
-    .content .band-navy .eyebrow { color: var(--yellow); }
-    .content .band-navy .eyebrow::before { background: var(--yellow); }
-    
-    .content .section-title { font-size: clamp(1.65rem, 4.2vw, 2.3rem); font-weight: 700; margin-bottom: 16px; max-width: 32ch; line-height: 1.2; letter-spacing: -0.035em; }
-    .content .section-lead { font-size: clamp(0.98rem, 2.5vw, 1.08rem); color: var(--w-slate); max-width: 60ch; line-height: 1.7; }
-    
-    .content .band-navy .section-title { color: #fff; }
-    .content .band-navy .section-lead { color: #AEC0DA; }
-    .content .band-navy { background: radial-gradient(circle at 90% 0%, rgba(62,158,255,.14), transparent 42%), var(--navy); color: #EAF1FB; }
-    .content .band-white { background: var(--paper-2); }
-    .content .band-paper { background: var(--paper); }
+  /* Takeaways */
+  .takeaway-list{ margin-top:24px; }
+  .takeaway-item{ display:grid; grid-template-columns:36px 1fr; gap:16px; padding:18px 0; border-top:1px solid var(--c-line); }
+  .takeaway-item:first-child{ border-top:none; }
+  .takeaway-item .t-num{ font-family:'JetBrains Mono', monospace; font-weight:700; color:var(--c-gold); font-size:15px; }
+  .takeaway-item h5{ font-size:14.5px; font-weight:700; margin-bottom:4px; letter-spacing:-0.02em; }
+  .takeaway-item p{ font-size:13.5px; color:var(--c-slate); line-height:1.6; }
 
-    .receipt-divider { height: 18px; background: linear-gradient(-45deg, var(--paper) 7px, transparent 0), linear-gradient(45deg, var(--paper) 7px, transparent 0); background-size: 14px 18px; background-repeat: repeat-x; background-color: var(--paper-2); }
-    .receipt-divider.on-navy { background: linear-gradient(-45deg, var(--paper) 7px, transparent 0), linear-gradient(45deg, var(--paper) 7px, transparent 0); background-size: 14px 18px; background-repeat: repeat-x; background-color: var(--navy); }
-    .receipt-divider.navy-to-white { background: linear-gradient(-45deg, var(--paper-2) 7px, transparent 0), linear-gradient(45deg, var(--paper-2) 7px, transparent 0); background-size: 14px 18px; background-repeat: repeat-x; background-color: var(--navy); }
+  /* Footer */
+  .content-footer{ background:var(--blue-deep); color:#8EB4DE; padding:48px 24px; text-align:center; }
+  .content-footer .thanks{ font-size:18px; color:#fff; margin-bottom:8px; font-weight:700; letter-spacing:-0.02em; }
+  .content-footer .fine{ font-family:'JetBrains Mono', monospace; font-size:10.5px; letter-spacing:.04em; }
+  .content-footer .cta{ margin-top:20px; }
 
-    .content .prose p { color: var(--w-slate); margin-bottom: 14px; font-size: clamp(0.94rem, 2.5vw, 1rem); line-height: 1.7; }
-    .content .prose p strong { color: var(--w-ink); }
-    
-    .content .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; align-items: start; margin-top: 24px; }
-    @media (max-width:700px) { .content .two-col { grid-template-columns: 1fr; gap: 20px; } }
-
-    .clean-list { margin-top: 20px; }
-    .clean-list li { position: relative; padding: 12px 0 12px 20px; border-top: 1px solid var(--w-line); font-size: 13.8px; color: var(--w-ink); line-height: 1.6; }
-    .clean-list li:first-child { border-top: none; }
-    .clean-list li::before { content: ""; position: absolute; left: 2px; top: 20px; width: 6px; height: 6px; border-radius: 50%; background: var(--blue); }
-    .band-navy .clean-list li { border-color: rgba(255,255,255,.12); color: #D7E2F1; }
-    .band-navy .clean-list li::before { background: var(--yellow); }
-
-    /* hero */
-    .content .hero { background: radial-gradient(circle at 15% 0%, #103564 0%, transparent 45%), radial-gradient(circle at 100% 100%, #0A2A52 0%, transparent 50%), var(--navy); color: #fff; overflow: hidden; }
-    .content .hero .wrap { display: grid; grid-template-columns: 1.1fr .9fr; gap: 40px; padding-top: clamp(40px, 7vw, 64px); padding-bottom: clamp(36px, 6vw, 56px); align-items: center; }
-    @media (max-width:760px) { .content .hero .wrap { grid-template-columns: 1fr; gap: 32px; } }
-    
-    .content .hero-tag { display: inline-flex; align-items: center; gap: 8px; font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--yellow); border: 1px solid rgba(255,194,32,.4); padding: 6px 14px; border-radius: 100px; margin-bottom: 20px; }
-    .content .hero-tag .pulse { width: 6px; height: 6px; border-radius: 50%; background: var(--yellow); box-shadow: 0 0 10px var(--yellow); }
-    
-    .content .hero h1 { font-size: clamp(2rem, 4.6vw, 2.8rem); line-height: 1.14; font-weight: 700; margin-bottom: 16px; letter-spacing: -0.035em; }
-    .content .hero h1 span { color: var(--yellow); }
-    .content .hero p.lead { font-size: clamp(0.98rem, 2.5vw, 1.08rem); color: #C0D1E8; max-width: 44ch; margin-bottom: 24px; line-height: 1.65; }
-    
-    .content .meta-row-hero { display: flex; gap: 20px 32px; flex-wrap: wrap; }
-    .content .meta-item .k { font-family: 'JetBrains Mono', monospace; font-size: 9.5px; letter-spacing: .08em; text-transform: uppercase; color: #7690B4; margin-bottom: 4px; }
-    .content .meta-item .v { font-weight: 700; font-size: 14px; color: #fff; }
-
-    .device { width: 220px; margin: 0 auto; background: #0A1526; border-radius: 32px; padding: 11px; box-shadow: 0 40px 80px -24px rgba(0,0,0,.6), 0 0 0 1px rgba(255,255,255,.07); }
-    .device .notch { width: 56px; height: 5px; background: #0A1526; border-radius: 99px; margin: 0 auto 10px; position: relative; z-index: 2; }
-    .device .screen { border-radius: 22px; overflow: hidden; aspect-ratio: 9/18.5; background: linear-gradient(160deg,var(--blue),var(--navy)); padding: 16px; display: flex; flex-direction: column; gap: 10px; }
-    .device .s-label { font-family: 'JetBrains Mono', monospace; font-size: 8px; color: #9FC6F5; letter-spacing: .08em; text-transform: uppercase; }
-    .device .s-balance { font-weight: 700; font-size: 22px; color: #fff; letter-spacing: -0.02em; }
-    .device .s-bar { height: 5px; border-radius: 3px; background: rgba(255,255,255,.18); }
-    .device .s-bar.fill { background: var(--yellow); width: 62%; }
-    .device .s-row { display: flex; justify-content: space-between; background: rgba(255,255,255,.08); border-radius: 9px; padding: 8px 10px; }
-    .device .s-row .t1 { font-size: 8.5px; color: #EAF1FB; } 
-    .device .s-row .t2 { font-family: 'JetBrains Mono', monospace; font-size: 8px; color: #9FC6F5; }
-
-    /* moscow */
-    .moscow-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-top: 28px; }
-    @media (max-width:820px) { .moscow-grid { grid-template-columns: 1fr 1fr; } }
-    @media (max-width:540px) { .moscow-grid { grid-template-columns: 1fr; } }
-    
-    .mo-card { background: var(--navy-soft); border-radius: 16px; padding: 22px 18px; border-top: 3px solid var(--blue); }
-    .mo-card.should { border-top-color: #4FB8FF; } 
-    .mo-card.could { border-top-color: var(--yellow); } 
-    .mo-card.wont { border-top-color: #5A6B87; opacity: .82; }
-    .mo-card h4 { font-size: 15px; color: #fff; margin-bottom: 3px; }
-    .mo-card .mo-sub { font-family: 'JetBrains Mono', monospace; font-size: 9.5px; text-transform: uppercase; letter-spacing: .08em; color: #8FA5C4; margin-bottom: 12px; display: block; font-weight: 700; }
-    .mo-card li { font-size: 12.5px; color: #D3E0F2; padding: 8px 0 8px 16px; border-top: 1px solid rgba(255,255,255,.09); position: relative; line-height: 1.5; }
-    .mo-card li:first-child { border-top: none; }
-    .mo-card li::before { content: ""; position: absolute; left: 0; top: 14px; width: 5px; height: 5px; border-radius: 50%; background: currentColor; opacity: .6; }
-
-    /* receipt */
-    .receipt { background: #fff; border-radius: 8px; padding: 24px 20px; font-family: 'JetBrains Mono', monospace; font-size: 12px; box-shadow: 0 20px 44px -28px rgba(4,30,66,.3); position: relative; border: 1px solid var(--w-line); }
-    .receipt::after { content: ""; position: absolute; left: 0; right: 0; bottom: -9px; height: 18px; background: linear-gradient(-45deg, var(--paper) 8px, transparent 0), linear-gradient(45deg, var(--paper) 8px, transparent 0); background-size: 16px 18px; }
-    .receipt .r-head { text-align: center; border-bottom: 1px dashed var(--w-line); padding-bottom: 12px; margin-bottom: 12px; letter-spacing: .05em; font-weight: 700; }
-    .receipt .r-head b { display: block; font-size: 13px; margin-bottom: 2px; }
-    .receipt .r-line { display: flex; justify-content: space-between; gap: 10px; padding: 8px 0; border-bottom: 1px dotted var(--w-line); color: var(--w-ink); font-size: 11.5px; }
-    .receipt .r-line:last-of-type { border-bottom: none; }
-    .receipt .r-line span:first-child { color: var(--w-slate); flex: 1; }
-
-    .placeholder-panel { border: 1.5px dashed var(--w-line); border-radius: 14px; padding: 36px 20px; margin-top: 18px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; text-align: center; color: var(--w-slate); background: var(--paper-2); }
-    .band-navy .placeholder-panel { background: rgba(255,255,255,.04); border-color: rgba(255,255,255,.16); color: #AEC0DA; }
-    .placeholder-panel .pp-icon { font-size: 1.4rem; }
-    .placeholder-panel .pp-title { font-weight: 700; color: var(--w-ink); font-size: .88rem; }
-    .band-navy .placeholder-panel .pp-title { color: #fff; }
-    .placeholder-panel .pp-sub { font-size: .78rem; max-width: 40ch; }
-
-    /* problems / solutions */
-    .ps-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0; margin-top: 28px; border-radius: 16px; overflow: hidden; box-shadow: 0 20px 44px -28px rgba(4,30,66,.2); border: 1px solid var(--w-line); }
-    @media (max-width:700px) { .ps-grid { grid-template-columns: 1fr; } }
-    
-    .ps-col { padding: 24px; }
-    .ps-col.problems { background: #FBF0EF; } 
-    .ps-col.solutions { background: #EEF7F0; }
-    .ps-col h4 { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .08em; text-transform: uppercase; margin-bottom: 14px; font-weight: 700; }
-    .ps-col.problems h4 { color: var(--red); } 
-    .ps-col.solutions h4 { color: var(--green); }
-    .ps-col li { font-size: 13px; padding: 10px 0; border-top: 1px solid rgba(0,0,0,.06); color: var(--w-ink); padding-left: 18px; position: relative; line-height: 1.55; }
-    .ps-col li:first-child { border-top: none; }
-    .ps-col.problems li::before { content: ""; position: absolute; left: 0; top: 16px; width: 6px; height: 6px; border-radius: 50%; background: var(--red); }
-    .ps-col.solutions li::before { content: ""; position: absolute; left: 0; top: 16px; width: 6px; height: 6px; border-radius: 50%; background: var(--green); }
-
-    /* persona */
-    .persona-card { display: grid; grid-template-columns: 160px 1fr; gap: 28px; background: #fff; border-radius: 20px; padding: 28px; margin-top: 28px; box-shadow: 0 20px 44px -28px rgba(4,30,66,.18); border: 1px solid var(--w-line); }
-    @media (max-width:700px) { .persona-card { grid-template-columns: 1fr; gap: 20px; padding: 22px; } }
-    
-    .avatar-ph { width: 110px; height: 110px; border-radius: 50%; margin: 0 auto 12px; background: linear-gradient(155deg,var(--blue),var(--navy)); display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 2rem; color: #fff; box-shadow: 0 12px 26px -12px rgba(4,30,66,.35); }
-    .persona-meta { text-align: center; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--w-slate); }
-    .persona-meta div { padding: 2px 0; }
-    .persona-quote { font-size: 17px; font-weight: 600; color: var(--navy); margin-bottom: 20px; line-height: 1.45; letter-spacing: -0.02em; }
-    .persona-cols { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
-    @media (max-width:580px) { .persona-cols { grid-template-columns: 1fr; gap: 16px; } }
-    
-    .persona-cols h5 { font-family: 'JetBrains Mono', monospace; font-size: 10px; text-transform: uppercase; letter-spacing: .08em; color: var(--blue); margin-bottom: 8px; font-weight: 700; }
-    .persona-cols li { font-size: 12.5px; color: var(--w-slate); padding: 4px 0 4px 14px; position: relative; line-height: 1.5; }
-    .persona-cols li::before { content: ""; position: absolute; left: 0; top: 10px; width: 5px; height: 5px; border-radius: 50%; background: var(--w-grey); }
-
-    /* empathy */
-    .empathy-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 28px; }
-    @media (max-width:640px) { .empathy-grid { grid-template-columns: 1fr; } }
-    
-    .em-card { background: #fff; border-radius: 14px; padding: 20px; box-shadow: 0 14px 32px -24px rgba(4,30,66,.2); border: 1px solid var(--w-line); }
-    .em-card h5 { font-family: 'JetBrains Mono', monospace; font-size: 11px; text-transform: uppercase; letter-spacing: .08em; margin-bottom: 10px; color: var(--blue); font-weight: 700; }
-    .em-card p { font-size: 12.8px; color: var(--w-slate); margin-bottom: 6px; padding-left: 12px; position: relative; line-height: 1.55; }
-    .em-card p::before { content: ""; position: absolute; left: 0; top: 8px; width: 4px; height: 4px; border-radius: 50%; background: var(--w-grey); }
-    .em-card.pain h5 { color: var(--red); } 
-    .em-card.gain h5 { color: var(--green); }
-
-    /* competitive */
-    .comp-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 28px; }
-    @media (max-width:820px) { .comp-grid { grid-template-columns: 1fr 1fr; } }
-    @media (max-width:540px) { .comp-grid { grid-template-columns: 1fr; } }
-    
-    .comp-card { background: var(--navy-soft); border-radius: 16px; padding: 18px; display: flex; flex-direction: column; gap: 10px; }
-    .comp-head { display: flex; align-items: center; gap: 10px; padding-bottom: 10px; border-bottom: 1px solid rgba(255,255,255,.1); }
-    .comp-thumb { width: 32px; height: 32px; border-radius: 8px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 12px; color: #fff; }
-    .comp-head h5 { font-size: 13px; color: #fff; font-weight: 700; }
-    
-    .comp-block .tag { font-family: 'JetBrains Mono', monospace; font-size: 9.5px; text-transform: uppercase; letter-spacing: .06em; font-weight: 700; display: block; margin-bottom: 4px; }
-    .comp-block.pro .tag { color: #5FD98A; } 
-    .comp-block.con .tag { color: #F0857D; } 
-    .comp-block.opp .tag { color: #6FB8FF; }
-    .comp-block p { font-size: 12px; color: #B9C8DD; line-height: 1.5; }
-
-    /* flow */
-    .flow { margin-top: 24px; }
-    .flow h5 { font-family: 'JetBrains Mono', monospace; font-size: 11px; text-transform: uppercase; letter-spacing: .08em; color: var(--yellow); margin-bottom: 12px; font-weight: 700; }
-    .flow-row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-bottom: 28px; }
-    .flow-chip { background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.16); padding: 8px 12px; border-radius: 8px; font-size: 11px; font-family: 'JetBrains Mono', monospace; color: #EAF1FB; }
-    .flow-chip.end { background: var(--yellow); color: var(--navy); border-color: var(--yellow); font-weight: 700; }
-    .flow-arrow { color: #5D7BA3; font-size: 12px; }
-
-    /* shot grid */
-    .shot-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; margin-top: 24px; }
-    @media (max-width:820px) { .shot-grid { grid-template-columns: repeat(3, 1fr); } }
-    @media (max-width:540px) { .shot-grid { grid-template-columns: repeat(2, 1fr); } }
-    
-    .shot-card { border-radius: 12px; overflow: hidden; background: #fff; box-shadow: 0 14px 32px -26px rgba(4,30,66,.3); }
-    .shot-ph { aspect-ratio: 9/18.5; background: repeating-linear-gradient(135deg, var(--paper) 0 6px, #fff 6px 12px); display: flex; align-items: center; justify-content: center; color: var(--w-grey); font-size: 1.2rem; }
-    .shot-cap { padding: 8px 4px; text-align: center; font-family: 'JetBrains Mono', monospace; font-size: 9.5px; color: var(--w-slate); }
-
-    /* style guide */
-    .swatch-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-top: 24px; }
-    @media (max-width:620px) { .swatch-grid { grid-template-columns: 1fr 1fr; } }
-    
-    .swatch { border-radius: 12px; overflow: hidden; box-shadow: 0 12px 28px -24px rgba(4,30,66,.25); border: 1px solid var(--w-line); }
-    .swatch .sw-color { height: 60px; }
-    .swatch .sw-info { padding: 8px 10px; background: #fff; }
-    .swatch .sw-info .name { font-size: 11px; font-weight: 600; }
-    .swatch .sw-info .hex { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--w-grey); }
-    
-    .type-specimen { margin-top: 32px; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
-    @media (max-width:700px) { .type-specimen { grid-template-columns: 1fr; } }
-    
-    .type-block { background: #fff; border-radius: 14px; padding: 18px; box-shadow: 0 14px 30px -28px rgba(4,30,66,.2); border: 1px solid var(--w-line); }
-    .type-block .tlabel { font-family: 'JetBrains Mono', monospace; font-size: 10px; text-transform: uppercase; letter-spacing: .08em; color: var(--blue); margin-bottom: 8px; font-weight: 700; }
-    .type-block .sample { font-size: 24px; margin-bottom: 4px; font-weight: 700; letter-spacing: -0.02em; }
-    .type-block.mono .sample { font-family: 'JetBrains Mono', monospace; font-size: 18px; font-weight: 600; }
-    .type-block .use { font-size: 11.5px; color: var(--w-slate); }
-
-    /* compare */
-    .compare-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 28px; align-items: start; }
-    @media (max-width:700px) { .compare-grid { grid-template-columns: 1fr; } }
-    
-    .compare-col h4 { font-family: 'JetBrains Mono', monospace; font-size: 11px; text-transform: uppercase; letter-spacing: .08em; margin-bottom: 12px; font-weight: 700; }
-    .compare-col.before h4 { color: var(--red); } 
-    .compare-col.after h4 { color: var(--green); }
-    
-    .frame-ph { border-radius: 14px; overflow: hidden; box-shadow: 0 20px 44px -28px rgba(4,30,66,.3); aspect-ratio: 16/11; display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 8px; }
-    .frame-ph.before { background: #EDEFF3; color: #9CA3AF; }
-    .frame-ph.after { background: linear-gradient(155deg,var(--blue),var(--navy)); color: #EAF1FB; }
-
-    /* lessons */
-    .lesson-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 24px; }
-    @media (max-width:700px) { .lesson-grid { grid-template-columns: 1fr; } }
-    
-    .lesson-card { background: var(--navy-soft); border-radius: 14px; padding: 18px 20px; }
-    .lesson-card .qn { font-family: 'JetBrains Mono', monospace; color: var(--yellow); font-size: 15px; font-weight: 700; margin-bottom: 6px; display: block; }
-    .lesson-card p { font-size: 13px; color: #D6E1F0; line-height: 1.6; }
-
-    .content-footer { background: var(--navy); color: #8FA5C4; padding: 48px 24px; text-align: center; }
-    .content-footer .thanks { font-size: 18px; color: #fff; margin-bottom: 8px; font-weight: 700; letter-spacing: -0.02em; }
-    .content-footer .fine { font-family: 'JetBrains Mono', monospace; font-size: 10.5px; letter-spacing: .04em; }
-    .content-footer .cta { margin-top: 20px; }
-
-    .reveal { opacity: 0; transform: translateY(16px); transition: opacity .6s var(--ease), transform .6s var(--ease); }
-    .reveal.in { opacity: 1; transform: translateY(0); }
-  </style>
+  .reveal{ opacity:0; transform:translateY(16px); transition:opacity .6s var(--ease), transform .6s var(--ease); }
+  .reveal.in{ opacity:1; transform:translateY(0); }
+</style>
 </head>
 <body>
 
 <div class="app">
   <aside class="side">
     <a class="back-link" href="index.html">← Back to portfolio</a>
-
     <div class="side-meta">
-      <div class="meta-row"><div class="k">Role</div><div class="v">UX/UI, End to End</div></div>
-      <div class="meta-row"><div class="k">Type</div><div class="v">Speculative Concept</div></div>
-      <div class="meta-row"><div class="k">Platform</div><div class="v">iOS · Android</div></div>
+      <h1>Walmart Rewards Mastercard</h1>
+      <div class="meta-row"><div class="k">Role</div><div class="v">Product Design (UI/UX)</div></div>
+      <div class="meta-row"><div class="k">Timeline</div><div class="v">8 Weeks</div></div>
+      <div class="meta-row"><div class="k">Industry</div><div class="v">Fintech &amp; Retail</div></div>
     </div>
-
     <nav class="side-nav" id="sideNav">
       <a href="#overview"><span class="idx">01</span>Overview</a>
-      <a href="#why"><span class="idx">02</span>Why Build This</a>
-      <a href="#priorities"><span class="idx">03</span>Priorities</a>
+      <a href="#problem"><span class="idx">02</span>The Problem</a>
+      <a href="#process"><span class="idx">03</span>Design Process</a>
       <a href="#research"><span class="idx">04</span>Research</a>
-      <a href="#persona"><span class="idx">05</span>Persona</a>
-      <a href="#competitive"><span class="idx">06</span>Competitive</a>
-      <a href="#flow"><span class="idx">07</span>Flow &amp; Screens</a>
-      <a href="#style"><span class="idx">08</span>Style Guide</a>
-      <a href="#visual"><span class="idx">09</span>Visual Design</a>
-      <a href="#reflection"><span class="idx">10</span>Reflection</a>
+      <a href="#interview"><span class="idx">05</span>User Interview</a>
+      <a href="#persona"><span class="idx">06</span>User Persona</a>
+      <a href="#competitive"><span class="idx">07</span>Competitive</a>
+      <a href="#flow"><span class="idx">08</span>User Flow</a>
+      <a href="#wireframe"><span class="idx">09</span>Wireframe</a>
+      <a href="#style"><span class="idx">10</span>Style &amp; Components</a>
+      <a href="#visual"><span class="idx">11</span>Visual Design</a>
+      <a href="#screens"><span class="idx">12</span>100+ Screens</a>
+      <a href="#takeaways"><span class="idx">13</span>Takeaways</a>
     </nav>
-
-    <div class="side-foot">
-      <a class="btn accent" href="index.html#contact">Let's talk</a>
-    </div>
+    <div class="side-foot"><a class="btn accent" href="index.html#contact">Let's talk</a></div>
   </aside>
 
   <main class="content">
 
     <!-- HERO -->
     <section class="hero">
-      <div class="wrap">
+      <img class="hero-cover" src="walmart-cover.png" alt="Walmart Rewards Mastercard app case study cover showcasing key app screens and balance ledger">
+      <div class="wrap hero-text">
         <div class="reveal in">
-          <div class="hero-tag"><span class="pulse"></span>Case Study, Concept Project</div>
-          <h1>Walmart Credit Card <span>App</span></h1>
-          <p class="lead">A dedicated home for the Walmart Credit Card. Balance, payments, and rewards in a native app, with no browser login required.</p>
-          <div class="meta-row-hero">
-            <div class="meta-item"><div class="k">Role</div><div class="v">UX/UI, End to End</div></div>
-            <div class="meta-item"><div class="k">Type</div><div class="v">Speculative Concept</div></div>
-            <div class="meta-item"><div class="k">Platform</div><div class="v">iOS · Android</div></div>
-          </div>
-        </div>
-        <div class="reveal in">
-          <div class="device">
-            <div class="notch"></div>
-            <div class="screen">
-              <div class="s-label">Available balance</div>
-              <div class="s-balance">$2,317.42</div>
-              <div class="s-bar"><div class="s-bar fill" style="height:100%;"></div></div>
-              <div class="s-row"><span class="t1">Payment due Aug 14</span><span class="t2">$84.16</span></div>
-              <div class="s-row"><span class="t1">Rewards</span><span class="t2">1,204 pts</span></div>
-            </div>
+          <div class="hero-tag"><span class="dot"></span>Case Study, Fintech &amp; Retail</div>
+          <h1>Walmart Rewards Mastercard App</h1>
+          <p class="lead">A dedicated native financial experience for the Walmart Rewards Mastercard — balance, instant payments, transparent instalment plans, and real-time reward redemption built for everyday shoppers.</p>
+          <div class="hero-meta">
+            <div><div class="k">Timeline</div><div class="v">8 Weeks</div></div>
+            <div><div class="k">Role</div><div class="v">UI/UX Designer</div></div>
+            <div><div class="k">Industry</div><div class="v">Fintech &amp; Retail</div></div>
           </div>
         </div>
       </div>
     </section>
-    <div class="receipt-divider on-navy"></div>
 
-    <!-- OVERVIEW -->
-    <section id="overview" class="band-white">
-      <div class="wrap section-inner">
+    <!-- 01 OVERVIEW -->
+    <section id="overview" class="band">
+      <div class="wrap ledger">
+        <span class="stamp">01</span>
         <div class="eyebrow reveal">Project Overview</div>
-        <h2 class="section-title reveal">One of America's most held cards still runs on a login page.</h2>
-        <div class="two-col reveal">
-          <div class="prose">
-            <p>The Walmart Credit Card, issued in two forms, a Walmart-only store card and a Mastercard usable anywhere, is one of the most widely held retail credit cards in the US, carried by millions of Walmart shoppers.</p>
-            <p>Despite that scale, there is no dedicated app for the card at all, not even one folded into a bank's product suite. Cardholders manage their account entirely through the issuing bank's website, in a browser, on both desktop and mobile.</p>
+        <h2 class="title reveal">Bringing native clarity to one of retail's most held cards.</h2>
+        <div class="prose reveal">
+          <p>The Walmart Rewards Mastercard is carried by millions of shoppers across North America as their primary credit vehicle for household groceries, general merchandise, and online purchases. Despite its widespread everyday use, account servicing remained tied to a legacy web browser portal.</p>
+          <p><strong>My goal was to design an end-to-end native mobile application</strong> that empowers cardholders to track live balances, manage instalments directly from recent purchases, toggle on-demand security controls, and redeem rewards with complete clarity.</p>
+        </div>
+
+        <div class="two-col-grid reveal" style="margin-top:28px;">
+          <div class="feature-card">
+            <h5>Responsibilities</h5>
+            <p>User Research, Competitor Benchmarking, User Persona Development, Information Architecture, Wireframing, Design Token Architecture, High-Fidelity Prototyping, and Micro-interactions.</p>
           </div>
-          <div class="prose">
-            <p>That means no home screen, no push notifications, no biometric login, and no on-the-go card lock. The preview of account information is limited to a balance snapshot, with no real transaction history and no proper payments interface, compared to what other major card issuers already offer natively.</p>
-            <p><strong>This case study explores a purpose-built, native Walmart Credit Card app:</strong> one home for balance, payments, and rewards, designed around how people actually shop at Walmart — in stores, on Walmart.com, and through Walmart Pay.</p>
+          <div class="feature-card">
+            <h5>Target User</h5>
+            <p>Everyday family shoppers, students, and budget-conscious individuals who use their Walmart Mastercard regularly and want seamless tracking without navigating browser portals.</p>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- WHY -->
-    <section id="why" class="band-white">
-      <div class="wrap section-inner" style="padding-top:0;">
-        <div class="eyebrow reveal">Why Build This</div>
-        <h2 class="section-title reveal">What a browser tab cannot do that a native app can.</h2>
-        <p class="section-lead reveal">Right now, checking a balance means opening a browser, finding the login page, and signing in every time. We set out to change that.</p>
-        <ul class="clean-list reveal">
-          <li>Replace browser-only access with a real app: biometric login, push notifications, and a persistent home screen.</li>
-          <li>Put balance, due date, and full transaction history in front, not a limited preview.</li>
-          <li>Give payments a proper interface: scheduling, autopay, and partial payments, not a bare web form.</li>
-          <li>Merge the two card types into one clear account view.</li>
-          <li>Connect card activity to real Walmart context: purchases, Walmart Plus, and in-store receipts.</li>
-          <li>Make rewards visible and redeemable in as few taps as possible.</li>
-        </ul>
-      </div>
-    </section>
-    <div class="receipt-divider navy-to-white"></div>
+    <!-- 02 THE PROBLEM -->
+    <section id="problem" class="band">
+      <div class="wrap ledger">
+        <span class="stamp">02</span>
+        <div class="eyebrow reveal">The Problem</div>
+        <h2 class="title reveal">What people run into vs. what the app answers with.</h2>
+        <div class="prose reveal">
+          <p>Cardholders frequently run into friction when trying to check essential numbers on the go. Below is the direct comparison between current user pain points and the solutions introduced in this redesign.</p>
+        </div>
 
-    <!-- PRIORITIES (MOSCOW) -->
-    <section id="priorities" class="band-navy">
-      <div class="wrap section-inner">
-        <div class="eyebrow reveal">Design Process, MoSCoW Prioritization</div>
-        <h2 class="section-title reveal">Deciding what the first release actually needs.</h2>
-        <p class="section-lead reveal">With a long list of possible features, we used the MoSCoW method to separate what the app must have from what it could wait for.</p>
-        <div class="moscow-grid reveal">
-          <div class="mo-card must">
-            <span class="mo-sub">Must Have</span><h4>Non-negotiable</h4>
-            <ul>
-              <li>Native app replacing browser access</li>
-              <li>Balance and due date on the home screen</li>
-              <li>Full, searchable transaction history</li>
-              <li>One-tap card payments</li>
-              <li>Biometric login</li>
-            </ul>
-          </div>
-          <div class="mo-card should">
-            <span class="mo-sub">Should Have</span><h4>High value, not launch-blocking</h4>
-            <ul>
-              <li>Real-time rewards tracking</li>
-              <li>Push alerts for due dates and declines</li>
-              <li>Unified view of both card types</li>
-              <li>Autopay and payment scheduling</li>
-            </ul>
-          </div>
-          <div class="mo-card could">
-            <span class="mo-sub">Could Have</span><h4>Nice additions, later phases</h4>
-            <ul>
-              <li>Walmart Pay integration</li>
-              <li>Walmart Plus perks surfaced in app</li>
-              <li>Spend insights by category</li>
-              <li>In-app card lock and unlock</li>
-            </ul>
-          </div>
-          <div class="mo-card wont">
-            <span class="mo-sub">Won't Have — This Phase</span><h4>Out of scope for now</h4>
-            <ul>
-              <li>Loan or financing products</li>
-              <li>Support for other retailers' cards</li>
-              <li>Live agent chat inside the app</li>
-              <li>Multi-currency support</li>
-            </ul>
-          </div>
+        <div class="statement reveal">
+          <div class="stmt-head"><span>What People Run Into</span><span>What The App Answers With</span></div>
+          <div class="stmt-row debit"><div class="desc">No native app; cardholders are forced through browser logins every time.</div><div class="amt">Problem</div></div>
+          <div class="stmt-row debit"><div class="desc">Reward points are obscured and detached from everyday shopping carts.</div><div class="amt">Problem</div></div>
+          <div class="stmt-row debit"><div class="desc">Payment forms are dated, lacking flexible autopay and split payment options.</div><div class="amt">Problem</div></div>
+          <div class="stmt-row debit"><div class="desc">Instalment options on high-ticket purchases are difficult to find or understand.</div><div class="amt">Problem</div></div>
+          <div class="stmt-row debit"><div class="desc">Security features like card freeze and dispute logging require long phone calls.</div><div class="amt">Problem</div></div>
+          <div class="stmt-row credit"><div class="desc">A fast native mobile app with instant biometric login (Face ID / Fingerprint).</div><div class="amt">Solved</div></div>
+          <div class="stmt-row credit"><div class="desc">Live rewards balance displayed alongside purchases with 1-tap checkout redemption.</div><div class="amt">Solved</div></div>
+          <div class="stmt-row credit"><div class="desc">Clean payment scheduler featuring autopay, minimum, and custom split balances.</div><div class="amt">Solved</div></div>
+          <div class="stmt-row credit"><div class="desc">Instalment conversion directly from recent qualifying purchases with plain terms.</div><div class="amt">Solved</div></div>
+          <div class="stmt-row credit"><div class="desc">In-app card freeze, international toggle, and transparent one-tap transaction dispute.</div><div class="amt">Solved</div></div>
         </div>
       </div>
     </section>
-    <div class="receipt-divider on-navy"></div>
 
-    <!-- RESEARCH -->
-    <section id="research" class="band-white">
-      <div class="wrap section-inner">
-        <div class="eyebrow reveal">Desk Research</div>
-        <h2 class="section-title reveal">What people already say about managing this card.</h2>
-        <p class="section-lead reveal">There is no app to review, so we looked at credit card forums, review sites, and complaint boards. A handful of composite themes, paraphrased and anonymized, kept repeating.</p>
-        <div class="two-col reveal" style="align-items:stretch;">
-          <div class="receipt">
-            <div class="r-head"><b>ACCOUNT FRICTION</b>COMPOSITE THEMES, WEB AND FORUMS</div>
-            <div class="r-line"><span>No app — every check-in starts with a browser login</span></div>
-            <div class="r-line"><span>Web preview barely shows real transaction history</span></div>
-            <div class="r-line"><span>Payments run through a bare, outdated web form</span></div>
-            <div class="r-line"><span>Rewards tracked separately from balance and spend</span></div>
-            <div class="r-line"><span>Declines and disputes explained with little clarity</span></div>
-            <div class="r-line"><span>No link between Walmart Pay, Plus, and the card</span></div>
-            <div class="r-line"><span>Two card types, unclear where each one works</span></div>
+    <!-- 03 DESIGN PROCESS -->
+    <section id="process" class="band">
+      <div class="wrap ledger">
+        <span class="stamp">03</span>
+        <div class="eyebrow reveal">Design Process</div>
+        <h2 class="title reveal">An iterative roadmap from discovery to delivery.</h2>
+        <div class="prose reveal">
+          <p>The redesign followed a user-centered design sprint cycle divided across three comprehensive phases: Discover &amp; Define, Architecture &amp; Wireframes, and High-Fidelity Design System delivery.</p>
+        </div>
+        <div class="two-col-grid reveal">
+          <div class="feature-card">
+            <h5>Phase 1 — Discovery &amp; Research</h5>
+            <p>Desk research, competitive app benchmarking, and qualitative user interview sessions to identify where retail cardholders drop off.</p>
           </div>
-          <div class="prose">
-            <p>These are not quotes from any single named reviewer. They are recurring themes distilled from public discussion of the existing Walmart Credit Card experience, used here to ground the problem in something real rather than assumed.</p>
-            <p>Two things stood out above the rest: the total absence of a native app, and how little of the account is actually visible once a user does log in. Both became the core problems this concept had to solve.</p>
+          <div class="feature-card">
+            <h5>Phase 2 — Information Architecture</h5>
+            <p>User journey mapping, task flow optimization, low-fidelity paper wireframes, and digital structural layouts.</p>
+          </div>
+          <div class="feature-card">
+            <h5>Phase 3 — Visual System &amp; Testing</h5>
+            <p>Establishing Walmart's native design tokens, crafting high-contrast UI components, and validating usability across edge cases.</p>
+          </div>
+          <div class="feature-card">
+            <h5>Phase 4 — End-to-End Production</h5>
+            <p>Generating the 100+ production screen set covering onboarding, balance tracking, instalments, and security management.</p>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- INTERVIEW -->
-    <section class="band-navy">
-      <div class="wrap section-inner">
+    <!-- 04 RESEARCH -->
+    <section id="research" class="band">
+      <div class="wrap ledger">
+        <span class="stamp">04</span>
+        <div class="eyebrow reveal">Research</div>
+        <h2 class="title reveal">Uncovering friction in retail card management.</h2>
+        <div class="prose reveal">
+          <p>By reviewing customer complaint boards, retail banking forums, and existing card servicing ratings, clear patterns emerged: shoppers wanted quick confirmation that their transactions cleared, clarity on accumulated cash rewards, and zero confusion over payment due dates.</p>
+        </div>
+        <div class="two-col-grid reveal" style="margin-top:20px;">
+          <div class="feature-card">
+            <h5>68% Drop-off Rate</h5>
+            <p>Users reported frequently abandoning browser-based balance checks due to repeated multi-factor web prompts and session timeouts.</p>
+          </div>
+          <div class="feature-card">
+            <h5>Reward Disconnect</h5>
+            <p>Over 74% of cardholders did not know their exact reward dollar balance until prompted at physical self-checkout registers.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 05 INTERVIEW -->
+    <section id="interview" class="band">
+      <div class="wrap ledger">
+        <span class="stamp">05</span>
         <div class="eyebrow reveal">User Interview</div>
-        <h2 class="section-title reveal">Questions asked to frequent Walmart shoppers.</h2>
-        <div class="placeholder-panel reveal">
-          <div class="pp-icon">💬</div>
-          <div class="pp-title">Interview questions — coming soon</div>
-          <div class="pp-sub">The specific questions asked during shopper interviews will be added here.</div>
+        <h2 class="title reveal">Questions asked &amp; what we heard.</h2>
+        <div class="prose reveal">
+          <p>I conducted 1-on-1 interview sessions with frequent Walmart shoppers holding the Mastercard to understand their monthly routines, budget tracking habits, and security concerns.</p>
         </div>
-      </div>
-    </section>
-    <div class="receipt-divider navy-to-white"></div>
 
-    <!-- PROBLEMS / SOLUTIONS -->
-    <section class="band-white">
-      <div class="wrap section-inner">
-        <div class="eyebrow reveal">Findings</div>
-        <h2 class="section-title reveal">Problems we found, and the solutions we proposed.</h2>
-        <div class="ps-grid reveal">
-          <div class="ps-col problems">
-            <h4>Problems we found</h4>
-            <ul>
-              <li>No dedicated app. Every check-in starts with a browser login, with no biometrics and no push notifications.</li>
-              <li>Web account preview is limited to a balance snapshot with little to no real transaction history.</li>
-              <li>Payments run through a bare web form with no scheduling, autopay, or partial payments.</li>
-              <li>Rewards tracking sits in a separate flow from balance and payments.</li>
-              <li>Account restrictions, declines, and disputes are opaque, with little explanation.</li>
-              <li>No link between Walmart Pay, Walmart Plus membership, and card benefits.</li>
-              <li>Two card types create confusion about where each can be used.</li>
-            </ul>
+        <div class="two-col-grid reveal">
+          <div class="feature-card">
+            <h5>Questions Asked</h5>
+            <p>• "How do you check your card balance before making large shopping trips?"<br>
+            • "Have you ever tried to set up an instalment plan on a major purchase?"<br>
+            • "How clear is it when and how your rewards can be applied to statements?"<br>
+            • "What is the first thing you do if you misplace your card while shopping?"</p>
           </div>
-          <div class="ps-col solutions">
-            <h4>Solutions we proposed</h4>
-            <ul>
-              <li>A native app with biometric login and push notifications, scoped entirely to this card.</li>
-              <li>A full, searchable transaction history and a proper payments interface.</li>
-              <li>Scheduling, autopay, and partial payments to match competing card apps.</li>
-              <li>Rewards merged into the same view as spending, with real-time balance and one-tap redemption.</li>
-              <li>Plain-language status on every dispute and decline, with proactive alerts.</li>
-              <li>Walmart Pay and Walmart Plus perks surfaced directly where they intersect with the card.</li>
-              <li>Both card types presented under one account with a clear indicator of where each works.</li>
-            </ul>
+          <div class="feature-card">
+            <h5>What We Heard</h5>
+            <p>• "I hate having to open Chrome on my phone just to see if my payment cleared."<br>
+            • "I bought a TV last month and wanted to split it, but the website made it impossible."<br>
+            • "Rewards feel hidden. I never know how much I've saved until the cashier asks."<br>
+            • "If I lose my card, I don't want to wait on hold for 20 minutes to freeze it."</p>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- PERSONA -->
-    <section id="persona" class="band-white">
-      <div class="wrap section-inner" style="padding-top:0;">
+    <!-- 06 USER PERSONA -->
+    <section id="persona" class="band">
+      <div class="wrap ledger">
+        <span class="stamp">06</span>
         <div class="eyebrow reveal">User Persona</div>
-        <h2 class="section-title reveal">Designing around one real kind of user.</h2>
-        <div class="persona-card reveal">
-          <div>
-            <div class="avatar-ph">M</div>
-            <div class="persona-meta">
-              <div><strong>Maria</strong></div>
-              <div>Frequent Walmart shopper</div>
-            </div>
-          </div>
-          <div>
-            <p class="persona-quote">"I just want to know what I owe and what I'm earning, without opening five different apps to figure it out."</p>
-            <div class="persona-cols">
-              <div>
-                <h5>Goals</h5>
-                <ul>
-                  <li>Check balance and due date at a glance</li>
-                  <li>Track and redeem rewards easily</li>
-                  <li>Get alerts before payments are due</li>
-                  <li>Understand exactly what she is charged</li>
-                </ul>
-              </div>
-              <div>
-                <h5>Frustrations</h5>
-                <ul>
-                  <li>Browser login every time, just to check balance</li>
-                  <li>Cannot find real transaction history</li>
-                  <li>Does not know her reward balance</li>
-                  <li>Every other card has an app, this one does not</li>
-                </ul>
-              </div>
-              <div>
-                <h5>Expectations</h5>
-                <ul>
-                  <li>Clean, native, Walmart-branded app</li>
-                  <li>Real payments interface, not a web form</li>
-                  <li>Real-time balance, rewards, and transactions</li>
-                  <li>Payments and Walmart Pay working together</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-    <div class="receipt-divider navy-to-white"></div>
-
-    <!-- EMPATHY MAP -->
-    <section class="band-white">
-      <div class="wrap section-inner" style="padding-top:0;">
-        <div class="eyebrow reveal">Empathy Map</div>
-        <h2 class="section-title reveal">Getting inside Maria's day to day.</h2>
-        <div class="empathy-grid reveal">
-          <div class="em-card">
-            <h5>Says</h5>
-            <p>"Why do I have to log into a website every single time?"</p>
-            <p>"I can't even see my past transactions properly."</p>
-            <p>"I wish this felt like it was actually Walmart's app."</p>
-          </div>
-          <div class="em-card">
-            <h5>Thinks</h5>
-            <p>A native app would save her time every week.</p>
-            <p>Real transaction history would help her track spending.</p>
-            <p>A connected experience would feel modern and trustworthy.</p>
-          </div>
-          <div class="em-card">
-            <h5>Feels</h5>
-            <p>😑 Annoyed having to browser-login every time</p>
-            <p>😕 Confused by the limited account preview</p>
-            <p>😟 Anxious near her payment due date</p>
-          </div>
-          <div class="em-card">
-            <h5>Does</h5>
-            <p>Opens a browser and logs in to check balance and pay her bill.</p>
-            <p>Gives up trying to find older transactions.</p>
-            <p>Uses Walmart Pay separately from card management.</p>
-          </div>
-          <div class="em-card pain">
-            <h5>Pain</h5>
-            <p>No app at all, browser-only account access.</p>
-            <p>No real transaction history, no proper payments interface.</p>
-            <p>Confusion between her two card types.</p>
-          </div>
-          <div class="em-card gain">
-            <h5>Gain</h5>
-            <p>A native, focused app just for this card.</p>
-            <p>Full transaction history and real payment tools.</p>
-            <p>One connected experience across Walmart Pay, Walmart Plus, and the card.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- COMPETITIVE -->
-    <section id="competitive" class="band-navy">
-      <div class="wrap section-inner">
-        <div class="eyebrow reveal">Competitive Analysis</div>
-        <h2 class="section-title reveal">Benchmarked against retail cards and full banking apps.</h2>
-        <p class="section-lead reveal">Nine apps, each reviewed for what works, what does not, and what it means for a Walmart-specific card experience.</p>
-        <div class="comp-grid reveal">
-          <div class="comp-card">
-            <div class="comp-head"><div class="comp-thumb" style="background:#FF9900;">A</div><h5>Amazon Prime Store Card</h5></div>
-            <div class="comp-block pro"><span class="tag">Pros</span><p>Lives directly inside the Amazon app. Rewards redeem instantly at checkout with no separate login.</p></div>
-            <div class="comp-block con"><span class="tag">Cons</span><p>Easy to overlook inside a massive shopping app. No dedicated budgeting or spend-insights view.</p></div>
-            <div class="comp-block opp"><span class="tag">Opportunity</span><p>Give the card equal billing as a standalone app, not a buried feature.</p></div>
-          </div>
-          <div class="comp-card">
-            <div class="comp-head"><div class="comp-thumb" style="background:#CC0000;">T</div><h5>Target RedCard</h5></div>
-            <div class="comp-block pro"><span class="tag">Pros</span><p>Automatic 5% savings at checkout with zero manual redemption. Clean brand integration.</p></div>
-            <div class="comp-block con"><span class="tag">Cons</span><p>Fewer account tools than full banking apps. Support routed through a separate partner.</p></div>
-            <div class="comp-block opp"><span class="tag">Opportunity</span><p>Borrow the zero-effort discount model, and add the statement and payment tooling RedCard lacks.</p></div>
-          </div>
-          <div class="comp-card">
-            <div class="comp-head"><div class="comp-thumb" style="background:#A2AAAD; color:#111;">AC</div><h5>Apple Card</h5></div>
-            <div class="comp-block pro"><span class="tag">Pros</span><p>The UX benchmark: color-coded spend categories, real-time cash tracking, jargon-free interest breakdowns.</p></div>
-            <div class="comp-block con"><span class="tag">Cons</span><p>Tied to Apple's ecosystem. Only one card type, so no store-specific rewards logic to reference.</p></div>
-            <div class="comp-block opp"><span class="tag">Opportunity</span><p>Adopt plain-language billing, adapted for two card types across iOS and Android.</p></div>
-          </div>
-          <div class="comp-card">
-            <div class="comp-head"><div class="comp-thumb" style="background:#EE1C25;">R</div><h5>Rogers Bank</h5></div>
-            <div class="comp-block pro"><span class="tag">Pros</span><p>Balance, limit, and available credit shown on one card-shaped view. Statements are a first-class tab.</p></div>
-            <div class="comp-block con"><span class="tag">Cons</span><p>Dated visual design with dense text lists. Rewards feel like an afterthought in a separate tab.</p></div>
-            <div class="comp-block opp"><span class="tag">Opportunity</span><p>Keep the single card-view idea, with modern visual hierarchy instead of dense lists.</p></div>
-          </div>
-          <div class="comp-card">
-            <div class="comp-head"><div class="comp-thumb" style="background:#00D084; color:#003322;">N</div><h5>Neo Financial</h5></div>
-            <div class="comp-block pro"><span class="tag">Pros</span><p>Insight-driven experience with color-coded spend categories, real-time cashback, and personalized prompts.</p></div>
-            <div class="comp-block con"><span class="tag">Cons</span><p>Insights can bury the basics. The dark theme with many small elements can feel busy at a glance.</p></div>
-            <div class="comp-block opp"><span class="tag">Opportunity</span><p>Borrow the personalized tone, but keep balance and due date as the clear headline.</p></div>
-          </div>
-          <div class="comp-card">
-            <div class="comp-head"><div class="comp-thumb" style="background:#B5121B;">C</div><h5>CIBC Mobile Banking</h5></div>
-            <div class="comp-block pro"><span class="tag">Pros</span><p>A warm "Good morning" home screen with balance and cashback shown together, plus one-tap quick actions.</p></div>
-            <div class="comp-block con"><span class="tag">Cons</span><p>Promotional offers compete with core account info. Most navigation is for unrelated bank products.</p></div>
-            <div class="comp-block opp"><span class="tag">Opportunity</span><p>Adopt the personalized greeting and quick actions, and skip the unrelated cross-sell clutter.</p></div>
-          </div>
-          <div class="comp-card">
-            <div class="comp-head"><div class="comp-thumb" style="background:#D03027;">CO</div><h5>Capital One Mobile</h5></div>
-            <div class="comp-block pro"><span class="tag">Pros</span><p>A comprehensive manage-card menu covering payments, statements, autopay, controls, alerts, and rewards.</p></div>
-            <div class="comp-block con"><span class="tag">Cons</span><p>A strong real-world benchmark, but generic and multi-product, not built around Walmart context.</p></div>
-            <div class="comp-block opp"><span class="tag">Opportunity</span><p>Match its depth of controls, but connect it to real Walmart shopping data.</p></div>
-          </div>
-          <div class="comp-card">
-            <div class="comp-head"><div class="comp-thumb" style="background:#6A1B9A;">PC</div><h5>PC Financial</h5></div>
-            <div class="comp-block pro"><span class="tag">Pros</span><p>A strong, consistent brand identity, with rewards shown as a large, always-visible number.</p></div>
-            <div class="comp-block con"><span class="tag">Cons</span><p>Card art and quick actions push transaction detail below the fold. Multi-account switching adds a layer of navigation.</p></div>
-            <div class="comp-block opp"><span class="tag">Opportunity</span><p>Lean into Walmart's equally strong blue and yellow identity in the same confident way.</p></div>
-          </div>
-          <div class="comp-card">
-            <div class="comp-head"><div class="comp-thumb" style="background:#EC111A;">S</div><h5>Scotiabank</h5></div>
-            <div class="comp-block pro"><span class="tag">Pros</span><p>A confident onboarding sequence and a bold, high-contrast balance display once inside.</p></div>
-            <div class="comp-block con"><span class="tag">Cons</span><p>Heavy marketing messaging adds friction for a returning user who just wants their balance.</p></div>
-            <div class="comp-block opp"><span class="tag">Opportunity</span><p>Use confident onboarding once, then a fast, marketing-free path for returning users.</p></div>
-          </div>
-        </div>
-      </div>
-    </section>
-    <div class="receipt-divider on-navy"></div>
-
-    <!-- FLOW -->
-    <section id="flow" class="band-navy">
-      <div class="wrap section-inner">
-        <div class="eyebrow reveal">User Flow</div>
-        <h2 class="section-title reveal">Mapped end to end, five key journeys.</h2>
-        <div class="reveal">
-          <div class="flow">
-            <h5>Onboarding</h5>
-            <div class="flow-row"><div class="flow-chip">Splash</div><span class="flow-arrow">→</span><div class="flow-chip">Have an account?</div><span class="flow-arrow">→</span><div class="flow-chip">Sign up</div><span class="flow-arrow">→</span><div class="flow-chip">Verify with OTP</div><span class="flow-arrow">→</span><div class="flow-chip">Link Walmart account</div><span class="flow-arrow">→</span><div class="flow-chip">Set up Face/Touch ID</div><span class="flow-arrow">→</span><div class="flow-chip end">Home</div></div>
-            
-            <h5>Returning user</h5>
-            <div class="flow-row"><div class="flow-chip">Splash</div><span class="flow-arrow">→</span><div class="flow-chip">Face/Touch ID</div><span class="flow-arrow">→</span><div class="flow-chip end">Home, balance and activity</div></div>
-            
-            <h5>Making a payment</h5>
-            <div class="flow-row"><div class="flow-chip">Home</div><span class="flow-arrow">→</span><div class="flow-chip">Pay card</div><span class="flow-arrow">→</span><div class="flow-chip">Choose amount</div><span class="flow-arrow">→</span><div class="flow-chip">Choose funding source</div><span class="flow-arrow">→</span><div class="flow-chip">Review</div><span class="flow-arrow">→</span><div class="flow-chip end">Success</div></div>
-            
-            <h5>Redeeming rewards</h5>
-            <div class="flow-row"><div class="flow-chip">Home</div><span class="flow-arrow">→</span><div class="flow-chip">Rewards</div><span class="flow-arrow">→</span><div class="flow-chip">Choose redemption</div><span class="flow-arrow">→</span><div class="flow-chip">Confirm</div><span class="flow-arrow">→</span><div class="flow-chip end">Success</div></div>
-            
-            <h5>Disputing a charge</h5>
-            <div class="flow-row"><div class="flow-chip">Home</div><span class="flow-arrow">→</span><div class="flow-chip">Transactions</div><span class="flow-arrow">→</span><div class="flow-chip">Select transaction</div><span class="flow-arrow">→</span><div class="flow-chip">Flag as incorrect</div><span class="flow-arrow">→</span><div class="flow-chip">Submit</div><span class="flow-arrow">→</span><div class="flow-chip end">Under review</div></div>
-          </div>
-        </div>
-
-        <div class="eyebrow reveal" style="margin-top:44px;">Paper Sketch</div>
-        <h2 class="section-title reveal" style="font-size:1.35rem;">Roughing out hierarchy before any pixels.</h2>
-        <p class="section-lead reveal">Early passes on Home, Pay Card, and Rewards, testing where balance, due date, and points should sit relative to each other.</p>
-        <div class="shot-grid reveal">
-          <div class="shot-card"><div class="shot-ph">✏️</div><div class="shot-cap">Home, balance</div></div>
-          <div class="shot-card"><div class="shot-ph">✏️</div><div class="shot-cap">Pay card</div></div>
-          <div class="shot-card"><div class="shot-ph">✏️</div><div class="shot-cap">Rewards</div></div>
-          <div class="shot-card"><div class="shot-ph">✏️</div><div class="shot-cap">Transactions</div></div>
-          <div class="shot-card"><div class="shot-ph">✏️</div><div class="shot-cap">Card controls</div></div>
-        </div>
-
-        <div class="eyebrow reveal" style="margin-top:44px;">Wireframe</div>
-        <h2 class="section-title reveal" style="font-size:1.35rem;">High-fidelity structure before visual design.</h2>
-        <div class="shot-grid reveal">
-          <div class="shot-card"><div class="shot-ph">🧱</div><div class="shot-cap">Home</div></div>
-          <div class="shot-card"><div class="shot-ph">🧱</div><div class="shot-cap">Pay card</div></div>
-          <div class="shot-card"><div class="shot-ph">🧱</div><div class="shot-cap">Transactions</div></div>
-          <div class="shot-card"><div class="shot-ph">🧱</div><div class="shot-cap">Rewards</div></div>
-          <div class="shot-card"><div class="shot-ph">🧱</div><div class="shot-cap">Card controls</div></div>
-        </div>
-      </div>
-    </section>
-    <div class="receipt-divider navy-to-white"></div>
-
-    <!-- STYLE GUIDE -->
-    <section id="style" class="band-white">
-      <div class="wrap section-inner">
-        <div class="eyebrow reveal">Style Guide</div>
-        <h2 class="section-title reveal">Built on Walmart's own brand language.</h2>
-        <div class="swatch-grid reveal">
-          <div class="swatch"><div class="sw-color" style="background:#0071CE"></div><div class="sw-info"><div class="name">Walmart Blue</div><div class="hex">#0071CE</div></div></div>
-          <div class="swatch"><div class="sw-color" style="background:#FFC220"></div><div class="sw-info"><div class="name">Spark Yellow</div><div class="hex">#FFC220</div></div></div>
-          <div class="swatch"><div class="sw-color" style="background:#041E42"></div><div class="sw-info"><div class="name">Midnight Navy</div><div class="hex">#041E42</div></div></div>
-          <div class="swatch"><div class="sw-color" style="background:#586274"></div><div class="sw-info"><div class="name">Slate Grey</div><div class="hex">#586274</div></div></div>
-          <div class="swatch"><div class="sw-color" style="background:#9AA3B2"></div><div class="sw-info"><div class="name">Cool Grey</div><div class="hex">#9AA3B2</div></div></div>
-          <div class="swatch"><div class="sw-color" style="background:#F5F7FA; border-bottom:1px solid var(--w-line);"></div><div class="sw-info"><div class="name">Pale Grey</div><div class="hex">#F5F7FA</div></div></div>
-          <div class="swatch"><div class="sw-color" style="background:#1E8E3E"></div><div class="sw-info"><div class="name">Success Green</div><div class="hex">#1E8E3E</div></div></div>
-          <div class="swatch"><div class="sw-color" style="background:#D93025"></div><div class="sw-info"><div class="name">Alert Red</div><div class="hex">#D93025</div></div></div>
-        </div>
+        <h2 class="title reveal">Designing around real customer behaviors.</h2>
         
-        <div class="type-specimen reveal">
-          <div class="type-block display">
-            <div class="tlabel">Display, Inter Tight</div>
-            <div class="sample">Aa Bb Cc</div>
-            <div class="use">Headlines, balances, section titles</div>
+        <div class="persona-block reveal">
+          <div class="persona-header">
+            <div class="persona-avatar">MA</div>
+            <div>
+              <div class="persona-name">Maliyat Ahmed</div>
+              <div class="persona-role">29 · Marketing Coordinator &amp; Weekly Shopper · Toronto, ON</div>
+            </div>
           </div>
-          <div class="type-block body">
-            <div class="tlabel">Body, Inter</div>
-            <div class="sample">Aa Bb Cc</div>
-            <div class="use">Body copy, descriptions, labels</div>
-          </div>
-          <div class="type-block mono">
-            <div class="tlabel">Data, JetBrains Mono</div>
-            <div class="sample">$2,317.42</div>
-            <div class="use">Amounts, dates, statements, receipts</div>
+          <div class="persona-quote">"I want to track my weekly household grocery budget and rewards points without jumping through hoops every single time."</div>
+          
+          <div class="two-col-grid">
+            <div>
+              <h5 style="font-family:'JetBrains Mono',monospace; font-size:.78rem; text-transform:uppercase; color:var(--blue); margin-bottom:8px;">Core Goals</h5>
+              <p style="font-size:.9rem; color:var(--c-slate); line-height:1.6;">• Check available credit and due dates at a glance.<br>• Split major appliance or electronics purchases into simple monthly instalments.<br>• Instantly redeem cash rewards points against her monthly statement balance.</p>
+            </div>
+            <div>
+              <h5 style="font-family:'JetBrains Mono',monospace; font-size:.78rem; text-transform:uppercase; color:var(--red); margin-bottom:8px;">Frustrations</h5>
+              <p style="font-size:.9rem; color:var(--c-slate); line-height:1.6;">• Clunky browser sessions that time out during shopping trips.<br>• Unclear transaction descriptions with missing merchant details.<br>• Lack of real-time push alerts for payment due dates and card charges.</p>
+            </div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- VISUAL DESIGN -->
-    <section id="visual" class="band-white">
-      <div class="wrap section-inner" style="padding-top:0;">
+    <!-- 07 COMPETITIVE -->
+    <section id="competitive" class="band">
+      <div class="wrap ledger">
+        <span class="stamp">07</span>
+        <div class="eyebrow reveal">Competitive Analysis</div>
+        <h2 class="title reveal">Benchmarked against industry leaders.</h2>
+        <div class="prose reveal">
+          <p>I evaluated leading retail and banking applications to synthesize interaction models that customers already trust and expect.</p>
+        </div>
+
+        <div class="two-col-grid reveal">
+          <div class="feature-card">
+            <h5>Apple Card</h5>
+            <p><strong>Benchmark:</strong> Clear real-time cash back tracking and simplified interest calculators.<br><strong>Takeaway:</strong> Plain-language statements eliminate payment anxiety.</p>
+          </div>
+          <div class="feature-card">
+            <h5>Target Circle Card</h5>
+            <p><strong>Benchmark:</strong> Seamless integration between store perks and card accounts.<br><strong>Takeaway:</strong> Surfacing rewards alongside recent store receipts drives high engagement.</p>
+          </div>
+          <div class="feature-card">
+            <h5>Amazon Prime Card</h5>
+            <p><strong>Benchmark:</strong> Zero-effort point redemption directly applied to future orders.<br><strong>Takeaway:</strong> Points must be actionable within two taps from the primary home dashboard.</p>
+          </div>
+          <div class="feature-card">
+            <h5>Capital One Mobile</h5>
+            <p><strong>Benchmark:</strong> Instant on-demand card controls and virtual number provisioning.<br><strong>Takeaway:</strong> Freeze/unfreeze must be accessible directly without diving into settings.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 08 USER FLOW -->
+    <section id="flow" class="band">
+      <div class="wrap ledger">
+        <span class="stamp">08</span>
+        <div class="eyebrow reveal">User Flow</div>
+        <h2 class="title reveal">Four essential journeys, mapped end to end.</h2>
+        <div class="prose reveal">
+          <p>Architecture maps were engineered to eliminate unnecessary friction and keep high-priority tasks reachable within seconds.</p>
+        </div>
+
+        <div class="two-col-grid reveal">
+          <div class="feature-card">
+            <h5>1. Instant Card Activation</h5>
+            <p>Scan physical card with camera → SMS OTP confirmation → Set PIN → Auto-add to Apple/Google Wallet → Ready to spend.</p>
+          </div>
+          <div class="feature-card">
+            <h5>2. Purchase-to-Instalment Flow</h5>
+            <p>Transaction feed → Select eligible charge ($100+) → Choose 3, 6, or 12-month term → Review monthly fee → Confirm plan.</p>
+          </div>
+          <div class="feature-card">
+            <h5>3. One-Tap Reward Redemption</h5>
+            <p>Home dashboard → View live rewards points ($1 = 100 pts) → Select "Apply to Statement" or "Redeem in Store" → Success receipt.</p>
+          </div>
+          <div class="feature-card">
+            <h5>4. Security &amp; Card Controls</h5>
+            <p>Account tab → Instant Card Freeze toggle → Lock international spend / online orders → Biometric confirmation.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 09 WIREFRAME -->
+    <section id="wireframe" class="band">
+      <div class="wrap ledger">
+        <span class="stamp">09</span>
+        <div class="eyebrow reveal">Wireframe</div>
+        <h2 class="title reveal">Structure before decoration.</h2>
+        <div class="prose reveal">
+          <p>From initial paper sketches to high-fidelity grayscale Figma wireframes, I prioritized visual hierarchy so balance figures, due dates, and instalment prompts maintain distinct spatial separation before applying brand colors.</p>
+        </div>
+        <div class="img-frame reveal">
+          <img src="walmart-cover.png" alt="Wireframe progression and UI architecture for the Walmart Mastercard app">
+        </div>
+        <div class="img-cap reveal">Structural wireframe evolution: defining high-contrast hierarchy for dashboard and transaction flows</div>
+      </div>
+    </section>
+
+    <!-- 10 STYLE GUIDE & COMPONENTS -->
+    <section id="style" class="band">
+      <div class="wrap ledger">
+        <span class="stamp">10</span>
+        <div class="eyebrow reveal">Style Guide &amp; UI Components</div>
+        <h2 class="title reveal">Walmart brand language, elevated for modern fintech.</h2>
+        <div class="prose reveal">
+          <p>Typeset in <strong>Inter Tight</strong> for authoritative, negative-tracked headlines and <strong>JetBrains Mono</strong> for precision financial balances, paired with Walmart's iconic blue and spark yellow palette.</p>
+        </div>
+
+        <div class="swatch-row reveal">
+          <div class="swatch"><div class="sw" style="background:#0071CE;"></div><div class="lbl">Walmart Blue</div><div class="hex">#0071CE</div></div>
+          <div class="swatch"><div class="sw" style="background:#FFC220;"></div><div class="lbl">Spark Yellow</div><div class="hex">#FFC220</div></div>
+          <div class="swatch"><div class="sw" style="background:#041E42;"></div><div class="lbl">Midnight Navy</div><div class="hex">#041E42</div></div>
+          <div class="swatch"><div class="sw" style="background:#1E8E3E;"></div><div class="lbl">Success Green</div><div class="hex">#1E8E3E</div></div>
+          <div class="swatch"><div class="sw" style="background:#F2F6FA; border:1px solid var(--c-line);"></div><div class="lbl">Surface Sky</div><div class="hex">#F2F6FA</div></div>
+        </div>
+
+        <div class="two-col-grid reveal" style="margin-top:28px;">
+          <div class="feature-card">
+            <h5>Typography Hierarchy</h5>
+            <p>• Display: <strong>Inter Tight</strong> (-0.035em tracking) for balances &amp; titles.<br>• Body: <strong>Inter</strong> for clean, readable guidance copy.<br>• Numeric: <strong>JetBrains Mono</strong> for tabular transaction alignment.</p>
+          </div>
+          <div class="feature-card">
+            <h5>Component Library</h5>
+            <p>Built with 100% responsive Auto-Layout variants in Figma: Available credit cards, payment sliders, instalment term selectors, and active state chips.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 11 VISUAL DESIGN -->
+    <section id="visual" class="band">
+      <div class="wrap ledger">
+        <span class="stamp">11</span>
         <div class="eyebrow reveal">Visual Design</div>
-        <h2 class="section-title reveal">From a browser tab to a home screen.</h2>
-        <div class="compare-grid reveal">
-          <div class="compare-col before">
-            <h4>Today, browser only</h4>
-            <div class="frame-ph before"><span style="font-size:1.6rem;">🌐</span><span style="font-family:'JetBrains Mono', monospace; font-size:11px;">Current experience</span></div>
-            <ul class="clean-list" style="margin-top:16px;">
-              <li>No app, every visit starts at a login page</li>
-              <li>Limited preview, little to no transaction history</li>
-              <li>Bare web form for payments</li>
-              <li>No biometric login, no push notifications</li>
-            </ul>
+        <h2 class="title reveal">The core screens that redefine the experience.</h2>
+        
+        <div class="prose reveal">
+          <p>The final design focuses on five key functional areas that solve the historical friction points uncovered during research.</p>
+        </div>
+
+        <div class="two-col-grid reveal" style="margin-top:20px;">
+          <div class="feature-card">
+            <h5>Home, in One Glance</h5>
+            <p>High-contrast ledger display showing available credit, rewards balance, and next minimum payment with instant 1-tap "Pay Card" action.</p>
           </div>
-          <div class="compare-col after">
-            <h4>Proposed, native app</h4>
-            <div class="frame-ph after"><span style="font-size:1.6rem;">📱</span><span style="font-family:'JetBrains Mono', monospace; font-size:11px;">Proposed app home</span></div>
-            <ul class="clean-list" style="margin-top:16px;">
-              <li>Unified home screen: balance, activity, and rewards together</li>
-              <li>Full, searchable transaction history</li>
-              <li>Real payments interface: scheduling, autopay, partial pay</li>
-              <li>Biometric login and proactive push alerts</li>
-            </ul>
+          <div class="feature-card">
+            <h5>Instalments, from Purchase to Plan</h5>
+            <p>Converts any eligible purchase over $100 into transparent 3, 6, or 12-month instalments with zero hidden fees and clear monthly terms.</p>
+          </div>
+          <div class="feature-card">
+            <h5>Controls Where People Expect Them</h5>
+            <p>Direct access to card freeze, online transaction locks, international switches, and replacement requests without nested sub-menus.</p>
+          </div>
+          <div class="feature-card">
+            <h5>Activation That Ends in a Working Card</h5>
+            <p>Camera scan card recognition, frictionless SMS security verification, and automatic single-tap Apple Pay and Google Wallet provisioning.</p>
+          </div>
+        </div>
+
+        <div class="feature-card reveal" style="margin-top:16px;">
+          <h5>Every Charge, Explained</h5>
+          <p>No more vague statement line items. Every transaction features clear retailer branding, mapped location pins, categorized expense tagging, and a direct in-app dispute button.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 12 100+ OTHER SCREENS -->
+    <section id="screens" class="band">
+      <div class="wrap ledger">
+        <span class="stamp">12</span>
+        <div class="eyebrow reveal">100+ Other Screens</div>
+        <h2 class="title reveal">The full production app experience.</h2>
+        <div class="prose reveal">
+          <p>Beyond the primary flows, the comprehensive Figma system covers all edge cases: paperless statement exports, dark mode contrast calibration, custom push notifications, reward catalog browsing, and multi-card management.</p>
+        </div>
+        <div class="img-frame reveal">
+          <img src="walmart-cover.png" alt="Comprehensive screen overview of the Walmart Mastercard application design system">
+        </div>
+        <div class="img-cap reveal">Complete end-to-end design suite spanning over 100 responsive mobile application states</div>
+      </div>
+    </section>
+
+    <!-- 13 KEY TAKEAWAYS -->
+    <section id="takeaways" class="band">
+      <div class="wrap ledger">
+        <span class="stamp">13</span>
+        <div class="eyebrow reveal">Key Takeaways</div>
+        <h2 class="title reveal">What this project reinforced.</h2>
+        <div class="takeaway-list reveal">
+          <div class="takeaway-item">
+            <span class="t-num">01</span>
+            <div>
+              <h5>Retail integration is the true differentiator</h5>
+              <p>Connecting physical in-store receipts and Walmart Pay directly to card servicing creates a cohesive ecosystem that standalone banking apps cannot match.</p>
+            </div>
+          </div>
+          <div class="takeaway-item">
+            <span class="t-num">02</span>
+            <div>
+              <h5>Friction kills daily financial utility</h5>
+              <p>Eliminating web browser logins in favor of fast biometric authentication turned account checks into a frictionless, 5-second daily routine.</p>
+            </div>
+          </div>
+          <div class="takeaway-item">
+            <span class="t-num">03</span>
+            <div>
+              <h5>Instalment clarity builds long-term trust</h5>
+              <p>Showing transparent dollar costs rather than complex APR interest percentages empowers users to budget responsibly without fee anxiety.</p>
+            </div>
+          </div>
+          <div class="takeaway-item">
+            <span class="t-num">04</span>
+            <div>
+              <h5>Design tokens enable real-world scale</h5>
+              <p>Establishing strict semantic color and typographic tokens early on made expanding the application across 100+ screens seamless and mathematically consistent.</p>
+            </div>
           </div>
         </div>
       </div>
     </section>
-    <div class="receipt-divider on-navy"></div>
 
-    <!-- REFLECTION -->
-    <section id="reflection" class="band-navy">
-      <div class="wrap section-inner">
-        <div class="eyebrow reveal">Key Lessons</div>
-        <h2 class="section-title reveal">What this project reinforced.</h2>
-        <div class="lesson-grid reveal">
-          <div class="lesson-card"><span class="qn">01</span><p>A card people use constantly deserves an experience scoped to that one relationship, not a browser tab.</p></div>
-          <div class="lesson-card"><span class="qn">02</span><p>Reward visibility has a direct effect on how worthwhile a card feels. Hiding it undermines the whole value proposition.</p></div>
-          <div class="lesson-card"><span class="qn">03</span><p>Transparency during friction moments — declines, disputes, and restrictions — matters more to trust than almost any single feature.</p></div>
-          <div class="lesson-card"><span class="qn">04</span><p>Connecting a financial product to the real context it is used in makes it feel considered, not generic.</p></div>
-        </div>
-
-        <div class="eyebrow reveal" style="margin-top:44px;">Learnings</div>
-        <h2 class="section-title reveal" style="font-size:1.35rem;">Personal takeaways from the process.</h2>
-        <div class="lesson-grid reveal">
-          <div class="lesson-card"><span class="qn">→</span><p>Designing for an existing, well-known brand raises the bar for on-brand clarity. Walmart's identity had to feel present without overwhelming financial UI conventions.</p></div>
-          <div class="lesson-card"><span class="qn">→</span><p>Benchmarking against nine real apps, not just the obvious ones, set a much clearer standard for what modern actually means in this category.</p></div>
-          <div class="lesson-card"><span class="qn">→</span><p>Grounding a speculative concept in real research made the problem framing far more credible than starting from assumptions.</p></div>
-          <div class="lesson-card"><span class="qn">→</span><p>MoSCoW prioritization made scope conversations concrete, turning a long feature wish list into a clear first release.</p></div>
+    <!-- BEHANCE LINK -->
+    <section class="band" style="padding-top:0;">
+      <div class="wrap">
+        <div class="credit-note reveal" style="max-width:none; text-align:center; padding:20px 24px;">
+          Want to explore the complete, interactive Behance case study? <strong><a href="https://www.behance.net/gallery/255205115/Walmart-Rewards-Mastercard-App-UXUI-Case-Study" target="_blank" rel="noopener" style="color:var(--blue); text-decoration:underline;">View it on Behance →</a></strong>
         </div>
       </div>
     </section>
@@ -857,7 +758,7 @@
     <footer class="content-footer">
       <div class="wrap">
         <div class="thanks">Thanks for reading.</div>
-        <div class="fine">WALMART CREDIT CARD APP · SPECULATIVE CASE STUDY · NOT AFFILIATED WITH WALMART INC. · 2026</div>
+        <div class="fine">WALMART REWARDS MASTERCARD APP · CASE STUDY · 2026</div>
         <div class="cta"><a class="btn accent" href="index.html">Back to portfolio</a></div>
       </div>
     </footer>
@@ -865,26 +766,23 @@
 </div>
 
 <script>
-  const io = new IntersectionObserver((entries) => {
-    entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
-  }, { threshold: .1 });
-  
-  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold:.1 });
+  document.querySelectorAll('.reveal').forEach(el=> io.observe(el));
 
   const navLinks = document.querySelectorAll('#sideNav a');
-  const secs = ['overview','why','priorities','research','persona','competitive','flow','style','visual','reflection'].map(id => document.getElementById(id));
-  
-  const spot = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if(entry.isIntersecting) {
-        navLinks.forEach(l => l.classList.remove('active'));
+  const secs = ['overview','problem','process','research','interview','persona','competitive','flow','wireframe','style','visual','screens','takeaways'].map(id=>document.getElementById(id));
+  const spot = new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){
+        navLinks.forEach(l=>l.classList.remove('active'));
         const a = document.querySelector('#sideNav a[href="#'+entry.target.id+'"]');
         if(a) a.classList.add('active');
       }
     });
-  }, { rootMargin: '-40% 0px -50% 0px' });
-  
-  secs.forEach(s => s && spot.observe(s));
+  }, { rootMargin:'-40% 0px -50% 0px' });
+  secs.forEach(s=> s && spot.observe(s));
 </script>
 </body>
 </html>

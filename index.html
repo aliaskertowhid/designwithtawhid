@@ -3,11 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-<title>Tawhid — Product Designer, Toronto</title>
+<title>Tawhid - Product Designer, Toronto</title>
 <meta name="description" content="Md Ali Asker Tawhid is a Product Designer based in Toronto, focused on Fintech and Banking systems.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,500;0,600;0,700;0,800;1,500;1,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root{
     --bg:#FBF3EA;
@@ -30,27 +30,28 @@
   }
   body{
     background:var(--bg); color:var(--ink);
-    font-family:'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-    line-height:1.65; -webkit-font-smoothing:antialiased;
-    letter-spacing:-0.011em;
+    font-family:'Poppins', sans-serif;
+    font-weight:400;
+    line-height:1.7; -webkit-font-smoothing:antialiased;
+    letter-spacing:-0.01em;
     overflow-x:hidden;
     width:100%;
   }
   a{ color:inherit; text-decoration:none; }
   img{ max-width:100%; height:auto; display:block; }
   h1,h2,h3,h4{
-    font-family:'Inter Tight', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-family:'Poppins', sans-serif;
     font-weight:700;
-    letter-spacing:-0.035em;
+    letter-spacing:-0.025em;
     color:var(--ink);
-    line-height:1.15;
+    line-height:1.2;
   }
   ::selection{ background:var(--accent-soft); color:var(--ink); }
   :focus-visible{ outline:2px solid var(--accent); outline-offset:3px; }
 
   .btn{
     display:inline-flex; align-items:center; justify-content:center; gap:8px;
-    font-family:'Inter', sans-serif; font-weight:600; font-size:.84rem;
+    font-family:'Poppins', sans-serif; font-weight:600; font-size:.84rem;
     letter-spacing:-0.01em;
     padding:12px 22px; border-radius:100px; border:1.5px solid var(--ink);
     background:var(--ink); color:var(--bg);
@@ -100,11 +101,35 @@
     } 
   }
 
-  .logo-img{ height:100%; width:100%; }
+  /* Responsive, balanced logo sizing */
+  .logo-link { 
+    display: inline-block; 
+    line-height: 1; 
+  }
+  .logo-img { 
+    width: clamp(130px, 16vw, 175px);
+    height: clamp(36px, 4.5vw, 44px);
+    max-height: none;
+    max-width: none;
+    object-fit: contain;
+    object-position: left center;
+  }
+  @media (max-width:960px) {
+    .logo-img { 
+      width: clamp(135px, 36vw, 160px);
+      height: auto;
+      max-height: 38px;
+    }
+  }
 
+  /* Mobile-first photo frame sizing */
   .side-photo{ margin-top:30px; position:relative; }
   @media (max-width:960px) {
-    .side-photo { max-width: 180px; margin-top: 22px; }
+    .side-photo { 
+      max-width: 250px; 
+      width: 68%;
+      margin: 22px auto 0; 
+    }
   }
 
   .blob{
@@ -134,12 +159,15 @@
   .sticker .dot{ width:6px; height:6px; border-radius:50%; background:var(--teal); }
 
   .side-id{ margin-top:26px; }
-  .side-id h1{ font-size:1.45rem; letter-spacing:-0.03em; }
+  @media (max-width:960px) {
+    .side-id { text-align: center; }
+  }
+  .side-id h1{ font-size:1.45rem; letter-spacing:-0.02em; }
   .side-id p{ color:var(--muted); font-size:.88rem; margin-top:4px; font-weight:500; }
 
   .side-nav{ margin-top:28px; display:flex; flex-direction:column; gap:2px; }
   @media (max-width: 960px) {
-    .side-nav { display: flex; flex-direction: row; flex-wrap: wrap; gap: 6px 14px; margin-top: 20px; }
+    .side-nav { display: flex; flex-direction: row; flex-wrap: wrap; justify-content: center; gap: 6px 14px; margin-top: 20px; }
   }
   .side-nav a{
     font-weight:500; font-size:.88rem; color:var(--muted); padding:8px 0;
@@ -156,6 +184,9 @@
   }
   .side-foot .btn{ width:100%; justify-content:center; }
   .side-social{ display:flex; gap:14px; margin-top:16px; font-family:'JetBrains Mono', monospace; font-size:.74rem; font-weight:600; color:var(--muted); flex-wrap:wrap; }
+  @media (max-width: 960px) {
+    .side-social { justify-content: center; }
+  }
   .side-social a:hover{ color:var(--accent); }
 
   /* ---------- content column ---------- */
@@ -173,28 +204,28 @@
   .margin-label{
     font-family:'JetBrains Mono', monospace;
     font-weight:700; font-size:.72rem; letter-spacing:.08em; text-transform:uppercase; color:var(--accent);
-    margin-bottom:20px; display:inline-block;
+    margin-bottom:20px; display:inline-block; 
   }
   @media (min-width:961px){
     .margin-label{
       position:absolute; left:0; top:92px; transform:rotate(-90deg) translateX(-100%); transform-origin:left top;
-      white-space:nowrap; margin-bottom:0;
+      white-space:nowrap; margin-bottom:0; 
     }
   }
 
   /* ---------- HERO SECTION ---------- */
   .hero-simple { padding-top: clamp(32px, 6vw, 60px); padding-bottom: clamp(36px, 6vw, 70px); }
   .hero-headline {
-    font-size: clamp(2rem, 5.5vw, 3.5rem);
-    letter-spacing: -0.04em;
+    font-size: clamp(2rem, 5.5vw, 3.4rem);
+    letter-spacing: -0.03em;
     color: var(--ink);
     max-width: 22ch;
     margin-bottom: 18px;
-    line-height: 1.15;
+    line-height: 1.2;
   }
   .hero-subtext {
-    font-size: clamp(0.96rem, 2.5vw, 1.08rem);
-    line-height: 1.65;
+    font-size: clamp(0.96rem, 2.5vw, 1.05rem);
+    line-height: 1.75;
     color: var(--muted);
     max-width: 52ch;
     margin-bottom: 28px;
@@ -203,8 +234,8 @@
 
   .pull-quote{
     font-size: clamp(1.6rem, 4vw, 2.4rem);
-    letter-spacing: -0.035em;
-    line-height: 1.2;
+    letter-spacing: -0.03em;
+    line-height: 1.25;
     max-width: 24ch;
     margin-bottom: 24px;
   }
@@ -219,20 +250,32 @@
     margin-top: 30px;
   }
   .work-visual{
-    position:relative; border-radius:14px; overflow:hidden; min-height:180px; max-height: 380px;
+    position:relative; 
+    border-radius:14px; 
+    overflow:hidden; 
+    height: auto;
     background: radial-gradient(circle at 25% 20%, #D6456B18, transparent 55%), radial-gradient(circle at 80% 80%, #F2A64918, transparent 55%), var(--surface);
-    border:1px solid var(--line); display:flex; align-items:center; justify-content:center;
-    margin:20px 0 16px 0; width:100%;
+    border:1px solid var(--line); 
+    display:flex; 
+    align-items:center; 
+    justify-content:center;
+    margin:20px 0 16px 0; 
+    width:100%;
   }
-  .work-visual img { width: 100%; height: 100%; object-fit: cover; }
+  .work-visual img { 
+    width: 100%; 
+    height: auto; 
+    object-fit: contain; 
+    display: block; 
+  }
   .caption{ font-family:'JetBrains Mono', monospace; font-weight:700; font-size:.72rem; letter-spacing:.08em; text-transform:uppercase; color:var(--muted); word-break: break-word; }
   .caption span.sep{ color:var(--accent); margin:0 6px; }
-  .work-title { font-size: clamp(1.2rem, 3vw, 1.35rem); margin-top: 10px; }
-  .work-body{ color:var(--muted); margin-top:10px; max-width:56ch; font-size: .95rem; }
+  .work-title { font-size: clamp(1.2rem, 3vw, 1.35rem); margin-top: 10px; font-weight: 700; }
+  .work-body{ color:var(--muted); margin-top:10px; max-width:56ch; font-size: .94rem; line-height: 1.7; }
   .work-cta{ margin-top:20px; }
 
   /* ---------- PROCESS SPREAD (TERMINAL) ---------- */
-  .beliefs-lede{ color: var(--muted); max-width: 58ch; margin-top: -6px; font-size: .96rem; }
+  .beliefs-lede{ color: var(--muted); max-width: 58ch; margin-top: -6px; font-size: .95rem; line-height: 1.7; }
 
   .terminal-wrap{
     margin-top: 24px;
@@ -433,12 +476,13 @@
   .j-title {
     font-size: 1.15rem;
     margin-bottom: 6px;
-    letter-spacing: -0.025em;
+    letter-spacing: -0.02em;
+    font-weight: 700;
   }
   .j-desc {
     font-size: 0.9rem;
     color: var(--muted);
-    line-height: 1.6;
+    line-height: 1.65;
   }
 
   @media (max-width: 768px) {
@@ -452,7 +496,7 @@
     }
   }
 
-  /* joys — editorial index */
+  /* joys - editorial index */
   .personal-index {
     list-style: none;
     margin-top: 10px;
@@ -496,16 +540,16 @@
   .personal-index li:nth-child(4){ --pi-tint: #E4E1F5; --pi-ink: #6B5CA5; }
   .pi-title, .pi-desc, .pi-icon{ position: relative; z-index: 1; }
   .pi-title {
-    font-size: 1.08rem;
+    font-size: 1.05rem;
     font-weight: 700;
-    letter-spacing: -0.02em;
+    letter-spacing: -0.01em;
     color: var(--ink);
   }
   .pi-desc {
     color: var(--muted);
     font-size: 0.92rem;
     max-width: 55ch;
-    line-height: 1.55;
+    line-height: 1.6;
   }
   .pi-icon{
     font-size: 1.35rem;
@@ -553,7 +597,7 @@
 
 <div class="app">
   <aside class="side">
-    <a href="#top"><img class="logo-img" src="Logo1.png" alt="Design with Tawhid"></a>
+    <a href="#top" class="logo-link"><img class="logo-img" src="Logo1.png" alt="Design with Tawhid"></a>
 
     <div class="side-photo">
       <div class="blob" id="blob"></div>
@@ -563,7 +607,7 @@
 
     <div class="side-id">
       <h1>Tawhid</h1>
-      <p>Product Designer — Toronto</p>
+      <p>Product Designer - Toronto</p>
     </div>
 
     <nav class="side-nav" id="sideNav">
@@ -587,7 +631,7 @@
   <main class="content">
     <div id="top"></div>
 
-    <!-- HERO SECTION: CLEAN & PROFESSIONAL -->
+    <!-- HERO SECTION -->
     <section class="spread intro hero-simple">
       <div class="reveal in">
         <h1 class="hero-headline">
@@ -604,7 +648,7 @@
 
     <!-- WORK -->
     <section id="work" class="spread">
-      <span class="margin-label">01 — Selected Work</span>
+      <span class="margin-label">01 - Selected Work</span>
       <h2 class="pull-quote reveal">Three case studies, start to finish.</h2>
 
       <div class="reveal work-item">
@@ -640,7 +684,7 @@
 
     <!-- PROCESS (INTERACTIVE DESIGN PLAYBOOK) -->
     <section id="process" class="spread">
-      <span class="margin-label">02 — How I Work</span>
+      <span class="margin-label">02 - How I Work</span>
       <h2 class="pull-quote reveal">How to work with me.</h2>
       <p class="beliefs-lede reveal">My case studies already show how I design interfaces. This interactive console reveals how I actually operate, prioritize, and structure systems day-to-day. Click a prompt below or type your own.</p>
 
@@ -648,7 +692,7 @@
         <div class="terminal-bar">
           <div class="t-bar-left">
             <span class="t-dot red"></span><span class="t-dot yellow"></span><span class="t-dot green"></span>
-            <span class="terminal-title">Interactive Design Playbook — Tawhid</span>
+            <span class="terminal-title">Interactive Design Playbook - Tawhid</span>
           </div>
           <button class="t-reset-btn" id="terminalReset" title="Reset terminal session">↺ Clear</button>
         </div>
@@ -672,11 +716,10 @@
 
     <!-- THE JOURNEY (ABOUT) -->
     <section id="about" class="spread" style="padding-bottom: 120px;">
-      <span class="margin-label">03 — Background</span>
+      <span class="margin-label">03 - Background</span>
       <h2 class="pull-quote reveal" style="max-width: 24ch;">The path wasn't a straight line.</h2>
 
       <div class="journey-container reveal" style="margin-top: 60px;">
-        <!-- The SVG zigzag line — drawn dynamically in JS so it precisely intersects every node center -->
         <svg class="journey-line-svg" id="journeySvg">
           <path id="journeyPath" fill="none" stroke="var(--line)" stroke-width="2" stroke-linecap="round"/>
           <path id="journeyPathFill" fill="none" stroke="var(--accent)" stroke-width="3" stroke-linecap="round"/>
@@ -761,7 +804,7 @@
 
       </div>
 
-      <!-- Resume Download Button placed at bottom right of Section 3, exactly as circled -->
+      <!-- Resume Download Button -->
       <div style="display: flex; justify-content: flex-end; max-width: 800px; margin: 30px auto 0; padding-right: 12px;">
         <a href="resume.pdf" target="_blank" rel="noopener" class="btn accent">Download Resume 📄</a>
       </div>
@@ -769,7 +812,7 @@
 
     <!-- JOYS -->
     <section id="joys" class="spread">
-      <span class="margin-label">04 — Beyond the Screen</span>
+      <span class="margin-label">04 - Beyond the Screen</span>
       <h2 class="pull-quote reveal" style="font-size:clamp(1.3rem,3vw,1.7rem);">Little joys of my life.</h2>
       
       <ul class="personal-index reveal">
@@ -802,16 +845,16 @@
 
     <!-- CONTACT -->
     <section id="contact" class="spread">
-      <span class="margin-label">05 — Contact</span>
+      <span class="margin-label">05 - Contact</span>
       <h2 class="pull-quote reveal">Got a problem worth solving?</h2>
-      <p class="reveal" style="color:var(--muted); max-width:52ch; font-size: .98rem;">Open to full-time roles, freelance work, and collaborations. Reach out if you need a designer who thinks in systems, not just screens.</p>
+      <p class="reveal" style="color:var(--muted); max-width:52ch; font-size: .98rem; line-height: 1.75;">Open to full-time roles, freelance work, and collaborations. Reach out if you need a designer who thinks in systems, not just screens.</p>
       <div class="contact-links reveal">
         <a href="mailto:aliaskertowhid@gmail.com" class="btn accent" id="sayHi">aliaskertowhid@gmail.com</a>
       </div>
     </section>
 
     <footer class="site-footer">
-      <span class="small">© 2026 Md Ali Asker Towhid. All rights reserved.</span>
+      <span class="small">© 2026 Md Ali Asker Tawhid. All rights reserved.</span>
       <div class="footer-social">
         <a href="https://dribbble.com/aliaskertowhid" target="_blank" rel="noopener">Dribbble</a>
         <a href="https://www.behance.net/aliaskertowhid" target="_blank" rel="noopener">Behance</a>
@@ -893,7 +936,6 @@
     }
   });
 
-  // TERMINAL ENGINE — COMPREHENSIVE KNOWLEDGE & CASUAL DIALOGUE
   (function(){
     const wrap = document.getElementById('terminalWrap');
     const body = document.getElementById('terminalBody');
@@ -910,14 +952,14 @@
       scrum: "Sprints work when tickets have real design specs attached. I join grooming to catch edge cases early before devs start estimating story points.",
       mvp: "A real MVP shouldn't feel broken or half-baked. It should do ONE thing exceptionally well without the extra bloat.",
       scope: "I ask 'why' before I draw a single rectangle. It's 10x cheaper to kill a bad feature in a discussion than in Figma, and 100x cheaper than in production.",
-      research: "I look at real customer friction—reviews, complaints, interview transcripts, screen recordings. Designing without real feedback is just guessing with confidence.",
+      research: "I look at real customer friction-reviews, complaints, interview transcripts, screen recordings. Designing without real feedback is just guessing with confidence.",
       "user-testing": "Testing with 5 real users will expose 80% of usability problems faster than 5 weeks of internal stakeholder meetings.",
       usertesting: "Testing with 5 real users will expose 80% of usability problems faster than 5 weeks of internal stakeholder meetings.",
       metrics: "Good design shows up in the numbers: faster checkout completion, lower drop-offs, fewer support tickets, and higher retention.",
 
       fintech: "Financial UI rule: high contrast, zero jargon, and crystal-clear transaction trails. Make daily flows instant, and put deliberate friction/confirmation on high-stakes money moves.",
       banking: "Banking apps get messy fast. My goal is unifying accounts, keeping ledger balances legible at a glance, and making transfers feel effortless.",
-      trust: "Trust is won during edge cases—declined cards, disputed charges, network drops. Explain what happened in plain English and give the user an immediate next step.",
+      trust: "Trust is won during edge cases-declined cards, disputed charges, network drops. Explain what happened in plain English and give the user an immediate next step.",
       accessibility: "Accessibility isn't a checklist at the end. High contrast ratios, 44px+ tap targets, legible typography, and keyboard navigation are built into day one.",
       a11y: "Accessibility isn't a checklist at the end. High contrast ratios, 44px+ tap targets, legible typography, and keyboard navigation are built into day one.",
       darkmode: "Dark mode isn't just inverting colors. It's re-calibrating elevation shadows, softening pure blacks to dark slates, and maintaining WCAG AAA contrast for numbers.",
@@ -926,7 +968,7 @@
       "edge-cases": "I design the unhappy paths first: empty states, 500 errors, zero balances, slow network timeouts, and character overflow limits.",
       edgecases: "I design the unhappy paths first: empty states, 500 errors, zero balances, slow network timeouts, and character overflow limits.",
 
-      systems: "Design systems aren't just Figma kits—they are shared contracts between design and engineering. If a button token changes in Figma, it should map 1:1 in the codebase.",
+      systems: "Design systems aren't just Figma kits-they are shared contracts between design and engineering. If a button token changes in Figma, it should map 1:1 in the codebase.",
       tokens: "Semantic tokens (e.g. surface-primary, accent-default, text-muted) allow instant theming, dark mode, and seamless code sync.",
       components: "Every component needs all its states defined: Default, Hover, Active, Focused, Disabled, Loading/Skeleton, and Error. No developer should have to guess.",
       handoff: "No guessing for developers. I build with 100% responsive Auto-Layout, map real token names, and document interaction specs directly in Figma dev mode.",
@@ -937,7 +979,7 @@
       prototyping: "Low-fi click-throughs for flow validation; high-fidelity interactive prototypes for usability tests and executive buy-in.",
 
       feedback: "Give it to me straight and early. I'd rather trash a rough wireframe on day two than rebuild 40 polished screens the week before release.",
-      pressure: "Calm and methodical. Tight deadlines actually help—they force everyone to cut through the fluff and focus purely on what moves the needle.",
+      pressure: "Calm and methodical. Tight deadlines actually help-they force everyone to cut through the fluff and focus purely on what moves the needle.",
       ownership: "High ownership. For small UI bugs and edge cases, I fix and document them. For larger architectural shifts, I present two viable options with tradeoffs.",
       collaboration: "Tag me in the thread, not just the meeting invite. I do my best deep work asynchronously and bring concrete solutions to live syncs.",
       speed: "Fast in discovery and wireframes, thorough in system design, precise in final token handoff.",
@@ -953,7 +995,7 @@
       gaming: "Big fan of Red Dead Redemption 2 and Resident Evil. Immersive worlds are the ultimate form of UX.",
       anime: "One Piece fan for years. That level of long-term worldbuilding and consistency is inspiring.",
       music: "Curating late-night driving playlists and acoustic tracks. Audio sets the rhythm for deep design flow.",
-      quote: "'Simplicity is about subtracting the obvious and adding the meaningful.' — John Maeda",
+      quote: "'Simplicity is about subtracting the obvious and adding the meaningful.' - John Maeda",
 
       help: `AVAILABLE COMMANDS:
 
@@ -1079,7 +1121,6 @@
     bootObserver.observe(wrap);
   })();
 
-  // Journey Line — dynamic zigzag drawn through the exact node center coordinates
   const journeyContainer = document.querySelector('.journey-container');
   const journeySvg = document.getElementById('journeySvg');
   const pathBg = document.getElementById('journeyPath');
@@ -1105,7 +1146,7 @@
       const isLeft = stop.classList.contains('left');
       let x;
       if (isMobile) {
-        x = 12; // 12px rail align on mobile
+        x = 12;
       } else {
         x = stop.offsetWidth * (isLeft ? 0.18 : 0.82);
       }

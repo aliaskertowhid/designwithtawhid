@@ -2,27 +2,27 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
 <title>Tawhid — Product Designer, Toronto</title>
 <meta name="description" content="Md Ali Asker Tawhid is a Product Designer based in Toronto, focused on Fintech and Banking systems.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,500&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root{
     --bg:#FBF3EA;
     --surface:#FFFFFF;
     --surface-2:#F5E8DA;
-    --ink:#2E2320;
-    --muted:#79695D;
-    --line:#E5D5C0;
-    --accent:#D6456B;
+    --ink:#1F1917;
+    --muted:#6E6157;
+    --line:#E2D2BE;
+    --accent:#C9355C;
     --accent-soft:#F7DCE2;
-    --gold:#F2A649;
-    --teal:#2F7A6E;
+    --gold:#E59638;
+    --teal:#246B60;
     --ease:cubic-bezier(.19,1,.22,1);
   }
-  *{ box-sizing:border-box; margin:0; padding:0; }
+  *{ box-sizing:border-box; margin:0; padding:0; -webkit-tap-highlight-color: transparent; }
   html{ scroll-behavior:smooth; }
   @media (prefers-reduced-motion: reduce){
     html{ scroll-behavior:auto; }
@@ -30,53 +30,88 @@
   }
   body{
     background:var(--bg); color:var(--ink);
-    font-family:'Plus Jakarta Sans', sans-serif;
-    line-height:1.65; -webkit-font-smoothing:antialiased;
+    font-family:'Poppins', sans-serif;
+    font-weight:400;
+    line-height:1.7; -webkit-font-smoothing:antialiased;
+    letter-spacing:-0.01em;
+    overflow-x:hidden;
+    width:100%;
   }
   a{ color:inherit; text-decoration:none; }
-  img{ max-width:100%; display:block; }
-  h1,h2,h3{ font-family:'Fraunces', serif; font-weight:600; letter-spacing:-0.015em; color:var(--ink); }
+  img{ max-width:100%; height:auto; display:block; }
+  h1,h2,h3,h4{
+    font-family:'Poppins', sans-serif;
+    font-weight:700;
+    letter-spacing:-0.025em;
+    color:var(--ink);
+    line-height:1.2;
+  }
   ::selection{ background:var(--accent-soft); color:var(--ink); }
   :focus-visible{ outline:2px solid var(--accent); outline-offset:3px; }
 
   .btn{
-    display:inline-flex; align-items:center; gap:8px;
-    font-family:'Plus Jakarta Sans',sans-serif; font-weight:700; font-size:.85rem;
-    padding:13px 22px; border-radius:100px; border:1.5px solid var(--ink);
+    display:inline-flex; align-items:center; justify-content:center; gap:8px;
+    font-family:'Poppins', sans-serif; font-weight:600; font-size:.84rem;
+    letter-spacing:-0.01em;
+    padding:12px 22px; border-radius:100px; border:1.5px solid var(--ink);
     background:var(--ink); color:var(--bg);
-    transition: transform .25s var(--ease), background .25s var(--ease);
+    transition: transform .25s var(--ease), background .25s var(--ease), border-color .25s var(--ease);
     cursor:pointer;
+    touch-action: manipulation;
+    white-space: nowrap;
   }
   .btn:hover{ transform:translateY(-2px); }
+  .btn:active{ transform:translateY(0); }
   .btn.accent{ background:var(--accent); border-color:var(--accent); color:#fff; }
-  .btn.ghost{ background:transparent; color:var(--ink); }
-  .btn.ghost:hover{ border-color:var(--accent); }
+  .btn.ghost{ background:transparent; color:var(--ink); border:1.5px solid var(--line); }
+  .btn.ghost:hover{ border-color:var(--ink); }
   .btn.muted{ background:transparent; border-color:var(--line); color:var(--muted); cursor:default; }
   .btn.muted:hover{ transform:none; }
-  .btn.small{ padding:10px 17px; font-size:.76rem; }
 
   /* ---------- app shell: sticky sidebar + editorial column ---------- */
-  .app{ display:grid; grid-template-columns:320px 1fr; align-items:start; }
-  @media (max-width:940px){ .app{ grid-template-columns:1fr; } }
+  .app{ 
+    display:grid; 
+    grid-template-columns:320px 1fr; 
+    align-items:start; 
+    width:100%;
+    min-height:100vh;
+  }
+  @media (max-width:960px){ 
+    .app{ grid-template-columns:1fr; } 
+  }
 
   .side{
     position:sticky; top:0; height:100vh; padding:40px 34px;
     display:flex; flex-direction:column; border-right:1px solid var(--line);
     background:var(--surface-2);
     overflow-y:auto; scrollbar-width:thin; scrollbar-color:var(--line) transparent;
+    z-index: 10;
   }
   .side::-webkit-scrollbar{ width:6px; }
   .side::-webkit-scrollbar-thumb{ background:var(--line); border-radius:10px; }
   .side > *{ flex:0 0 auto; }
-  @media (max-width:940px){ .side{ position:relative; height:auto; padding:28px 24px; border-right:none; border-bottom:1px solid var(--line); } }
+  
+  @media (max-width:960px){ 
+    .side{ 
+      position:relative; 
+      height:auto; 
+      padding:32px 24px 28px; 
+      border-right:none; 
+      border-bottom:1px solid var(--line); 
+    } 
+  }
 
-  .logo-img{ height:50px; width:auto; }
+  .logo-img{ height:100%; width:100%; }
 
   .side-photo{ margin-top:30px; position:relative; }
+  @media (max-width:960px) {
+    .side-photo { max-width: 180px; margin-top: 22px; }
+  }
+
   .blob{
     position:absolute; inset:-16%; z-index:0;
-    background: radial-gradient(circle at 30% 25%, #F2A64966, transparent 55%),
-                radial-gradient(circle at 75% 75%, #D6456B4D, transparent 55%);
+    background: radial-gradient(circle at 30% 25%, #F2A64955, transparent 55%),
+                radial-gradient(circle at 75% 75%, #D6456B44, transparent 55%);
     filter:blur(30px);
     transition: transform .3s var(--ease);
   }
@@ -87,154 +122,193 @@
     box-shadow:0 24px 48px -26px rgba(46,35,32,.3);
   }
   .photo-frame img{ width:100%; height:100%; object-fit:cover; object-position:center 16%; }
+  
   .sticker{
-    position:absolute; z-index:2; font-weight:800; font-size:.72rem;
-    padding:9px 14px; border-radius:100px; box-shadow:0 10px 22px rgba(46,35,32,.2);
-    display:flex; align-items:center; gap:6px; transition:transform .3s var(--ease);
+    position:absolute; z-index:2; font-family:'JetBrains Mono', monospace;
+    font-weight:700; font-size:.68rem; letter-spacing:0.04em;
+    padding:9px 14px; border-radius:100px; box-shadow:0 10px 22px rgba(46,35,32,.18);
+    display:flex; align-items:center; gap:7px; transition:transform .3s var(--ease);
+    white-space: nowrap;
   }
   .sticker:hover{ transform:scale(1.08) rotate(0deg) !important; }
-  .sticker.s1{ background:var(--gold); color:#3A2400; top:6px; right:-10px; transform:rotate(7deg); }
-  .sticker .dot{ width:6px; height:6px; border-radius:50%; background:#2F7A1F; }
+  .sticker.s1{ background:var(--surface); color:var(--ink); border:1px solid var(--line); top:6px; right:-10px; transform:rotate(7deg); }
+  .sticker .dot{ width:6px; height:6px; border-radius:50%; background:var(--teal); }
 
   .side-id{ margin-top:26px; }
-  .side-id h1{ font-size:1.5rem; line-height:1.15; }
-  .side-id p{ color:var(--muted); font-size:.9rem; margin-top:6px; }
+  .side-id h1{ font-size:1.45rem; letter-spacing:-0.02em; }
+  .side-id p{ color:var(--muted); font-size:.88rem; margin-top:4px; font-weight:500; }
 
-  .side-nav{ margin-top:30px; display:flex; flex-direction:column; gap:2px; }
-  .side-nav a{
-    font-weight:600; font-size:.92rem; color:var(--muted); padding:9px 0;
-    border-bottom:1px solid transparent; transition:color .25s var(--ease), border-color .25s var(--ease);
-    display:flex; align-items:baseline; gap:10px;
+  .side-nav{ margin-top:28px; display:flex; flex-direction:column; gap:2px; }
+  @media (max-width: 960px) {
+    .side-nav { display: flex; flex-direction: row; flex-wrap: wrap; gap: 6px 14px; margin-top: 20px; }
   }
-  .side-nav a .idx{ font-family:'Fraunces'; font-style:italic; font-size:.8rem; color:var(--accent); }
+  .side-nav a{
+    font-weight:500; font-size:.88rem; color:var(--muted); padding:8px 0;
+    border-bottom:1px solid transparent; transition:color .2s var(--ease), border-color .2s var(--ease);
+    display:flex; align-items:center; gap:8px;
+  }
+  .side-nav a .idx{ font-family:'JetBrains Mono', monospace; font-size:.74rem; font-weight:600; color:var(--accent); }
   .side-nav a:hover, .side-nav a.active{ color:var(--ink); }
-  .side-nav a.active{ border-color:var(--line); }
+  .side-nav a.active{ border-color:var(--line); font-weight:600; }
 
-  .side-foot{ margin-top:auto; padding-top:26px; }
+  .side-foot{ margin-top:auto; padding-top:24px; }
+  @media (max-width: 960px) {
+    .side-foot { margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--line); }
+  }
   .side-foot .btn{ width:100%; justify-content:center; }
-  .side-social{ display:flex; gap:14px; margin-top:16px; font-size:.78rem; font-weight:700; color:var(--muted); }
+  .side-social{ display:flex; gap:14px; margin-top:16px; font-family:'JetBrains Mono', monospace; font-size:.74rem; font-weight:600; color:var(--muted); flex-wrap:wrap; }
   .side-social a:hover{ color:var(--accent); }
 
   /* ---------- content column ---------- */
-  .content{ min-width:0; }
-  .spread{ position:relative; padding:88px clamp(28px,6vw,90px) 88px clamp(48px,7vw,110px); border-bottom:1px solid var(--line); }
-  @media (max-width:940px){ .spread{ padding:56px 24px; } }
+  .content{ min-width:0; width:100%; }
+  .spread{ 
+    position:relative; 
+    padding:88px clamp(20px,5vw,90px) 88px clamp(24px,6vw,110px); 
+    border-bottom:1px solid var(--line); 
+  }
+  @media (max-width:960px){ 
+    .spread{ padding:56px 20px; } 
+  }
   .spread:last-of-type{ border-bottom:none; }
 
   .margin-label{
-    font-weight:800; font-size:.74rem; letter-spacing:.06em; text-transform:uppercase; color:var(--accent);
-    margin-bottom:20px; display:inline-block;
+    font-family:'JetBrains Mono', monospace;
+    font-weight:700; font-size:.72rem; letter-spacing:.08em; text-transform:uppercase; color:var(--accent);
+    margin-bottom:20px; display:inline-block; 
   }
-  @media (min-width:941px){
+  @media (min-width:961px){
     .margin-label{
       position:absolute; left:0; top:92px; transform:rotate(-90deg) translateX(-100%); transform-origin:left top;
-      white-space:nowrap; margin-bottom:0;
+      white-space:nowrap; margin-bottom:0; 
     }
   }
 
-  /* intro */
-  .intro p.lede{
-    font-family:'Fraunces'; font-size:clamp(1.5rem,2.6vw,2.1rem); line-height:1.35; max-width:32ch; color:var(--ink);
+  /* ---------- HERO SECTION ---------- */
+  .hero-simple { padding-top: clamp(32px, 6vw, 60px); padding-bottom: clamp(36px, 6vw, 70px); }
+  .hero-headline {
+    font-size: clamp(2rem, 5.5vw, 3.4rem);
+    letter-spacing: -0.03em;
+    color: var(--ink);
+    max-width: 22ch;
+    margin-bottom: 18px;
+    line-height: 1.2;
   }
-  .intro p.lede::first-letter{
-    font-size:4.2rem; font-weight:600; float:left; line-height:.8; padding:6px 10px 0 0; color:var(--accent);
+  .hero-subtext {
+    font-size: clamp(0.96rem, 2.5vw, 1.05rem);
+    line-height: 1.75;
+    color: var(--muted);
+    max-width: 52ch;
+    margin-bottom: 28px;
   }
-  .intro .kicker{
-    display:inline-flex; align-items:center; gap:8px; font-weight:700; font-size:.82rem; color:var(--accent);
-    background:var(--surface); border:1px solid var(--line); padding:7px 14px; border-radius:100px; margin-bottom:26px;
-  }
-  .intro .kicker .pulse{ width:6px; height:6px; border-radius:50%; background:var(--accent); box-shadow:0 0 0 0 #D6456B55; animation:pulse 2s infinite; }
-  @keyframes pulse{ 0%{box-shadow:0 0 0 0 #D6456B55;} 70%{box-shadow:0 0 0 6px transparent;} 100%{box-shadow:0 0 0 0 transparent;} }
-  .intro .tags{ margin-top:34px; display:flex; gap:10px; flex-wrap:wrap; }
-  .intro .tags span{ font-size:.8rem; font-weight:700; padding:8px 14px; border-radius:100px; border:1px solid var(--line); color:var(--muted); }
+  .hero-action { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
 
-  /* pull quote heading */
-  .pull-quote{ font-style:italic; font-size:clamp(1.7rem,3.4vw,2.6rem); line-height:1.2; max-width:20ch; margin-bottom:30px; }
+  .pull-quote{
+    font-size: clamp(1.6rem, 4vw, 2.4rem);
+    letter-spacing: -0.03em;
+    line-height: 1.25;
+    max-width: 24ch;
+    margin-bottom: 24px;
+  }
 
   /* work spread */
+  .work-item {
+    margin-top: 40px;
+    padding-top: 36px;
+    border-top: 1px solid var(--line);
+  }
+  .work-item:first-of-type {
+    margin-top: 30px;
+  }
   .work-visual{
-    position:relative; border-radius:18px; overflow:hidden; min-height:280px;
-    background:
-      radial-gradient(circle at 25% 20%, #D6456B22, transparent 55%),
-      radial-gradient(circle at 80% 80%, #F2A64922, transparent 55%),
-      var(--surface);
-    border:1px solid var(--line);
-    display:flex; align-items:center; justify-content:center; gap:14px; padding:28px;
-    transform:rotate(-1.2deg);
-    margin:30px 0 18px -6px;
-    width:104%;
+    position:relative; 
+    border-radius:14px; 
+    overflow:hidden; 
+    height: auto;
+    background: radial-gradient(circle at 25% 20%, #D6456B18, transparent 55%), radial-gradient(circle at 80% 80%, #F2A64918, transparent 55%), var(--surface);
+    border:1px solid var(--line); 
+    display:flex; 
+    align-items:center; 
+    justify-content:center;
+    margin:20px 0 16px 0; 
+    width:100%;
   }
-  @media (max-width:600px){ .work-visual{ width:100%; transform:none; margin-left:0; } }
-  .plate{ width:70px; border-radius:13px; background:var(--bg); border:1px solid var(--line); overflow:hidden; }
-  .plate.tall{ height:200px; } .plate.mid{ height:160px; margin-top:20px; }
-  .plate .bar{ height:6px; background:var(--line); margin:13px 9px; border-radius:3px; }
-  .plate .bar.w60{ width:60%; } .plate .bar.w80{ width:80%; } .plate .bar.w40{ width:40%; }
-  .ribbon{
-    position:absolute; top:14px; left:14px; font-weight:800; font-size:.7rem;
-    background:var(--surface); border:1px solid var(--line); color:var(--muted); padding:7px 13px; border-radius:100px;
+  .work-visual img { 
+    width: 100%; 
+    height: auto; 
+    object-fit: contain; 
+    display: block; 
   }
-  .caption{ font-weight:700; font-size:.8rem; letter-spacing:.03em; text-transform:uppercase; color:var(--muted); }
-  .caption span.sep{ color:var(--accent); margin:0 8px; }
-  .work-body{ color:var(--muted); margin-top:16px; max-width:52ch; }
-  .work-cta{ margin-top:24px; }
+  .caption{ font-family:'JetBrains Mono', monospace; font-weight:700; font-size:.72rem; letter-spacing:.08em; text-transform:uppercase; color:var(--muted); word-break: break-word; }
+  .caption span.sep{ color:var(--accent); margin:0 6px; }
+  .work-title { font-size: clamp(1.2rem, 3vw, 1.35rem); margin-top: 10px; font-weight: 700; }
+  .work-body{ color:var(--muted); margin-top:10px; max-width:56ch; font-size: .94rem; line-height: 1.7; }
+  .work-cta{ margin-top:20px; }
 
-  /* ---------- PROCESS SPREAD (TERMINAL — HOW I THINK & WORK) ---------- */
-  .beliefs-lede{ color: var(--muted); max-width: 58ch; margin-top: -6px; font-size: .98rem; }
+  /* ---------- PROCESS SPREAD (TERMINAL) ---------- */
+  .beliefs-lede{ color: var(--muted); max-width: 58ch; margin-top: -6px; font-size: .95rem; line-height: 1.7; }
 
   .terminal-wrap{
-    margin-top: 30px;
-    border-radius: 14px;
+    margin-top: 24px;
+    border-radius: 12px;
     overflow: hidden;
-    background: #15110C;
-    border: 1px solid #2B2317;
+    background: #14110D;
+    border: 1px solid #282116;
     box-shadow: 0 34px 68px -32px rgba(20,15,5,.5);
+    width: 100%;
   }
   .terminal-bar{
     display: flex; align-items: center; justify-content: space-between;
-    padding: 12px 18px;
-    background: #201A12;
-    border-bottom: 1px solid #2B2317;
+    padding: 10px 14px;
+    background: #1D1811;
+    border-bottom: 1px solid #282116;
   }
-  .t-bar-left{ display: flex; align-items: center; gap: 8px; }
-  .t-dot{ width: 11px; height: 11px; border-radius: 50%; flex: 0 0 auto; }
+  .t-bar-left{ display: flex; align-items: center; gap: 6px; }
+  .t-dot{ width: 9px; height: 9px; border-radius: 50%; flex: 0 0 auto; }
   .t-dot.red{ background: #FF5F57; } .t-dot.yellow{ background: #FEBC2E; } .t-dot.green{ background: #28C840; }
   
   .terminal-title{
     margin-left: 6px;
     font-family: 'JetBrains Mono', monospace;
-    font-size: 11.5px;
+    font-size: 11px;
     font-weight: 500;
-    color: #9C9482;
+    color: #8C8472;
     white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    max-width: 180px;
   }
+  @media (min-width: 480px) {
+    .terminal-title { max-width: 320px; }
+  }
+
   .t-reset-btn{
-    background: transparent; border: 1px solid #3A3122; border-radius: 6px;
-    color: #8A8272; font-family: 'JetBrains Mono', monospace; font-size: 11px;
-    padding: 3px 9px; cursor: pointer; display: inline-flex; align-items: center; gap: 4px;
+    background: transparent; border: 1px solid #332A1C; border-radius: 6px;
+    color: #8C8472; font-family: 'JetBrains Mono', monospace; font-size: 10.5px;
+    padding: 3px 8px; cursor: pointer; display: inline-flex; align-items: center; gap: 4px;
     transition: all .2s var(--ease);
+    touch-action: manipulation;
   }
   .t-reset-btn:hover{ color: #F2C14E; border-color: #F2C14E; background: rgba(242,193,78,.08); }
 
   .terminal-body{
-    padding: 20px 24px;
+    padding: 16px 18px;
     font-family: 'JetBrains Mono', monospace;
-    font-size: 12.8px;
-    line-height: 1.7;
+    font-size: 12px;
+    line-height: 1.65;
     color: #E7E1D3;
-    height: 320px;
+    height: 280px;
     overflow-y: auto;
     scrollbar-width: thin;
-    scrollbar-color: #3A3225 transparent;
+    scrollbar-color: #332A1C transparent;
+    -webkit-overflow-scrolling: touch;
   }
-  .terminal-body::-webkit-scrollbar{ width: 6px; }
-  .terminal-body::-webkit-scrollbar-thumb{ background: #3A3225; border-radius: 10px; }
+  .terminal-body::-webkit-scrollbar{ width: 5px; }
+  .terminal-body::-webkit-scrollbar-thumb{ background: #332A1C; border-radius: 10px; }
   .t-line{ margin-bottom: 5px; white-space: pre-wrap; word-break: break-word; }
   .t-prompt{ color: #7FBF7F; }
   .t-cmd{ color: #F2C14E; font-weight: 600; }
-  .t-output{ color: #C9C2AF; margin-bottom: 12px; }
+  .t-output{ color: #C9C2AF; margin-bottom: 10px; }
   .t-muted{ color: #6E6653; }
   .cursor{
-    display: inline-block; width: 7px; height: 15px;
+    display: inline-block; width: 6px; height: 13px;
     background: #E7E1D3; margin-left: 2px; vertical-align: -2px;
     animation: t-blink 1s steps(1) infinite;
   }
@@ -242,44 +316,40 @@
 
   .terminal-input-row{
     display: flex; align-items: center; gap: 8px;
-    padding: 13px 24px;
-    border-top: 1px solid #2B2317;
-    background: #19140E;
+    padding: 10px 16px;
+    border-top: 1px solid #282116;
+    background: #18130D;
   }
-  .terminal-input-row .t-prompt{ font-family: 'JetBrains Mono', monospace; font-size: 13px; flex: 0 0 auto; }
+  .terminal-input-row .t-prompt{ font-family: 'JetBrains Mono', monospace; font-size: 12px; flex: 0 0 auto; }
   .terminal-input{
     flex: 1; min-width: 0;
     background: none; border: none; outline: none;
-    font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #E7E1D3;
+    font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #E7E1D3;
   }
-  .terminal-input::placeholder{ color: #5C5443; }
+  .terminal-input::placeholder{ color: #554C3C; }
 
   .terminal-chips{
-    display: flex; gap: 8px; flex-wrap: wrap;
-    padding: 14px 24px 18px;
-    border-top: 1px solid #2B2317;
-    background: #15110C;
+    display: flex; gap: 6px; flex-wrap: wrap;
+    padding: 12px 16px 14px;
+    border-top: 1px solid #282116;
+    background: #14110D;
   }
   .t-chip{
-    font-family: 'JetBrains Mono', monospace; font-size: 11px;
-    color: #C9C2AF; background: #201A12; border: 1px solid #332A1C;
-    padding: 6px 12px; border-radius: 6px; cursor: pointer;
+    font-family: 'JetBrains Mono', monospace; font-size: 10.5px;
+    color: #C9C2AF; background: #1D1811; border: 1px solid #2E2518;
+    padding: 5px 10px; border-radius: 6px; cursor: pointer;
     transition: border-color .2s var(--ease), color .2s var(--ease), transform .2s var(--ease);
+    touch-action: manipulation;
   }
-  .t-chip:hover{ border-color: #F2C14E; color: #F2C14E; transform: translateY(-2px); }
-
-  @media (max-width: 700px) {
-    .terminal-body{ font-size: 12px; height: 280px; padding: 16px; }
-    .terminal-input-row, .terminal-chips{ padding-left: 16px; padding-right: 16px; }
-  }
-
+  .t-chip:hover{ border-color: #F2C14E; color: #F2C14E; transform: translateY(-1px); }
 
   /* ---------- The Journey (Interactive Zigzag) ---------- */
   .journey-container {
     position: relative;
     max-width: 800px;
     margin: 0 auto;
-    padding: 40px 0 20px;
+    padding: 20px 0;
+    width: 100%;
   }
   .journey-line-svg {
     position: absolute;
@@ -296,10 +366,10 @@
     display: flex;
     align-items: center;
     width: 100%;
-    min-height: 90px;
-    margin-top: 96px;
+    min-height: 80px;
+    margin-top: 72px;
     opacity: 0;
-    transform: translateY(30px);
+    transform: translateY(24px);
     transition: opacity 0.8s var(--ease), transform 0.8s var(--ease);
   }
   .journey-stop:first-child{ margin-top: 0; }
@@ -313,7 +383,7 @@
   .j-node {
     position: absolute;
     top: 50%;
-    width: 16px; height: 16px;
+    width: 14px; height: 14px;
     border-radius: 50%;
     background: var(--surface);
     border: 3px solid var(--line);
@@ -326,17 +396,17 @@
   
   .journey-stop:hover .j-node, .journey-stop.expanded .j-node {
     border-color: var(--accent);
-    transform: translate(-50%, -50%) scale(1.3);
+    transform: translate(-50%, -50%) scale(1.25);
     box-shadow: 0 0 15px var(--accent-soft);
   }
   .pulse-node {
     border-color: var(--accent) !important;
-    box-shadow: 0 0 0 0 rgba(214, 69, 107, 0.4);
+    box-shadow: 0 0 0 0 rgba(201, 53, 92, 0.4);
     animation: nodePulse 2s infinite;
   }
   @keyframes nodePulse {
-    0% { box-shadow: 0 0 0 0 rgba(214, 69, 107, 0.4); }
-    70% { box-shadow: 0 0 0 10px transparent; }
+    0% { box-shadow: 0 0 0 0 rgba(201, 53, 92, 0.4); }
+    70% { box-shadow: 0 0 0 8px transparent; }
     100% { box-shadow: 0 0 0 0 transparent; }
   }
 
@@ -346,63 +416,71 @@
     padding: 28px 30px;
     border-radius: 16px;
     border: 1px solid var(--line);
-    box-shadow: 0 12px 30px -15px rgba(46,35,32,.08);
+    box-shadow: 0 12px 30px -15px rgba(46,35,32,.06);
     transition: transform 0.4s var(--ease), box-shadow 0.4s var(--ease);
     cursor: pointer;
+    touch-action: manipulation;
   }
   .journey-stop.left .j-content{ margin-left: 27%; }
   .journey-stop.right .j-content{ margin-right: 27%; }
   .journey-stop:hover .j-content, .journey-stop.expanded .j-content {
-    transform: translateY(-5px);
-    box-shadow: 0 20px 40px -15px rgba(46,35,32,.15);
+    transform: translateY(-3px);
+    box-shadow: 0 20px 40px -15px rgba(46,35,32,.12);
   }
   
   .j-tag {
     display: inline-block;
-    font-weight: 800; font-size: .65rem; letter-spacing: .08em; text-transform: uppercase;
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 700; font-size: .65rem; letter-spacing: .06em; text-transform: uppercase;
     color: var(--accent);
     background: var(--accent-soft);
-    padding: 4px 10px;
+    padding: 3px 9px;
     border-radius: 100px;
-    margin-bottom: 12px;
+    margin-bottom: 10px;
   }
   .j-when{
     display: inline-block;
-    font-size: .72rem; color: var(--muted); margin-bottom: 12px; margin-left: 8px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: .72rem; color: var(--muted); margin-bottom: 10px; margin-left: 6px;
   }
   .j-title {
-    font-family: 'Fraunces', serif;
-    font-size: 1.25rem;
-    margin-bottom: 8px;
-    color: var(--ink);
+    font-size: 1.15rem;
+    margin-bottom: 6px;
+    letter-spacing: -0.02em;
+    font-weight: 700;
   }
   .j-desc {
     font-size: 0.9rem;
     color: var(--muted);
-    line-height: 1.6;
+    line-height: 1.65;
   }
 
   @media (max-width: 768px) {
-    .journey-stop.left, .journey-stop.right { justify-content: flex-end; }
-    .journey-stop.left .j-node, .journey-stop.right .j-node{ left: 8%; }
-    .journey-stop.left .j-content, .journey-stop.right .j-content{ margin-left:0; margin-right:0; width: 84%; padding: 22px; }
+    .journey-stop.left, .journey-stop.right { justify-content: flex-end; margin-top: 48px; }
+    .journey-stop.left .j-node, .journey-stop.right .j-node{ left: 12px; }
+    .journey-stop.left .j-content, .journey-stop.right .j-content{ 
+      margin-left: 0; 
+      margin-right: 0; 
+      width: calc(100% - 34px); 
+      padding: 22px; 
+    }
   }
 
-  /* joys — editorial index, with a bit of personality */
+  /* joys — editorial index */
   .personal-index {
     list-style: none;
     margin-top: 10px;
     border-top: 1px solid var(--line);
+    width: 100%;
   }
   .personal-index li {
     position: relative;
     overflow: hidden;
     display: grid;
-    grid-template-columns: 34px 140px 1fr 50px;
+    grid-template-columns: 34px 130px 1fr 40px;
     align-items: center;
-    gap: 16px;
-    padding: 24px 18px;
-    margin: 0 -18px;
+    gap: 14px;
+    padding: 20px 14px;
     border-bottom: 1px solid var(--line);
     border-left: 3px solid var(--pi-tint, var(--line));
     cursor: default;
@@ -410,9 +488,9 @@
   }
   .pi-num{
     position: relative; z-index: 1;
-    font-family: 'Fraunces', serif;
-    font-style: italic;
-    font-size: 1rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 700;
+    font-size: .85rem;
     color: var(--pi-ink, var(--accent));
   }
   .personal-index li::before{
@@ -424,7 +502,7 @@
     transition: transform 0.45s var(--ease);
     z-index: 0;
   }
-  .personal-index li:hover{ padding-left: 30px; }
+  .personal-index li:hover{ padding-left: 22px; }
   .personal-index li:hover::before{ transform: scaleX(1); }
   .personal-index li:nth-child(1){ --pi-tint: var(--accent-soft); --pi-ink: var(--accent); }
   .personal-index li:nth-child(2){ --pi-tint: #FCE8CE; --pi-ink: #B5691F; }
@@ -432,53 +510,52 @@
   .personal-index li:nth-child(4){ --pi-tint: #E4E1F5; --pi-ink: #6B5CA5; }
   .pi-title, .pi-desc, .pi-icon{ position: relative; z-index: 1; }
   .pi-title {
-    font-family: 'Fraunces', serif;
-    font-weight: 600;
-    font-size: 1.15rem;
+    font-size: 1.05rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
     color: var(--ink);
   }
   .pi-desc {
     color: var(--muted);
-    font-size: 0.95rem;
+    font-size: 0.92rem;
     max-width: 55ch;
     line-height: 1.6;
   }
   .pi-icon{
-    font-size: 1.5rem;
+    font-size: 1.35rem;
     text-align: right;
-    opacity: 0.3;
-    transform: scale(0.75) rotate(0deg);
+    opacity: 0.35;
+    transform: scale(0.85) rotate(0deg);
     transition: opacity 0.35s var(--ease), transform 0.4s var(--ease);
   }
   .personal-index li:hover .pi-icon{
     opacity: 1;
-    transform: scale(1) rotate(8deg);
+    transform: scale(1) rotate(6deg);
   }
-  @media (max-width: 600px) {
+  
+  @media (max-width: 640px) {
     .personal-index li {
-      grid-template-columns: 22px 1fr 34px;
+      grid-template-columns: 24px 1fr 30px;
       gap: 4px 10px;
-      padding: 18px 14px;
-      margin: 0 -14px;
+      padding: 16px 10px;
     }
-    .pi-num{ grid-column: 1; grid-row: 1 / 3; align-self: start; font-size: .85rem; }
-    .pi-title{ grid-column: 2; grid-row: 1; }
-    .pi-icon{ grid-column: 3; grid-row: 1 / 3; align-self: center; }
-    .personal-index li .pi-desc{ grid-column: 2; grid-row: 2; }
-    .personal-index li:hover { padding-left: 14px; }
-    .pi-icon{ opacity: 1; transform: scale(1) rotate(0); }
+    .pi-num{ grid-column: 1; grid-row: 1 / 3; align-self: start; font-size: .8rem; margin-top: 2px; }
+    .pi-title{ grid-column: 2; grid-row: 1; font-size: 1rem; }
+    .pi-icon{ grid-column: 3; grid-row: 1 / 3; align-self: center; font-size: 1.2rem; opacity: 1; transform: scale(1) rotate(0); }
+    .personal-index li .pi-desc{ grid-column: 2; grid-row: 2; font-size: .88rem; }
+    .personal-index li:hover { padding-left: 10px; }
   }
 
   /* contact spread */
-  .contact-links{ margin-top:28px; display:flex; gap:12px; flex-wrap:wrap; }
+  .contact-links{ margin-top:24px; display:flex; gap:12px; flex-wrap:wrap; }
   #confetti-layer{ position:fixed; inset:0; pointer-events:none; overflow:hidden; z-index:80; }
   .confetti-bit{ position:absolute; width:8px; height:8px; border-radius:2px; }
 
   footer.site-footer{
-    padding:30px clamp(28px,6vw,90px) 44px clamp(48px,7vw,110px);
+    padding:28px clamp(20px,5vw,90px) 40px clamp(24px,6vw,110px);
     display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px;
   }
-  .footer-social{ display:flex; gap:18px; font-size:.82rem; font-weight:700; color:var(--muted); }
+  .footer-social{ display:flex; gap:16px; font-family:'JetBrains Mono', monospace; font-size:.78rem; font-weight:600; color:var(--muted); flex-wrap:wrap; }
   .footer-social a:hover{ color:var(--accent); }
   .small{ font-size:.8rem; color:var(--muted); }
 
@@ -495,7 +572,7 @@
     <div class="side-photo">
       <div class="blob" id="blob"></div>
       <div class="photo-frame"><img src="Photo.jpeg" alt="Tawhid"></div>
-      <div class="sticker s1"><span class="dot"></span>Open to work</div>
+      <div class="sticker s1"><span class="dot"></span>Toronto, ON</div>
     </div>
 
     <div class="side-id">
@@ -524,12 +601,18 @@
   <main class="content">
     <div id="top"></div>
 
-    <!-- INTRO -->
-    <section class="spread intro">
-      <div class="kicker reveal in"><span class="pulse"></span>Toronto, Canada</div>
-      <p class="lede reveal in">I design fintech and banking products that stay legible even when the numbers get complicated — trained at Humber Polytechnic, built for people who just want to know where their money stands.</p>
-      <div class="tags reveal in">
-        <span>Figma</span><span>Design Systems</span><span>User Research</span><span>Prototyping</span><span>Fintech UX</span>
+    <!-- HERO SECTION: CLEAN & PROFESSIONAL -->
+    <section class="spread intro hero-simple">
+      <div class="reveal in">
+        <h1 class="hero-headline">
+          Designing fintech and banking products where clarity is non-negotiable.
+        </h1>
+        <p class="hero-subtext">
+          Trained in Computer Systems and UX Design at Humber Polytechnic. I build high-contrast banking flows, complex ledger architectures, and scalable design token systems for users who just want to know where their money stands.
+        </p>
+        <div class="hero-action">
+          <a href="#work" class="btn accent">Explore selected work ↓</a>
+        </div>
       </div>
     </section>
 
@@ -538,33 +621,33 @@
       <span class="margin-label">01 — Selected Work</span>
       <h2 class="pull-quote reveal">Three case studies, start to finish.</h2>
 
-      <div class="reveal" style="margin-top:48px; padding-top:44px; border-top:1px solid var(--line);">
-        <div class="work-visual" style="background:#fff; padding:0; overflow:hidden;">
-          <img src="walmart-cover.png" alt="Walmart Credit Card app cover" style="width:100%; height:100%; object-fit:cover;">
+      <div class="reveal work-item">
+        <div class="work-visual">
+          <img src="walmart-cover-home.png" alt="Walmart Credit Card app cover">
         </div>
         <div class="caption">UX/UI<span class="sep">|</span>FINTECH<span class="sep">|</span>MOBILE APP DESIGN</div>
-        <h3 style="font-family:'Fraunces'; font-size:1.3rem; margin-top:14px;">Walmart Credit Card App</h3>
-        <p class="work-body">A native app concept for the Walmart Credit Card — balance, payments, and rewards in one place, replacing a browser-only login experience.</p>
+        <h3 class="work-title">Walmart Credit Card App</h3>
+        <p class="work-body">A native app concept for the Walmart Credit Card balance, payments, and rewards in one place, replacing a browser-only login experience.</p>
         <div class="work-cta"><a class="btn accent" href="case-study-walmart.html">View case study →</a></div>
       </div>
 
-      <div class="reveal" style="margin-top:48px; padding-top:44px; border-top:1px solid var(--line);">
-        <div class="work-visual" style="background:#fff; padding:0; overflow:hidden;">
-          <img src="brac-cover.png" alt="BRAC Bank app redesign cover" style="width:100%; height:100%; object-fit:cover;">
+      <div class="reveal work-item">
+        <div class="work-visual">
+          <img src="brac-cover.png" alt="BRAC Bank app redesign cover">
         </div>
         <div class="caption">UX/UI<span class="sep">|</span>FINTECH<span class="sep">|</span>MOBILE BANKING</div>
-        <h3 style="font-family:'Fraunces'; font-size:1.3rem; margin-top:14px;">BRAC Bank Mobile App Redesign</h3>
-        <p class="work-body">A full redesign of BRAC Bank's mobile app — unified accounts, a simplified transfer flow, and a Bangla-language experience.</p>
+        <h3 class="work-title">BRAC Bank Mobile App Redesign</h3>
+        <p class="work-body">A full redesign of BRAC Bank's mobile app. Unified accounts, a simplified transfer flow, and a Bangla-language experience.</p>
         <div class="work-cta"><a class="btn accent" href="case-study-brac.html">View case study →</a></div>
       </div>
 
-      <div class="reveal" style="margin-top:48px; padding-top:44px; border-top:1px solid var(--line);">
-        <div class="work-visual" style="background:#fff; padding:0; overflow:hidden;">
-          <img src="rent-cover.jpg" alt="RentFinder app cover" style="width:100%; height:100%; object-fit:cover;">
+      <div class="reveal work-item">
+        <div class="work-visual">
+          <img src="rent-cover.jpg" alt="RentFinder app cover">
         </div>
         <div class="caption">UX/UI<span class="sep">|</span>REAL ESTATE<span class="sep">|</span>MOBILE APP DESIGN</div>
-        <h3 style="font-family:'Fraunces'; font-size:1.3rem; margin-top:14px;">RentFinder — Home Rental App</h3>
-        <p class="work-body">A premium home rental app for Bangladesh — verified listings, map-first search, and a Bangla-language experience.</p>
+        <h3 class="work-title">RentFinder - Home Rental App</h3>
+        <p class="work-body">A premium home rental app for Bangladesh. Verified listings, map-first search, and a Bangla-language experience.</p>
         <div class="work-cta"><a class="btn accent" href="case-study-rentfinder.html">View case study →</a></div>
       </div>
     </section>
@@ -607,7 +690,6 @@
       <h2 class="pull-quote reveal" style="max-width: 24ch;">The path wasn't a straight line.</h2>
 
       <div class="journey-container reveal" style="margin-top: 60px;">
-        <!-- The SVG zigzag line — drawn dynamically in JS so it precisely intersects every node center -->
         <svg class="journey-line-svg" id="journeySvg">
           <path id="journeyPath" fill="none" stroke="var(--line)" stroke-width="2" stroke-linecap="round"/>
           <path id="journeyPathFill" fill="none" stroke="var(--accent)" stroke-width="3" stroke-linecap="round"/>
@@ -620,7 +702,7 @@
             <div class="j-tag">Roots</div>
             <span class="j-when">2013 · Sylhet</span>
             <h3 class="j-title">Early Visual Design</h3>
-            <p class="j-desc">Started with hands-on graphic and print design — marketing collateral, identity marks, banners, and layout design under tight turnarounds for small local businesses. Built a foundational instinct for visual hierarchy, typography, and clear communication under real deadlines.</p>
+            <p class="j-desc">Started with hands-on graphic and print design, marketing collateral, identity marks, banners, and layout design under tight turnarounds for small local businesses. Built a foundational instinct for visual hierarchy, typography, and clear communication under real deadlines.</p>
           </div>
         </div>
 
@@ -631,7 +713,7 @@
             <div class="j-tag">Systems & Infrastructure</div>
             <span class="j-when">2018–2021 · Toronto</span>
             <h3 class="j-title">Computer Systems & IT Engineering</h3>
-            <p class="j-desc">Completed a Computer Systems Technician diploma, Google IT Support credentials, and NPower Canada's Junior IT Analyst program. Learned operating systems, networking architecture, troubleshooting, and Agile fundamentals — developing an understanding of how technical systems operate under the hood before stepping into interface design.</p>
+            <p class="j-desc">Completed a Computer Systems Technician diploma, Google IT Support credentials, and NPower Canada's Junior IT Analyst program. Learned operating systems, networking architecture, troubleshooting, and Agile fundamentals, developing an understanding of how technical systems operate under the hood before stepping into interface design.</p>
           </div>
         </div>
 
@@ -642,7 +724,7 @@
             <div class="j-tag">Independent Practice</div>
             <span class="j-when">Jan 2021 – Present · Worldwide</span>
             <h3 class="j-title">Freelance Product Design</h3>
-            <p class="j-desc">Began consulting and delivering end-to-end UX/UI projects for startups and small enterprises globally — conducting user research, wireframing workflows, and building responsive web and mobile interfaces that solve real operational friction.</p>
+            <p class="j-desc">Began consulting and delivering end-to-end UX/UI projects for startups and small enterprises globally conducting user research, wireframing workflows, and building responsive web and mobile interfaces that solve real operational friction.</p>
           </div>
         </div>
 
@@ -686,17 +768,22 @@
             <div class="j-tag">Post-Graduate Craft</div>
             <span class="j-when">2025 – Present · Toronto</span>
             <h3 class="j-title">UX Design Graduate Studies · Humber Polytechnic</h3>
-            <p class="j-desc">Completing advanced graduate studies in User Experience Design at Humber Polytechnic — synthesizing technical systems engineering, years of industry product design, and formal human-centered research methodologies into a unified, rigorous design practice.</p>
+            <p class="j-desc">Completing advanced graduate studies in User Experience Design at Humber Polytechnic, synthesizing technical systems engineering, years of industry product design, and formal human-centered research methodologies into a unified, rigorous design practice.</p>
           </div>
         </div>
 
+      </div>
+
+      <!-- Resume Download Button -->
+      <div style="display: flex; justify-content: flex-end; max-width: 800px; margin: 30px auto 0; padding-right: 12px;">
+        <a href="resume.pdf" target="_blank" rel="noopener" class="btn accent">Download Resume 📄</a>
       </div>
     </section>
 
     <!-- JOYS -->
     <section id="joys" class="spread">
       <span class="margin-label">04 — Beyond the Screen</span>
-      <h2 class="pull-quote reveal" style="font-size:clamp(1.3rem,2.2vw,1.7rem);">Little joys of my life.</h2>
+      <h2 class="pull-quote reveal" style="font-size:clamp(1.3rem,3vw,1.7rem);">Little joys of my life.</h2>
       
       <ul class="personal-index reveal">
         <li>
@@ -714,7 +801,7 @@
         <li>
           <div class="pi-num">03</div>
           <div class="pi-title">Worldbuilding</div>
-          <div class="pi-desc">Building out a fantasy world for years — same instinct as product design, just with dragons instead of dashboards.</div>
+          <div class="pi-desc">Building out a fantasy world for years. Same instinct as product design, just with dragons instead of dashboards.</div>
           <div class="pi-icon">🗺️</div>
         </li>
         <li>
@@ -730,7 +817,7 @@
     <section id="contact" class="spread">
       <span class="margin-label">05 — Contact</span>
       <h2 class="pull-quote reveal">Got a problem worth solving?</h2>
-      <p class="reveal" style="color:var(--muted); max-width:52ch;">Open to full-time roles, freelance work, and collaborations — reach out if you need a designer who thinks in systems, not just screens.</p>
+      <p class="reveal" style="color:var(--muted); max-width:52ch; font-size: .98rem; line-height: 1.75;">Open to full-time roles, freelance work, and collaborations. Reach out if you need a designer who thinks in systems, not just screens.</p>
       <div class="contact-links reveal">
         <a href="mailto:aliaskertowhid@gmail.com" class="btn accent" id="sayHi">aliaskertowhid@gmail.com</a>
       </div>
@@ -740,7 +827,7 @@
       <span class="small">© 2026 Md Ali Asker Tawhid. All rights reserved.</span>
       <div class="footer-social">
         <a href="https://dribbble.com/aliaskertowhid" target="_blank" rel="noopener">Dribbble</a>
-        <a href="https://www.behance.net/aliasker4" target="_blank" rel="noopener">Behance</a>
+        <a href="https://www.behance.net/aliaskertowhid" target="_blank" rel="noopener">Behance</a>
         <a href="https://www.linkedin.com/in/aliaskertowhid/" target="_blank" rel="noopener">LinkedIn</a>
       </div>
     </footer>
@@ -754,7 +841,7 @@
 
   const io = new IntersectionObserver((entries)=>{
     entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
-  }, { threshold:.12 });
+  }, { threshold:.1 });
   document.querySelectorAll('.reveal').forEach(el=> io.observe(el));
 
   const navLinks = document.querySelectorAll('#sideNav a');
@@ -770,7 +857,7 @@
   }, { rootMargin:'-40% 0px -50% 0px' });
   secs.forEach(s=> s && spot.observe(s));
 
-  if(!reduceMotion){
+  if(!reduceMotion && window.matchMedia('(hover: hover)').matches){
     document.querySelectorAll('.btn:not(.muted)').forEach(btn=>{
       btn.addEventListener('mousemove', (e)=>{
         const r = btn.getBoundingClientRect();
@@ -780,22 +867,22 @@
       });
       btn.addEventListener('mouseleave', ()=> btn.style.transform = '');
     });
-  }
 
-  const blob = document.getElementById('blob');
-  if(!reduceMotion && blob){
-    window.addEventListener('pointermove', (e)=>{
-      requestAnimationFrame(()=>{
-        const x = (e.clientX / window.innerWidth - 0.5) * 20;
-        const y = (e.clientY / window.innerHeight - 0.5) * 20;
-        blob.style.transform = `translate(${x}px, ${y}px)`;
-      });
-    }, { passive:true });
+    const blob = document.getElementById('blob');
+    if(blob){
+      window.addEventListener('pointermove', (e)=>{
+        requestAnimationFrame(()=>{
+          const x = (e.clientX / window.innerWidth - 0.5) * 20;
+          const y = (e.clientY / window.innerHeight - 0.5) * 20;
+          blob.style.transform = `translate(${x}px, ${y}px)`;
+        });
+      }, { passive:true });
+    }
   }
 
   const sayHi = document.getElementById('sayHi');
   const confettiLayer = document.getElementById('confetti-layer');
-  const colors = ['#D6456B','#F2A649','#2F7A6E','#FBF3EA'];
+  const colors = ['#C9355C','#E59638','#246B60','#FBF3EA'];
   sayHi.addEventListener('click', (e)=>{
     if(reduceMotion) return;
     const r = sayHi.getBoundingClientRect();
@@ -819,7 +906,6 @@
     }
   });
 
-  // TERMINAL ENGINE — COMPREHENSIVE KNOWLEDGE & CASUAL DIALOGUE
   (function(){
     const wrap = document.getElementById('terminalWrap');
     const body = document.getElementById('terminalBody');
@@ -828,7 +914,6 @@
     if (!wrap || !body || !input) return;
 
     const COMMANDS = {
-      // 1. Process & Methodology
       process: "I don't force a rigid playbook. Early exploration? We go wide with research. Tight sprint? We ruthlessly prioritize an MVP and iterate. Process serves the product, not the other way around.",
       "double-diamond": "Diverge to find the real problem, converge on what matters, explore multiple solutions, then deliver clean UI. It stops us from jumping into Figma before knowing what we're actually building.",
       doublediamond: "Diverge to find the real problem, converge on what matters, explore multiple solutions, then deliver clean UI. It stops us from jumping into Figma before knowing what we're actually building.",
@@ -842,7 +927,6 @@
       usertesting: "Testing with 5 real users will expose 80% of usability problems faster than 5 weeks of internal stakeholder meetings.",
       metrics: "Good design shows up in the numbers: faster checkout completion, lower drop-offs, fewer support tickets, and higher retention.",
 
-      // 2. Fintech & Craft
       fintech: "Financial UI rule: high contrast, zero jargon, and crystal-clear transaction trails. Make daily flows instant, and put deliberate friction/confirmation on high-stakes money moves.",
       banking: "Banking apps get messy fast. My goal is unifying accounts, keeping ledger balances legible at a glance, and making transfers feel effortless.",
       trust: "Trust is won during edge cases—declined cards, disputed charges, network drops. Explain what happened in plain English and give the user an immediate next step.",
@@ -854,7 +938,6 @@
       "edge-cases": "I design the unhappy paths first: empty states, 500 errors, zero balances, slow network timeouts, and character overflow limits.",
       edgecases: "I design the unhappy paths first: empty states, 500 errors, zero balances, slow network timeouts, and character overflow limits.",
 
-      // 3. Systems & Dev Handoff
       systems: "Design systems aren't just Figma kits—they are shared contracts between design and engineering. If a button token changes in Figma, it should map 1:1 in the codebase.",
       tokens: "Semantic tokens (e.g. surface-primary, accent-default, text-muted) allow instant theming, dark mode, and seamless code sync.",
       components: "Every component needs all its states defined: Default, Hover, Active, Focused, Disabled, Loading/Skeleton, and Error. No developer should have to guess.",
@@ -865,14 +948,12 @@
       wireframes: "I intentionally start in low-fi grayscale. It forces everyone to critique information hierarchy and logic rather than arguing about button colors.",
       prototyping: "Low-fi click-throughs for flow validation; high-fidelity interactive prototypes for usability tests and executive buy-in.",
 
-      // 4. Working Style & Collaboration
       feedback: "Give it to me straight and early. I'd rather trash a rough wireframe on day two than rebuild 40 polished screens the week before release.",
       pressure: "Calm and methodical. Tight deadlines actually help—they force everyone to cut through the fluff and focus purely on what moves the needle.",
       ownership: "High ownership. For small UI bugs and edge cases, I fix and document them. For larger architectural shifts, I present two viable options with tradeoffs.",
       collaboration: "Tag me in the thread, not just the meeting invite. I do my best deep work asynchronously and bring concrete solutions to live syncs.",
       speed: "Fast in discovery and wireframes, thorough in system design, precise in final token handoff.",
 
-      // 5. About & Background
       whoami: "Product Designer based in Toronto. Focused on fintech, banking, and data-dense systems. I take complicated numbers and make them feel simple.",
       background: "Started in print design, earned a Computer Systems Technician diploma in Toronto, worked in agencies and tech teams, and completed UX graduate studies at Humber Polytechnic.",
       humber: "Studied UX Design at Humber Polytechnic in Toronto, sharpening research methods, usability heuristics, and design system governance.",
@@ -881,13 +962,11 @@
       location: "Based in Toronto, Ontario, Canada (EST timezone).",
       resume: "Check out my background journey in Section 03 right below this console, or email me for my full PDF resume.",
 
-      // 6. Extras
       gaming: "Big fan of Red Dead Redemption 2 and Resident Evil. Immersive worlds are the ultimate form of UX.",
       anime: "One Piece fan for years. That level of long-term worldbuilding and consistency is inspiring.",
       music: "Curating late-night driving playlists and acoustic tracks. Audio sets the rhythm for deep design flow.",
       quote: "'Simplicity is about subtracting the obvious and adding the meaningful.' — John Maeda",
 
-      // Help Directory
       help: `AVAILABLE COMMANDS:
 
 [ PROCESS & STRATEGY ]
@@ -1000,7 +1079,6 @@
       chip.addEventListener('click', () => runCommand(chip.dataset.cmd));
     });
 
-    // Boot sequence on first view
     const bootObserver = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting && !wrap.dataset.booted){
@@ -1013,7 +1091,6 @@
     bootObserver.observe(wrap);
   })();
 
-  // Journey Line — dynamic zigzag drawn through the exact node center coordinates
   const journeyContainer = document.querySelector('.journey-container');
   const journeySvg = document.getElementById('journeySvg');
   const pathBg = document.getElementById('journeyPath');
@@ -1034,12 +1111,15 @@
     journeySvg.setAttribute('height', ch);
     journeySvg.setAttribute('viewBox', `0 0 ${cw} ${ch}`);
 
-    // Map exact node centers directly using clean offsets
     const isMobile = window.innerWidth <= 768;
     journeyPoints = Array.from(journeyStops).map(stop => {
       const isLeft = stop.classList.contains('left');
-      const xRatio = isMobile ? 0.08 : (isLeft ? 0.18 : 0.82);
-      const x = stop.offsetWidth * xRatio;
+      let x;
+      if (isMobile) {
+        x = 12;
+      } else {
+        x = stop.offsetWidth * (isLeft ? 0.18 : 0.82);
+      }
       const y = stop.offsetTop + (stop.offsetHeight / 2);
       return { x, y };
     });
@@ -1054,15 +1134,21 @@
       const p1 = journeyPoints[i+1];
       const dy = p1.y - p0.y;
       
-      const cp1x = p0.x;
-      const cp1y = p0.y + dy * 0.5;
-      const cp2x = p1.x;
-      const cp2y = p1.y - dy * 0.5;
-      
-      d += ` C ${cp1x},${cp1y} ${cp2x},${cp2y} ${p1.x},${p1.y}`;
+      let seg;
+      if (isMobile) {
+        d += ` L ${p1.x},${p1.y}`;
+        seg = `M ${p0.x},${p0.y} L ${p1.x},${p1.y}`;
+      } else {
+        const cp1x = p0.x;
+        const cp1y = p0.y + dy * 0.5;
+        const cp2x = p1.x;
+        const cp2y = p1.y - dy * 0.5;
+        d += ` C ${cp1x},${cp1y} ${cp2x},${cp2y} ${p1.x},${p1.y}`;
+        seg = `M ${p0.x},${p0.y} C ${cp1x},${cp1y} ${cp2x},${cp2y} ${p1.x},${p1.y}`;
+      }
       
       const tempPath = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-      tempPath.setAttribute('d', `M ${p0.x},${p0.y} C ${cp1x},${cp1y} ${cp2x},${cp2y} ${p1.x},${p1.y}`);
+      tempPath.setAttribute('d', seg);
       journeyCumulative.push(journeyCumulative[i] + tempPath.getTotalLength());
     }
 

@@ -245,7 +245,6 @@
     border:1px solid var(--w-line); 
   }
   .img-frame img{ width:100%; height:auto; display:block; }
-  .img-cap{ font-family:'JetBrains Mono', monospace; margin-top:10px; font-size:11.5px; color:var(--w-slate); text-align:center; }
 
   .img-frame.transparent{ 
     background: transparent !important; 
@@ -256,6 +255,52 @@
   }
   .img-frame.transparent img{ 
     background: transparent !important; 
+  }
+
+  /* SECTION 04: CENTERED STRUCTURED PARTICIPANT CARDS */
+  .participant-grid{
+    display: grid; 
+    grid-template-columns: repeat(3, 1fr); 
+    gap: 16px; 
+    margin-top: 24px;
+  }
+  @media (max-width:680px){ 
+    .participant-grid{ grid-template-columns: 1fr; gap: 12px; } 
+  }
+
+  .stat-card{
+    background: #FFFFFF;
+    border: 1px solid var(--w-line);
+    border-top: 3px solid var(--w-blue);
+    border-radius: 16px;
+    padding: 22px 20px;
+    box-shadow: 0 12px 28px -20px rgba(0,20,50,.12);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    transition: transform .2s var(--ease), box-shadow .2s var(--ease);
+  }
+  .stat-card:hover{
+    transform: translateY(-2px);
+    box-shadow: 0 16px 32px -20px rgba(0,20,50,.18);
+  }
+  .stat-card h5{
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 700;
+    font-size: 11px;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--w-blue);
+    margin-bottom: 8px;
+  }
+  .stat-card p{
+    font-size: clamp(0.95rem, 2vw, 1.05rem);
+    font-weight: 600;
+    color: var(--w-ink);
+    line-height: 1.4;
+    margin: 0;
   }
 
   .img-grid-2{ display:grid; grid-template-columns:1fr 1fr; gap:20px; margin-top:24px; align-items:start; }
@@ -345,25 +390,6 @@
   .mo-card li{ font-size:12px; color:#D3E0F2; padding:6px 0 6px 14px; border-top:1px solid rgba(255,255,255,.09); position:relative; line-height:1.5; }
   .mo-card li:first-child{ border-top:none; }
   .mo-card li::before{ content:""; position:absolute; left:0; top:12px; width:4px; height:4px; border-radius:50%; background:currentColor; opacity:.6; }
-
-  /* Persona ID Card */
-  .id-card{ margin-top:24px; display:grid; grid-template-columns:140px 1fr; gap:22px; background:linear-gradient(155deg,var(--w-navy),var(--w-blue)); border-radius:18px; padding:24px; color:#fff; box-shadow:0 20px 44px -28px rgba(0,20,50,.4); }
-  @media (max-width:600px){ .id-card{ grid-template-columns:1fr; padding:20px; } }
-  .id-photo{ width:100%; aspect-ratio:1/1; border-radius:12px; overflow:hidden; background:rgba(255,255,255,.1); }
-  .id-photo img{ width:100%; height:100%; object-fit:cover; }
-  .id-name{ font-size:1.15rem; font-weight:700; }
-  .id-sub{ font-family:'JetBrains Mono', monospace; font-size:11px; color:#B9D3EE; margin-top:2px; }
-  .id-quote{ margin-top:12px; font-style:italic; font-size:14px; color:#fff; line-height:1.5; border-left:2px solid var(--w-gold); padding-left:10px; }
-  .id-cols{ display:grid; grid-template-columns:repeat(2,1fr); gap:16px; margin-top:18px; padding-top:16px; border-top:1px solid rgba(255,255,255,.18); }
-  @media (max-width:500px){ .id-cols{ grid-template-columns:1fr; } }
-  .id-cols h5{ font-family:'JetBrains Mono', monospace; font-weight:700; font-size:10px; letter-spacing:.08em; text-transform:uppercase; color:var(--w-gold); margin-bottom:6px; }
-  .id-cols li{ font-size:12px; color:#D8E7F6; padding:2px 0; line-height:1.5; }
-
-  .empathy-grid{ display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:16px; }
-  @media (max-width:600px){ .empathy-grid{ grid-template-columns:1fr; } }
-  .em-card{ background:#fff; border-radius:14px; padding:18px 20px; box-shadow:0 12px 28px -24px rgba(0,20,50,.15); border:1px solid var(--w-line); }
-  .em-card h5{ font-family:'JetBrains Mono', monospace; font-weight:700; font-size:11px; text-transform:uppercase; letter-spacing:.08em; margin-bottom:8px; color:var(--w-blue); }
-  .em-card p{ font-size:12.8px; color:var(--c-slate); line-height:1.6; }
 
   /* Takeaways */
   .takeaway-list{ margin-top:24px; }
@@ -595,7 +621,6 @@
           <p>With no official app to audit, desk research examined public sentiment across user forums, app reviews, and community threads. Each issue was weighed by its operational friction and frequency to determine release priority.</p>
         </div>
 
-        <!-- Desk Research Visual Upload Placeholder -->
         <div class="img-frame transparent reveal" style="margin-top:28px;">
           <img src="wm-desk-research.png" onerror="if(this.src.endsWith('.png')){this.src=this.src.replace('.png','.jpg');}else if(this.src.endsWith('.jpg')){this.src=this.src.replace('.jpg','.png');}" alt="Desk research findings, sentiment analysis, and severity audit">
         </div>
@@ -612,10 +637,20 @@
           <p>We spoke to Walmart Credit Card holders in two settings: remote sessions with people who use the card weekly, and short intercepts outside a Walmart store, catching shoppers right after they'd paid.</p>
         </div>
 
-        <div class="img-grid-3 reveal">
-          <div class="em-card"><h5>Participants</h5><p style="font-size:13px; color:var(--w-ink); font-weight:700;">10 Cardholders</p></div>
-          <div class="em-card"><h5>Format</h5><p style="font-size:13px; color:var(--w-ink); font-weight:700;">Remote + In-Store</p></div>
-          <div class="em-card"><h5>Screening</h5><p style="font-size:13px; color:var(--w-ink); font-weight:700;">Used card in last 30 days</p></div>
+        <!-- Structured & Centered Participant Cards -->
+        <div class="participant-grid reveal">
+          <div class="stat-card">
+            <h5>Participants</h5>
+            <p>10 Cardholders</p>
+          </div>
+          <div class="stat-card">
+            <h5>Format</h5>
+            <p>Remote + In-Store</p>
+          </div>
+          <div class="stat-card">
+            <h5>Screening</h5>
+            <p>Used card in last 30 days</p>
+          </div>
         </div>
 
         <div class="prose reveal" style="margin-top:20px;">
@@ -635,58 +670,9 @@
           <p>Maliyat shops at Walmart most weeks, pays her card from her phone, and earns rewards she rarely gets around to spending. Every design decision was checked against whether it made her weekly check-in faster.</p>
         </div>
 
-        <div class="id-card reveal">
-          <div class="id-photo">
-            <img src="wm-persona.jpg" onerror="if(this.src.endsWith('.jpg')){this.src=this.src.replace('.jpg','.png');}else if(this.src.endsWith('.png')){this.src=this.src.replace('.jpg','.png');}" alt="Persona illustration for Maliyat Ahmed">
-          </div>
-          <div>
-            <div class="id-name">Maliyat Ahmed</div>
-            <div class="id-sub">25 · Marketing Executive · Toronto · Frequent Walmart shopper</div>
-            <p class="id-quote">"I just want to check my balance, pay, and move on."</p>
-            <div class="id-cols">
-              <div>
-                <h5>Goals</h5>
-                <ul>
-                  <li>Check balance and due date at a glance</li>
-                  <li>Track and redeem rewards easily</li>
-                  <li>Get alerts before payments are due</li>
-                  <li>Understand exactly what she's charged</li>
-                </ul>
-              </div>
-              <div>
-                <h5>Frustrations</h5>
-                <ul>
-                  <li>Browser login every time, just to check a balance</li>
-                  <li>Cannot find real transaction history</li>
-                  <li>Does not know her reward balance</li>
-                  <li>Every other card has an app, this one doesn't</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="empathy-grid reveal">
-          <div class="em-card">
-            <h5>Says</h5>
-            <p>"Why do I have to log into a website every single time?"</p>
-            <p>"I can't even see my past transactions properly."</p>
-          </div>
-          <div class="em-card">
-            <h5>Thinks</h5>
-            <p>A native app would save her time every week.</p>
-            <p>A connected experience would feel modern and trustworthy.</p>
-          </div>
-          <div class="em-card">
-            <h5>Does</h5>
-            <p>Opens a browser and logs in to check balance and pay.</p>
-            <p>Gives up trying to find older transactions.</p>
-          </div>
-          <div class="em-card">
-            <h5>Feels</h5>
-            <p>Annoyed at the login. Confused by the limited preview.</p>
-            <p>Anxious as the due date gets close.</p>
-          </div>
+        <!-- Completely Transparent Responsive Image Frame Matching Section 07 -->
+        <div class="img-frame transparent reveal">
+          <img src="wm-persona.png" onerror="if(this.src.endsWith('.png')){this.src=this.src.replace('.png','.jpg');}else if(this.src.endsWith('.jpg')){this.src=this.src.replace('.jpg','.png');}" alt="User persona profile for Maliyat Ahmed">
         </div>
       </div>
     </section>
@@ -756,7 +742,7 @@
         </div>
 
         <div class="img-frame reveal">
-          <img src="wm-competitive.jpg" onerror="if(this.src.endsWith('.jpg')){this.src=this.src.replace('.jpg','.png');}else if(this.src.endsWith('.png')){this.src=this.src.replace('.png','.jpg');}" alt="Competitive analysis table comparing Capital One, PC Financial, Neo Financial, CIBC, Scotiabank, Rogers Bank, and the Walmart proposed app across 8 capabilities">
+          <img src="wm-competitive.jpg" onerror="if(this.src.endsWith('.jpg')){this.src=this.src.replace('.jpg','.png');}else if(this.src.endsWith('.png')){this.src=this.src.replace('.jpg','.png');}" alt="Competitive analysis table comparing Capital One, PC Financial, Neo Financial, CIBC, Scotiabank, Rogers Bank, and the Walmart proposed app across 8 capabilities">
         </div>
       </div>
     </section>
